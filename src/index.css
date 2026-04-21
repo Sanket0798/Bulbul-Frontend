@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gilda+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { @apply font-josefin text-navy overflow-x-hidden; }
+
+  h1 { @apply font-gilda font-normal leading-tight; font-size: clamp(48px, 6vw, 80px); }
+  h2 { @apply font-gilda font-normal leading-tight; font-size: clamp(28px, 3.5vw, 40px); }
+  h3 { @apply font-delafield font-normal; font-size: clamp(36px, 4vw, 55px); line-height: 1; }
+  h4 { @apply font-gilda font-normal text-2xl; }
+  h5 { @apply font-gilda font-medium text-xl; }
+  h6 { @apply font-josefin font-medium text-xs tracking-widest; }
+  p  { @apply font-josefin font-normal text-base leading-relaxed; }
+  a  { @apply font-gilda font-normal no-underline; font-size: 20px; }
+}
+
+@layer components {
+  /* ---- Buttons ---- */
+  .btn-outline-white {
+    @apply inline-block relative overflow-hidden border border-white text-white z-10 cursor-pointer;
+    padding: 10px 35px;
+    font-family: theme('fontFamily.gilda');
+    font-size: 20px;
+    background: transparent;
+    transition: color 0.6s ease;
+  }
+  .btn-outline-white::after {
+    content: '';
+    @apply absolute h-full bg-white;
+    width: 0; z-index: -1; bottom: 0; right: 0;
+    transition: width 0.6s ease;
+  }
+  .btn-outline-white:hover { @apply text-primary; }
+  .btn-outline-white:hover::after { width: 100%; left: 0; }
+
+  .btn-outline-primary {
+    @apply inline-block relative overflow-hidden border border-primary text-primary z-10 cursor-pointer;
+    padding: 10px 35px;
+    font-family: theme('fontFamily.gilda');
+    font-size: 20px;
+    transition: color 0.6s ease;
+  }
+  .btn-outline-primary::after {
+    content: '';
+    @apply absolute h-full bg-primary;
+    width: 0; z-index: -1; bottom: 0; right: 0;
+    transition: width 0.6s ease;
+  }
+  .btn-outline-primary:hover { @apply text-white; }
+  .btn-outline-primary:hover::after { width: 100%; left: 0; }
+
+  /* ---- Link underline ---- */
+  .link-underline {
+    @apply text-primary relative;
+    font-family: theme('fontFamily.gilda');
+    transition: color 0.3s;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute left-0 bottom-0 bg-primary;
+    width: 0; height: 2px;
+    transition: width 0.4s ease;
+  }
+  .link-underline:hover::after { width: 100%; }
+
+  /* ---- Section tag ---- */
+  .section-tag { @apply flex items-center gap-2 text-primary; }
+  .section-tag hr { @apply m-0 opacity-100 border-primary; width: 60px; }
+
+  /* ---- Back to top ---- */
+  .back-to-top {
+    @apply fixed bg-primary text-white border-none rounded cursor-pointer invisible opacity-0;
+    bottom: 40px; right: 20px;
+    width: 50px; height: 40px;
+    font-size: 16px;
+    z-index: 999;
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+  .back-to-top.show { @apply visible opacity-100; }
+}
+
+@layer utilities {
+  /* ---- Slick overrides ---- */
+  .slick-dots li button:before {
+    font-size: 0 !important;
+    width: 11px !important;
+    height: 11px !important;
+    @apply bg-primary border border-primary rounded-lg;
+  }
+  .slick-dots li.slick-active button:before {
+    background: transparent !important;
+    @apply border border-primary;
+    width: 14px !important;
+    height: 14px !important;
+    top: -1px;
+  }
+}
