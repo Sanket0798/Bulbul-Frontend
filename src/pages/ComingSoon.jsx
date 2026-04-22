@@ -282,7 +282,7 @@ export default function ComingSoon() {
         {/* Italic tagline — client copy */}
         <p
           ref={taglineRef}
-          className="font-cormorant italic"
+          className="font-delafield"
           style={{ color: CREAM, fontSize: 'clamp(18px, 5vw, 45px)', letterSpacing: '0.02em', fontWeight: 300 }}
         >
           {['little', "birdie's", 'been', 'spreading', 'the', 'word.'].map((word, i) => (
