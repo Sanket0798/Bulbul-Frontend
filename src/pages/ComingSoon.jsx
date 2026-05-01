@@ -174,7 +174,7 @@ export default function ComingSoon() {
           ref={logoRef}
           src="/images/brand/logo/Bulbul.png"
           alt="Bulbul Restaurant"
-          className="w-24 sm:w-32 md:w-40 object-contain"
+          className="w-32 sm:w-32 md:w-40 object-contain"
           style={{ filter: `drop-shadow(0 0 16px ${RUST2}99)` }}
         />
 
@@ -182,7 +182,7 @@ export default function ComingSoon() {
         <p
           ref={taglineRef}
           className="font-cormorant italic whitespace-nowrap"
-          style={{ color: CREAM, fontSize: 'clamp(14px, 3.2vw, 40px)', fontWeight: 300, letterSpacing: '0.01em' }}
+  style={{ color: CREAM, fontSize: 'clamp(18px, 3.2vw, 40px)', fontWeight: 300, letterSpacing: '0.01em' }}
         >
           {["little", "birdie's", "been", "spreading", "the", "word."].map((word, i) => (
             <span key={i} className="tagline-word" style={{ display: 'inline-block', marginRight: '0.26em', opacity: 0 }}>
