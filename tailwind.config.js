@@ -16,6 +16,8 @@ export default {
         gilda:     ['"Gilda Display"', 'serif'],
         josefin:   ['"Josefin Sans"', 'sans-serif'],
         delafield: ['"Mrs Saint Delafield"', 'cursive'],
+        cormorant: ['"Cormorant Garamond"', 'serif'],
+        playfair:  ['"Playfair Display"', 'serif'],
       },
     },
   },

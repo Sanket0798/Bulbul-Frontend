@@ -10,80 +10,14 @@ const LAUNCH_DATE = (() => {
   return date
 })()
 
-function useCountdown(target) {
-  const calc = () => {
-    const diff = target - Date.now()
-    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
-    return {
-      days:    Math.floor(diff / 86400000),
-      hours:   Math.floor((diff % 86400000) / 3600000),
-      minutes: Math.floor((diff % 3600000) / 60000),
-      seconds: Math.floor((diff % 60000) / 1000),
-    }
-  }
-  const [time, setTime] = useState(calc)
-  useEffect(() => {
-    const id = setInterval(() => setTime(calc()), 1000)
-    return () => clearInterval(id)
-  }, [])
-  return time
-}
-
-// Warm rust/gold ambient orbs matching brand palette
-function Orbs() {
-  const orbsRef = useRef(null)
-  useEffect(() => {
-    const orbs = orbsRef.current.querySelectorAll('.orb')
-    orbs.forEach((orb) => {
-      gsap.set(orb, {
-        x: gsap.utils.random(-60, 60),
-        y: gsap.utils.random(-60, 60),
-        scale: gsap.utils.random(0.7, 1.3),
-      })
-      gsap.to(orb, {
-        x: `+=${gsap.utils.random(-80, 80)}`,
-        y: `+=${gsap.utils.random(-80, 80)}`,
-        duration: gsap.utils.random(8, 14),
-        repeat: -1, yoyo: true, ease: 'sine.inOut',
-      })
-      gsap.to(orb, {
-        opacity: gsap.utils.random(0.06, 0.18),
-        duration: gsap.utils.random(4, 7),
-        repeat: -1, yoyo: true, ease: 'sine.inOut',
-      })
-    })
-  }, [])
-
-  const orbs = [
-    { w: 400, color: '#c45a38', top: '5%',  left: '10%'  },
-    { w: 300, color: '#eab932', top: '70%', left: '80%'  },
-    { w: 350, color: '#7d332c', top: '50%', left: '5%'   },
-    { w: 250, color: '#c45a38', top: '20%', left: '75%'  },
-    { w: 320, color: '#efd3b6', top: '85%', left: '40%'  },
-    { w: 200, color: '#eab932', top: '35%', left: '55%'  },
-  ]
-
-  return (
-    <div ref={orbsRef} className="absolute inset-0 overflow-hidden pointer-events-none">
-      {orbs.map((o, i) => (
-        <div key={i} className="orb absolute rounded-full"
-          style={{
-            width: o.w, height: o.w,
-            background: o.color,
-            filter: 'blur(100px)',
-            opacity: 0.1,
-            top: o.top, left: o.left,
-            transform: 'translate(-50%,-50%)',
-          }}
-        />
-      ))}
-    </div>
-  )
-}
+// brand colours
+const RUST  = '#7C2D26'
+const CREAM = '#ffffff'
+const GOLD  = '#eab932'
+const RUST2 = '#c45a38'
 
 export default function ComingSoon() {
-  const { days, hours, minutes, seconds } = useCountdown(LAUNCH_DATE)
-  const [toast, setToast]       = useState(false)
+  const [toast, setToast]           = useState(false)
   const [emailError, setEmailError] = useState('')
   const toastRef = useRef(null)
 
@@ -109,12 +43,11 @@ export default function ComingSoon() {
 
   // refs
   const wrapperRef  = useRef(null)
-  const birdRef     = useRef(null)
+  const logoRef     = useRef(null)
   const taglineRef  = useRef(null)
   const titleRef    = useRef(null)
   const dividerRef  = useRef(null)
   const storyRef    = useRef(null)
-  const timerRef    = useRef(null)
   const formRef     = useRef(null)
   const socialRef   = useRef(null)
   const footerRef   = useRef(null)
@@ -123,94 +56,79 @@ export default function ComingSoon() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-      // 1. Bird drifts in from top
-      tl.fromTo(birdRef.current,
-        { y: -50, opacity: 0, scale: 0.8 },
-        { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'back.out(1.4)' }
+      // 1. Logo drops in
+      tl.fromTo(logoRef.current,
+        { y: -40, opacity: 0, scale: 0.85 },
+        { y: 0, opacity: 1, scale: 1, duration: 1.0, ease: 'back.out(1.4)' }
       )
 
-      // 2. Tagline — word by word with slight upward drift + fade
+      // 2. Tagline — word by word blur-fade
       .fromTo(taglineRef.current.querySelectorAll('.tagline-word'),
-        { y: 18, opacity: 0, filter: 'blur(4px)' },
-        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.55, stagger: 0.1, ease: 'power2.out' }, '-=0.5'
+        { y: 16, opacity: 0, filter: 'blur(5px)' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.5, stagger: 0.09, ease: 'power2.out' }, '-=0.4'
       )
 
-      // 3. "Coming Soon" — char typewriter
+      // 3. "Coming Soon" — char typewriter with blur
       .fromTo(titleRef.current.querySelectorAll('.title-char'),
-        { opacity: 0, y: 14, filter: 'blur(6px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.4, stagger: 0.055, ease: 'power2.out' }, '-=0.3'
+        { opacity: 0, y: 16, filter: 'blur(6px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.38, stagger: 0.055, ease: 'power2.out' }, '-=0.3'
       )
 
-      // 4. Gold shimmer sweep across title after typing finishes
+      // 4. Gold shimmer sweep across title
       .to(titleRef.current, {
-        backgroundImage: `linear-gradient(90deg, ${CREAM} 0%, ${GOLD} 40%, ${CREAM} 60%, ${CREAM} 100%)`,
+        backgroundImage: `linear-gradient(90deg, ${CREAM} 0%, ${GOLD} 45%, ${CREAM} 55%, ${CREAM} 100%)`,
         backgroundClip: 'text',
         WebkitBackgroundClip: 'text',
         color: 'transparent',
         backgroundSize: '200% 100%',
         backgroundPosition: '-100% 0',
-        duration: 0
+        duration: 0,
       }, '+=0.05')
       .to(titleRef.current, {
         backgroundPosition: '200% 0',
-        duration: 1.2,
+        duration: 1.1,
         ease: 'power1.inOut',
       })
-      // reset back to solid cream after shimmer
-      .to(titleRef.current, {
-        backgroundImage: 'none',
-        color: CREAM,
-        duration: 0,
-      })
+      .to(titleRef.current, { backgroundImage: 'none', color: CREAM, duration: 0 })
 
-      // 5. Divider expands from center
+      // 5. Divider expands
       .fromTo(dividerRef.current,
         { scaleX: 0, opacity: 0 },
-        { scaleX: 1, opacity: 1, duration: 0.8, transformOrigin: 'center', ease: 'power2.inOut' }, '-=0.6'
+        { scaleX: 1, opacity: 1, duration: 0.7, transformOrigin: 'center', ease: 'power2.inOut' }, '-=0.5'
       )
 
-      // 6. Story words — slide up from clip, line by line with word stagger
+      // 6. Story words slide up
       .fromTo(storyRef.current.querySelectorAll('.story-word'),
-        { y: '100%', opacity: 0 },
-        { y: '0%', opacity: 1, duration: 0.5, stagger: 0.018, ease: 'power2.out' }, '-=0.3'
+        { y: '110%', opacity: 0 },
+        { y: '0%', opacity: 1, duration: 0.48, stagger: 0.016, ease: 'power2.out' }, '-=0.3'
       )
 
-      // 7. Timer blocks pop in with scale bounce
-      .fromTo(timerRef.current.querySelectorAll('.timer-block'),
-        { y: 35, opacity: 0, scale: 0.75 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.12, ease: 'back.out(1.6)' }, '-=0.2'
-      )
-      .fromTo(timerRef.current.querySelectorAll('.timer-sep'),
-        { opacity: 0, scale: 0 },
-        { opacity: 0.5, scale: 1, duration: 0.3, stagger: 0.08, ease: 'back.out(2)' }, '-=0.5'
-      )
-
-      // 8. Form slides up
+      // 7. Form slides up
       .fromTo(formRef.current,
-        { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6 }, '-=0.2'
+        { y: 22, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6 }, '-=0.15'
       )
 
-      // 9. Social icons pop in with back ease
+      // 8. Social icons pop in
       .fromTo(socialRef.current.querySelectorAll('a'),
-        { y: 16, opacity: 0, scale: 0.5 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.45, stagger: 0.09, ease: 'back.out(1.7)' }, '-=0.3'
+        { y: 14, opacity: 0, scale: 0.5 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.08, ease: 'back.out(1.7)' }, '-=0.3'
       )
 
-      // 10. Footer note — letter-spacing expand
+      // 9. Footer letter-spacing collapse
       .fromTo(footerRef.current,
-        { opacity: 0, letterSpacing: '0.4em' },
+        { opacity: 0, letterSpacing: '0.45em' },
         { opacity: 1, letterSpacing: '0.15em', duration: 0.9, ease: 'power2.out' }, '-=0.2'
       )
 
-      // Continuous: gentle bird float
-      gsap.to(birdRef.current, {
-        y: -8, duration: 3.5, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.5,
+      // Continuous: logo gentle float
+      gsap.to(logoRef.current, {
+        y: -7, duration: 3.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.2,
       })
 
-      // Continuous: subtle gold glow pulse on title
+      // Continuous: gold glow pulse on title
       gsap.to(titleRef.current, {
-        textShadow: `0 0 30px ${GOLD}55`,
+        textShadow: `0 0 28px ${GOLD}44`,
         duration: 2.5, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 3,
       })
 
@@ -218,75 +136,56 @@ export default function ComingSoon() {
     return () => ctx.revert()
   }, [])
 
-  // seconds flip
-  const secRef  = useRef(null)
-  const prevSec = useRef(seconds)
-  useEffect(() => {
-    if (secRef.current && seconds !== prevSec.current) {
-      prevSec.current = seconds
-      gsap.fromTo(secRef.current,
-        { y: -14, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.28, ease: 'power2.out' }
-      )
-    }
-  }, [seconds])
-
-  const pad = (n) => String(n).padStart(2, '0')
-  const units = [
-    { label: 'DAYS',    value: pad(days) },
-    { label: 'HOURS',   value: pad(hours) },
-    { label: 'MINUTES', value: pad(minutes) },
-    { label: 'SECONDS', value: pad(seconds), ref: secRef },
-  ]
-
-  // brand colours
-  const RUST   = '#7C2D26'
-  const CREAM  = '#efd3b6'
-  const GOLD   = '#eab932'
-  const RUST2  = '#c45a38'
-
   return (
     <section
       ref={wrapperRef}
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
+      className="relative w-screen h-screen flex items-center justify-center overflow-hidden"
       style={{ background: '#1a0b09' }}
     >
-      {/* Subtle texture overlay using RedBg */}
+      {/* Background image — Img1 at low opacity */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `url('/images/brand/bg/RedBg.png')`,
+          backgroundImage: `url('/images/cuisines/Img1.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          opacity: 0.18,
+          opacity: 0.35,
         }}
       />
 
-      <Orbs />
+      {/* Dark vignette overlay so edges stay dark */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 30%, #1a0b09cc 100%)',
+        }}
+      />
 
-      {/* Thin top border accent */}
+      {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-[3px]"
         style={{ background: `linear-gradient(90deg, transparent, ${RUST2}, ${GOLD}, ${RUST2}, transparent)` }}
       />
 
-      <div className="relative z-10 w-full max-w-2xl mx-auto px-6 sm:px-10 py-10 sm:py-16 flex flex-col items-center text-center gap-4 sm:gap-6">
+      {/* ── Main content ── */}
+      <div className="relative z-10 w-full max-w-3xl mx-auto px-5 sm:px-10 flex flex-col items-center text-center gap-3 sm:gap-4">
 
-        {/* Bird logo */}
+        {/* Bulbul logo */}
         <img
-          ref={birdRef}
-          src="/images/brand/logo/Bird.png"
-          alt="Bulbul"
-          style={{ width: 'clamp(44px, 10vw, 80px)', filter: `drop-shadow(0 0 18px ${RUST2}88)` }}
+          ref={logoRef}
+          src="/images/brand/logo/Bulbul.png"
+          alt="Bulbul Restaurant"
+          className="w-24 sm:w-32 md:w-40 object-contain"
+          style={{ filter: `drop-shadow(0 0 16px ${RUST2}99)` }}
         />
 
-        {/* Italic tagline — client copy */}
+        {/* Tagline — single line, nowrap on desktop */}
         <p
           ref={taglineRef}
-          className="font-delafield"
-          style={{ color: CREAM, fontSize: 'clamp(18px, 5vw, 45px)', letterSpacing: '0.02em', fontWeight: 300 }}
+          className="font-cormorant italic whitespace-nowrap"
+          style={{ color: CREAM, fontSize: 'clamp(14px, 3.2vw, 40px)', fontWeight: 300, letterSpacing: '0.01em' }}
         >
-          {['little', "birdie's", 'been', 'spreading', 'the', 'word.'].map((word, i) => (
-            <span key={i} className="tagline-word" style={{ display: 'inline-block', marginRight: '0.28em', opacity: 0 }}>
+          {["little", "birdie's", "been", "spreading", "the", "word."].map((word, i) => (
+            <span key={i} className="tagline-word" style={{ display: 'inline-block', marginRight: '0.26em', opacity: 0 }}>
               {word}
             </span>
           ))}
@@ -295,43 +194,42 @@ export default function ComingSoon() {
         {/* Main title */}
         <h1
           ref={titleRef}
-          className="font-gilda"
-          style={{ color: CREAM, fontSize: 'clamp(38px, 9vw, 80px)', lineHeight: 1.1, letterSpacing: '0.04em' }}
+          className="font-playfair"
+          style={{ color: CREAM, fontSize: 'clamp(40px, 8.5vw, 88px)', lineHeight: 1.05, letterSpacing: '0.03em', fontWeight: 700 }}
         >
           {'Coming Soon'.split('').map((char, i) => (
-            <span key={i} className="title-char" style={{ display: 'inline-block'}}>
+            <span key={i} className="title-char" style={{ display: 'inline-block' }}>
               {char === ' ' ? '\u00A0' : char}
             </span>
           ))}
         </h1>
 
         {/* Ornamental divider */}
-        <div ref={dividerRef} className="flex items-center gap-3 w-40 sm:w-64">
+        <div ref={dividerRef} className="flex items-center gap-3 w-36 sm:w-56">
           <div className="flex-1 h-px" style={{ background: `linear-gradient(90deg, transparent, ${RUST2})` }} />
-          <span style={{ color: GOLD, fontSize: '14px' }}>✦</span>
+          <span style={{ color: GOLD, fontSize: '12px' }}>✦</span>
           <div className="flex-1 h-px" style={{ background: `linear-gradient(90deg, ${RUST2}, transparent)` }} />
         </div>
 
-        {/* Story copy — client copy */}
-        <div ref={storyRef} className="flex flex-col gap-2 sm:gap-3 max-w-lg w-full px-1 sm:px-0">
+        {/* Story — condensed to 2–3 lines using font-playfair */}
+        <div ref={storyRef} className="w-full max-w-xl px-1 sm:px-0">
           {[
-            'Something new is coming to the City of London.',
-            'Indian small plates and cocktails.',
+            "Something new is coming to the City of London — Indian small plates and cocktails.",
             "We've grown up with a version of Indian food shaped by homes and everyday cooking, the kind that rarely makes it onto restaurant menus.",
-            'At Bulbul, that is what comes to the table, gathered along the way and shared with you.',
-            "Opening this June. We'd love to have you in early.",
+            "At Bulbul, that is what comes to the table. Opening this June — we'd love to have you in early.",
           ].map((line, pi) => (
             <p key={pi}
-              className={`font-josefin story-line overflow-hidden${pi === 4 ? ' font-semibold' : ''}`}
+              className={`font-playfair story-line${pi === 2 ? ' font-semibold' : ''}`}
               style={{
-                color: pi === 4 ? CREAM : `${CREAM}cc`,
-                fontSize: pi === 2 ? 'clamp(12px, 2vw, 14px)' : 'clamp(13px, 2.2vw, 15px)',
-                lineHeight: 1.85,
+                color: pi === 2 ? CREAM : `${CREAM}cc`,
+                fontSize: 'clamp(13px, 1.8vw, 16px)',
+                lineHeight: 1.75,
+                marginBottom: pi < 2 ? '0.4em' : 0,
               }}
             >
               {line.split(' ').map((word, wi) => (
                 <span key={wi} className="story-word"
-                  style={{ display: 'inline-block', marginRight: '0.3em', opacity: 0, transform: 'translateY(100%)' }}>
+                  style={{ display: 'inline-block', marginRight: '0.28em', opacity: 0, transform: 'translateY(110%)' }}>
                   {word}
                 </span>
               ))}
@@ -339,48 +237,11 @@ export default function ComingSoon() {
           ))}
         </div>
 
-        {/* Countdown */}
-        <div ref={timerRef} className="flex items-center justify-center gap-2 sm:gap-4 w-full mt-2">
-          {units.map(({ label, value, ref }, i) => (
-            <div key={label} className="flex items-center gap-2 sm:gap-4">
-              <div
-                className="timer-block rounded-lg flex flex-col items-center px-3 sm:px-5 py-3 sm:py-4"
-                style={{
-                  background: 'rgba(124,45,38,0.18)',
-                  border: `1px solid ${RUST2}55`,
-                  backdropFilter: 'blur(10px)',
-                  minWidth: 'clamp(60px, 15vw, 88px)',
-                }}
-              >
-                <span
-                  ref={ref || undefined}
-                  className="font-gilda font-light"
-                  style={{ color: CREAM, fontSize: 'clamp(26px, 6.5vw, 60px)', lineHeight: 1, display: 'block' }}
-                >
-                  {value}
-                </span>
-                <span
-                  className="font-josefin tracking-widest mt-1"
-                  style={{ color: `${CREAM}70`, fontSize: 'clamp(7px, 1.6vw, 10px)' }}
-                >
-                  {label}
-                </span>
-              </div>
-              {i < units.length - 1 && (
-                <span className="timer-sep font-gilda self-center pb-4"
-                  style={{ color: `${GOLD}88`, fontSize: 'clamp(20px, 4.5vw, 44px)', lineHeight: 1 }}>
-                  :
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-
         {/* Notify form */}
         <form
           ref={formRef}
           onSubmit={handleNotify}
-          className="flex flex-col sm:flex-row gap-3 w-full max-w-md mt-1"
+          className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full max-w-md mt-1"
         >
           <div className="flex flex-col flex-1 gap-1">
             <input
@@ -388,12 +249,11 @@ export default function ComingSoon() {
               name="email"
               placeholder="Enter your email"
               onChange={() => emailError && setEmailError('')}
-              className="flex-1 px-4 py-3 text-sm font-josefin outline-none transition-colors w-full"
+              className="flex-1 px-4 py-2.5 text-sm font-josefin outline-none transition-colors w-full"
               style={{
                 background: 'rgba(239,211,182,0.07)',
                 border: `1px solid ${emailError ? '#ef4444' : RUST2 + '66'}`,
                 color: CREAM,
-                '::placeholder': { color: `${CREAM}55` },
               }}
             />
             {emailError && (
@@ -404,14 +264,15 @@ export default function ComingSoon() {
           </div>
           <button
             type="submit"
-            className="whitespace-nowrap font-josefin tracking-widest transition-all duration-300 w-full sm:w-auto"
+            className="whitespace-nowrap font-josefin tracking-widest w-full sm:w-auto"
             style={{
               background: RUST,
               color: CREAM,
               border: `1px solid ${RUST2}`,
-              fontSize: '12px',
-              padding: '12px 24px',
+              fontSize: '11px',
+              padding: '10px 22px',
               letterSpacing: '0.12em',
+              transition: 'background 0.3s',
             }}
             onMouseEnter={e => gsap.to(e.currentTarget, { backgroundColor: RUST2, duration: 0.3 })}
             onMouseLeave={e => gsap.to(e.currentTarget, { backgroundColor: RUST, duration: 0.3 })}
@@ -421,13 +282,13 @@ export default function ComingSoon() {
         </form>
 
         {/* Social */}
-        <div ref={socialRef} className="flex items-center gap-3 sm:gap-4 mt-1">
+        <div ref={socialRef} className="flex items-center gap-3 sm:gap-4">
           {['facebook-f', 'instagram', 'twitter', 'youtube'].map((icon) => (
             <a
               key={icon}
               href="#"
-              className="w-9 h-9 rounded-full flex items-center justify-center transition-all"
-              style={{ border: `1px solid ${RUST2}66`, color: `${CREAM}99`, fontSize: '13px' }}
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center"
+              style={{ border: `1px solid ${RUST2}66`, color: `${CREAM}99`, fontSize: '12px' }}
               onMouseEnter={e => gsap.to(e.currentTarget, { scale: 1.2, backgroundColor: RUST, borderColor: RUST2, duration: 0.3 })}
               onMouseLeave={e => gsap.to(e.currentTarget, { scale: 1, backgroundColor: 'transparent', borderColor: `${RUST2}66`, duration: 0.3 })}
             >
@@ -437,13 +298,14 @@ export default function ComingSoon() {
         </div>
 
         {/* Footer note */}
-        <p ref={footerRef} className="font-josefin" style={{ color: `${CREAM}44`, fontSize: '10px', letterSpacing: '0.15em', marginTop: '8px', opacity: 0 }}>
+        <p ref={footerRef} className="font-josefin"
+          style={{ color: `${CREAM}80`, fontSize: '10px', letterSpacing: '0.15em', opacity: 0 }}>
           BULBUL · CITY OF LONDON
         </p>
 
       </div>
 
-      {/* Bottom border accent */}
+      {/* Bottom accent line */}
       <div className="absolute bottom-0 left-0 right-0 h-[2px]"
         style={{ background: `linear-gradient(90deg, transparent, ${RUST2}, transparent)` }}
       />
