@@ -62,15 +62,10 @@ export default function ComingSoon() {
         { y: 0, opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.1, ease: 'elastic.out(1, 0.6)' }
       )
 
-      // 2. Tagline — each word clips up from below (overflow hidden reveal)
-      .fromTo(taglineRef.current.querySelectorAll('.tagline-word'),
-        { y: '120%', opacity: 0, rotateX: -40 },
-        {
-          y: '0%', opacity: 1, rotateX: 0,
-          duration: 0.6, stagger: 0.08,
-          ease: 'back.out(1.8)',
-          transformOrigin: 'bottom center',
-        }, '-=0.5'
+      // 2. Tagline — simple fade in
+      .fromTo(taglineRef.current,
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.5'
       )
 
       // 3. "Coming Soon" — chars drop in with slight rotation, staggered
@@ -157,24 +152,6 @@ export default function ComingSoon() {
         duration: 2.5, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 3,
       })
 
-      // Tagline shimmer scan every 5s
-      gsap.to(taglineRef.current, {
-        backgroundImage: `linear-gradient(90deg, ${CREAM} 0%, ${GOLD}cc 50%, ${CREAM} 100%)`,
-        backgroundClip: 'text',
-        WebkitBackgroundClip: 'text',
-        color: 'transparent',
-        backgroundSize: '200% 100%',
-        backgroundPosition: '200% 0',
-        duration: 1.4,
-        ease: 'power1.inOut',
-        delay: 4,
-        repeat: -1,
-        repeatDelay: 5,
-        onComplete() {
-          gsap.set(taglineRef.current, { backgroundImage: 'none', color: CREAM })
-        },
-      })
-
       // Divider star slow spin
       gsap.to(dividerRef.current.querySelector('.div-star'), {
         rotateZ: 360, duration: 12, repeat: -1, ease: 'none', delay: 2,
@@ -231,13 +208,9 @@ export default function ComingSoon() {
         <p
           ref={taglineRef}
           className="font-cormorant italic whitespace-nowrap"
-  style={{ color: CREAM, fontSize: 'clamp(18px, 3.2vw, 40px)', fontWeight: 300, letterSpacing: '0.01em' }}
+          style={{ color: CREAM, fontSize: 'clamp(18px, 3.2vw, 40px)', fontWeight: 300, letterSpacing: '0.01em', opacity: 0 }}
         >
-          {["Little", "birdie's", "been", "spreading", "the", "word."].map((word, i) => (
-            <span key={i} className="tagline-word" style={{ display: 'inline-block', marginRight: '0.26em', opacity: 0 }}>
-              {word}
-            </span>
-          ))}
+          Little birdie's been spreading the word.
         </p>
 
         {/* Main title */}
