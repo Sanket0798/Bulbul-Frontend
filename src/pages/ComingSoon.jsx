@@ -56,22 +56,31 @@ export default function ComingSoon() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-      // 1. Logo drops in
+      // 1. Logo — scale up from tiny with elastic bounce + glow burst
       tl.fromTo(logoRef.current,
-        { y: -40, opacity: 0, scale: 0.85 },
-        { y: 0, opacity: 1, scale: 1, duration: 1.0, ease: 'back.out(1.4)' }
+        { y: -60, opacity: 0, scale: 0.4, filter: 'blur(8px)' },
+        { y: 0, opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.1, ease: 'elastic.out(1, 0.6)' }
       )
 
-      // 2. Tagline — word by word blur-fade
+      // 2. Tagline — each word clips up from below (overflow hidden reveal)
       .fromTo(taglineRef.current.querySelectorAll('.tagline-word'),
-        { y: 16, opacity: 0, filter: 'blur(5px)' },
-        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.5, stagger: 0.09, ease: 'power2.out' }, '-=0.4'
+        { y: '120%', opacity: 0, rotateX: -40 },
+        {
+          y: '0%', opacity: 1, rotateX: 0,
+          duration: 0.6, stagger: 0.08,
+          ease: 'back.out(1.8)',
+          transformOrigin: 'bottom center',
+        }, '-=0.5'
       )
 
-      // 3. "Coming Soon" — char typewriter with blur
+      // 3. "Coming Soon" — chars drop in with slight rotation, staggered
       .fromTo(titleRef.current.querySelectorAll('.title-char'),
-        { opacity: 0, y: 16, filter: 'blur(6px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.38, stagger: 0.055, ease: 'power2.out' }, '-=0.3'
+        { opacity: 0, y: 30, rotateZ: gsap.utils.wrap([-4, 4]), scale: 0.7, filter: 'blur(4px)' },
+        {
+          opacity: 1, y: 0, rotateZ: 0, scale: 1, filter: 'blur(0px)',
+          duration: 0.45, stagger: { each: 0.05, ease: 'power1.in' },
+          ease: 'back.out(1.5)',
+        }, '-=0.3'
       )
 
       // 4. Gold shimmer sweep across title
@@ -91,45 +100,84 @@ export default function ComingSoon() {
       })
       .to(titleRef.current, { backgroundImage: 'none', color: CREAM, duration: 0 })
 
-      // 5. Divider expands
-      .fromTo(dividerRef.current,
+      // 5. Divider — left line draws in, then right line, then star pops
+      .fromTo(dividerRef.current.querySelector('.div-left'),
         { scaleX: 0, opacity: 0 },
-        { scaleX: 1, opacity: 1, duration: 0.7, transformOrigin: 'center', ease: 'power2.inOut' }, '-=0.5'
+        { scaleX: 1, opacity: 1, duration: 0.5, transformOrigin: 'right', ease: 'power2.inOut' }, '-=0.4'
+      )
+      .fromTo(dividerRef.current.querySelector('.div-right'),
+        { scaleX: 0, opacity: 0 },
+        { scaleX: 1, opacity: 1, duration: 0.5, transformOrigin: 'left', ease: 'power2.inOut' }, '-=0.5'
+      )
+      .fromTo(dividerRef.current.querySelector('.div-star'),
+        { scale: 0, opacity: 0, rotateZ: -180 },
+        { scale: 1, opacity: 1, rotateZ: 0, duration: 0.5, ease: 'back.out(2.5)' }, '-=0.3'
       )
 
-      // 6. Story words slide up
+      // 6. Story words — wave ripple (each word offset by sine curve)
       .fromTo(storyRef.current.querySelectorAll('.story-word'),
-        { y: '110%', opacity: 0 },
-        { y: '0%', opacity: 1, duration: 0.48, stagger: 0.016, ease: 'power2.out' }, '-=0.3'
+        (i) => ({ y: 22 + Math.sin(i * 0.6) * 8, opacity: 0, filter: 'blur(3px)' }),
+        {
+          y: 0, opacity: 1, filter: 'blur(0px)',
+          duration: 0.5, stagger: 0.018, ease: 'power2.out',
+        }, '-=0.2'
       )
 
-      // 7. Form slides up
+      // 7. Form — elastic slide up
       .fromTo(formRef.current,
-        { y: 22, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6 }, '-=0.15'
+        { y: 40, opacity: 0, scale: 0.97 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: 'elastic.out(1, 0.75)' }, '-=0.1'
       )
 
-      // 8. Social icons pop in
+      // 8. Social icons — spin + scale pop
       .fromTo(socialRef.current.querySelectorAll('a'),
-        { y: 14, opacity: 0, scale: 0.5 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.08, ease: 'back.out(1.7)' }, '-=0.3'
+        { y: 20, opacity: 0, scale: 0.3, rotateZ: -90 },
+        {
+          y: 0, opacity: 1, scale: 1, rotateZ: 0,
+          duration: 0.5, stagger: 0.07, ease: 'back.out(2)',
+        }, '-=0.4'
       )
 
-      // 9. Footer letter-spacing collapse
+      // 9. Footer — letter-spacing collapse with fade
       .fromTo(footerRef.current,
-        { opacity: 0, letterSpacing: '0.45em' },
-        { opacity: 1, letterSpacing: '0.15em', duration: 0.9, ease: 'power2.out' }, '-=0.2'
+        { opacity: 0, letterSpacing: '0.5em', y: 8 },
+        { opacity: 1, letterSpacing: '0.15em', y: 0, duration: 1.0, ease: 'power2.out' }, '-=0.2'
       )
 
-      // Continuous: logo gentle float
+      // ── Continuous animations ──
+
+      // Logo gentle float
       gsap.to(logoRef.current, {
-        y: -7, duration: 3.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.2,
+        y: -8, duration: 3.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.5,
       })
 
-      // Continuous: gold glow pulse on title
+      // Gold glow pulse on title
       gsap.to(titleRef.current, {
-        textShadow: `0 0 28px ${GOLD}44`,
+        textShadow: `0 0 32px ${GOLD}55, 0 0 60px ${RUST2}33`,
         duration: 2.5, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 3,
+      })
+
+      // Tagline shimmer scan every 5s
+      gsap.to(taglineRef.current, {
+        backgroundImage: `linear-gradient(90deg, ${CREAM} 0%, ${GOLD}cc 50%, ${CREAM} 100%)`,
+        backgroundClip: 'text',
+        WebkitBackgroundClip: 'text',
+        color: 'transparent',
+        backgroundSize: '200% 100%',
+        backgroundPosition: '200% 0',
+        duration: 1.4,
+        ease: 'power1.inOut',
+        delay: 4,
+        repeat: -1,
+        repeatDelay: 5,
+        onComplete() {
+          gsap.set(taglineRef.current, { backgroundImage: 'none', color: CREAM })
+        },
+      })
+
+      // Divider star slow spin
+      gsap.to(dividerRef.current.querySelector('.div-star'), {
+        rotateZ: 360, duration: 12, repeat: -1, ease: 'none', delay: 2,
       })
 
     }, wrapperRef)
@@ -142,16 +190,17 @@ export default function ComingSoon() {
       className="relative w-screen h-screen flex items-center justify-center overflow-hidden"
       style={{ background: '#1a0b09' }}
     >
-      {/* Background image — Img1 at low opacity */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `url('/images/cuisines/Img1.jpg')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          opacity: 0.35,
-        }}
-      />
+      {/* Background video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ opacity: 0.30 }}
+      >
+        <source src="/images/cuisines/video.mp4" type="video/mp4" />
+      </video>
 
       {/* Dark vignette overlay so edges stay dark */}
       <div
@@ -184,7 +233,7 @@ export default function ComingSoon() {
           className="font-cormorant italic whitespace-nowrap"
   style={{ color: CREAM, fontSize: 'clamp(18px, 3.2vw, 40px)', fontWeight: 300, letterSpacing: '0.01em' }}
         >
-          {["little", "birdie's", "been", "spreading", "the", "word."].map((word, i) => (
+          {["Little", "birdie's", "been", "spreading", "the", "word."].map((word, i) => (
             <span key={i} className="tagline-word" style={{ display: 'inline-block', marginRight: '0.26em', opacity: 0 }}>
               {word}
             </span>
@@ -206,9 +255,9 @@ export default function ComingSoon() {
 
         {/* Ornamental divider */}
         <div ref={dividerRef} className="flex items-center gap-3 w-36 sm:w-56">
-          <div className="flex-1 h-px" style={{ background: `linear-gradient(90deg, transparent, ${RUST2})` }} />
-          <span style={{ color: GOLD, fontSize: '12px' }}>✦</span>
-          <div className="flex-1 h-px" style={{ background: `linear-gradient(90deg, ${RUST2}, transparent)` }} />
+          <div className="div-left flex-1 h-px" style={{ background: `linear-gradient(90deg, transparent, ${RUST2})` }} />
+          <span className="div-star inline-block" style={{ color: GOLD, fontSize: '12px' }}>✦</span>
+          <div className="div-right flex-1 h-px" style={{ background: `linear-gradient(90deg, ${RUST2}, transparent)` }} />
         </div>
 
         {/* Story — condensed to 2–3 lines using font-playfair */}
