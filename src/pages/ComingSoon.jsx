@@ -174,9 +174,9 @@ export default function ComingSoon() {
         loop
         playsInline
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        style={{ opacity: 0.30 }}
+        style={{ opacity: 0.45 }}
       >
-        <source src="/images/cuisines/video.mp4" type="video/mp4" />
+        <source src="/images/cuisines/video2.mp4" type="video/mp4" />
       </video>
 
       {/* Dark vignette overlay so edges stay dark */}
@@ -236,7 +236,7 @@ export default function ComingSoon() {
         {/* Story — condensed to 2–3 lines using font-playfair */}
         <div ref={storyRef} className="w-full max-w-xl px-1 sm:px-0">
           {[
-            "Something new is coming to the City of London — Indian small plates and cocktails.",
+            "Something new is coming to the Tudor — Indian small plates and cocktails.",
             "We've grown up with a version of Indian food shaped by homes and everyday cooking, the kind that rarely makes it onto restaurant menus.",
             "At Bulbul, that is what comes to the table. Opening this June — we'd love to have you in early.",
           ].map((line, pi) => (
@@ -322,7 +322,7 @@ export default function ComingSoon() {
         {/* Footer note */}
         <p ref={footerRef} className="font-josefin"
           style={{ color: `${CREAM}80`, fontSize: '10px', letterSpacing: '0.15em', opacity: 0 }}>
-          BULBUL · CITY OF LONDON
+          BULBUL · TUDOR
         </p>
 
       </div>
