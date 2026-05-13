@@ -193,14 +193,14 @@ export default function ComingSoon() {
       />
 
       {/* ── Main content ── */}
-      <div className="relative z-10 w-full max-w-3xl mx-auto px-5 sm:px-10 flex flex-col items-center text-center gap-3 sm:gap-4">
+      <div className="relative z-10 w-full max-w-3xl mx-auto px-5 sm:px-10 flex flex-col items-center text-center gap-2 sm:gap-3">
 
         {/* Bulbul logo */}
         <img
           ref={logoRef}
           src="/images/brand/logo/Bulbul.png"
           alt="Bulbul Restaurant"
-          className="w-32 sm:w-32 md:w-40 object-contain"
+          className="w-28 sm:w-28 md:w-36 object-contain"
           style={{ filter: `drop-shadow(0 0 16px ${RUST2}99)` }}
         />
 
@@ -210,7 +210,7 @@ export default function ComingSoon() {
           className="font-cormorant italic whitespace-nowrap"
           style={{ color: CREAM, fontSize: 'clamp(18px, 3.2vw, 40px)', fontWeight: 300, letterSpacing: '0.01em', opacity: 0 }}
         >
-          Little birdie's been spreading the word.
+          A Little birdie's been spreading the word.
         </p>
 
         {/* Main title */}
@@ -234,19 +234,20 @@ export default function ComingSoon() {
         </div>
 
         {/* Story — condensed to 2–3 lines using font-playfair */}
-        <div ref={storyRef} className="w-full max-w-xl px-1 sm:px-0">
+        <div ref={storyRef} className="w-full max-w-2xl px-1 sm:px-0">
           {[
-            "Something new is coming to the Tudor — Indian small plates and cocktails.",
+            "Something new is coming to the City of London — Indian small plates and cocktails.",
             "We've grown up with a version of Indian food shaped by homes and everyday cooking, the kind that rarely makes it onto restaurant menus.",
-            "At Bulbul, that is what comes to the table. Opening this June — we'd love to have you in early.",
+            "At Bulbul, that is what comes to the table, gathered along the way and shared with you.",
+            "Opening this June. We’d love to have you in early.",
           ].map((line, pi) => (
             <p key={pi}
-              className={`font-playfair story-line${pi === 2 ? ' font-semibold' : ''}`}
+              className={`font-playfair story-line${pi === 3 ? ' font-semibold' : ''}`}
               style={{
-                color: pi === 2 ? CREAM : `${CREAM}cc`,
-                fontSize: 'clamp(13px, 1.8vw, 16px)',
-                lineHeight: 1.75,
-                marginBottom: pi < 2 ? '0.4em' : 0,
+                color: pi === 3 ? CREAM : `${CREAM}cc`,
+                fontSize: 'clamp(12px, 1.6vw, 15px)',
+                lineHeight: 1.6,
+                marginBottom: pi < 3 ? '0.3em' : 0,
               }}
             >
               {line.split(' ').map((word, wi) => (
@@ -263,7 +264,7 @@ export default function ComingSoon() {
         <form
           ref={formRef}
           onSubmit={handleNotify}
-          className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full max-w-md mt-1"
+          className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full max-w-md"
         >
           <div className="flex flex-col flex-1 gap-1">
             <input
@@ -305,24 +306,23 @@ export default function ComingSoon() {
 
         {/* Social */}
         <div ref={socialRef} className="flex items-center gap-3 sm:gap-4">
-          {['facebook-f', 'instagram', 'twitter', 'youtube'].map((icon) => (
-            <a
-              key={icon}
-              href="#"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center"
-              style={{ border: `1px solid ${RUST2}66`, color: `${CREAM}99`, fontSize: '12px' }}
-              onMouseEnter={e => gsap.to(e.currentTarget, { scale: 1.2, backgroundColor: RUST, borderColor: RUST2, duration: 0.3 })}
-              onMouseLeave={e => gsap.to(e.currentTarget, { scale: 1, backgroundColor: 'transparent', borderColor: `${RUST2}66`, duration: 0.3 })}
-            >
-              <i className={`fa-brands fa-${icon}`} />
-            </a>
-          ))}
+          <a
+            href="https://www.instagram.com/bulbullondonofficial/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center"
+            style={{ border: `1px solid ${RUST2}66`, color: `${CREAM}99`, fontSize: '12px' }}
+            onMouseEnter={e => gsap.to(e.currentTarget, { scale: 1.2, backgroundColor: RUST, borderColor: RUST2, duration: 0.3 })}
+            onMouseLeave={e => gsap.to(e.currentTarget, { scale: 1, backgroundColor: 'transparent', borderColor: `${RUST2}66`, duration: 0.3 })}
+          >
+            <i className="fa-brands fa-instagram" />
+          </a>
         </div>
 
         {/* Footer note */}
         <p ref={footerRef} className="font-josefin"
           style={{ color: `${CREAM}80`, fontSize: '10px', letterSpacing: '0.15em', opacity: 0 }}>
-          BULBUL · TUDOR
+          BULBUL · TUDOR St
         </p>
 
       </div>
