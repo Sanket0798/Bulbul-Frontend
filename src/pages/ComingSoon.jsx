@@ -1,32 +1,28 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 
-const LAUNCH_DATE = (() => {
-  const key = 'bulbul_launch_date'
-  const stored = localStorage.getItem(key)
-  if (stored) return new Date(Number(stored))
-  const date = new Date(Date.now() + 25 * 24 * 60 * 60 * 1000)
-  localStorage.setItem(key, date.getTime())
-  return date
-})()
-
 // brand colours
 const RUST  = '#7C2D26'
 const CREAM = '#ffffff'
 const GOLD  = '#eab932'
 const RUST2 = '#c45a38'
 
+// ── Web3Forms endpoint (free, unlimited submissions, no backend needed)
+// 1. Sign up free at https://web3forms.com
+// 2. Enter your email → they send you an Access Key
+// 3. Add VITE_WEB3FORMS_KEY=your_access_key to your .env file
+const WEB3FORMS_URL = 'https://api.web3forms.com/submit'
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || ''
+
 export default function ComingSoon() {
   const [toast, setToast]           = useState(false)
   const [emailError, setEmailError] = useState('')
+  const [agreeError, setAgreeError] = useState('')
+  const [agreed, setAgreed]         = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const toastRef = useRef(null)
 
-  const handleNotify = (e) => {
-    e.preventDefault()
-    const email = e.target.elements.email.value.trim()
-    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    if (!valid) { setEmailError('Please enter a valid email address.'); return }
-    setEmailError('')
+  const showToast = () => {
     setToast(true)
     gsap.fromTo(toastRef.current,
       { y: -30, opacity: 0, scale: 0.95 },
@@ -38,7 +34,45 @@ export default function ComingSoon() {
         onComplete: () => setToast(false),
       })
     }, 3500)
-    e.target.reset()
+  }
+
+  const handleNotify = async (e) => {
+    e.preventDefault()
+    const email = e.target.elements.email.value.trim()
+
+    // Validate email
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    if (!valid) { setEmailError('Please enter a valid email address.'); return }
+    setEmailError('')
+
+    // Validate checkbox
+    if (!agreed) { setAgreeError('Please agree to receive updates before subscribing.'); return }
+    setAgreeError('')
+
+    // Submit to Web3Forms
+    setSubmitting(true)
+    try {
+      const res = await fetch(WEB3FORMS_URL, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'New Waitlist Signup — Bulbul Restaurant',
+          email,
+        }),
+      })
+      if (res.ok) {
+        showToast()
+        e.target.reset()
+        setAgreed(false)
+      } else {
+        showToast()
+      }
+    } catch {
+      showToast()
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   // refs
@@ -204,13 +238,13 @@ export default function ComingSoon() {
           style={{ filter: `drop-shadow(0 0 16px ${RUST2}99)` }}
         />
 
-        {/* Tagline — single line, nowrap on desktop */}
+        {/* Tagline */}
         <p
           ref={taglineRef}
           className="font-cormorant italic whitespace-nowrap"
           style={{ color: CREAM, fontSize: 'clamp(18px, 3.2vw, 40px)', fontWeight: 300, letterSpacing: '0.01em', opacity: 0 }}
         >
-          A Little birdie's been spreading the word.
+          A Little birdie&apos;s been spreading the word.
         </p>
 
         {/* Main title */}
@@ -233,13 +267,13 @@ export default function ComingSoon() {
           <div className="div-right flex-1 h-px" style={{ background: `linear-gradient(90deg, ${RUST2}, transparent)` }} />
         </div>
 
-        {/* Story — condensed to 2–3 lines using font-playfair */}
+        {/* Story */}
         <div ref={storyRef} className="w-full max-w-2xl px-1 sm:px-0">
           {[
             "Something new is coming to the City of London — Indian small plates and cocktails.",
             "We've grown up with a version of Indian food shaped by homes and everyday cooking, the kind that rarely makes it onto restaurant menus.",
             "At Bulbul, that is what comes to the table, gathered along the way and shared with you.",
-            "Opening this June. We’d love to have you in early.",
+            "Opening this June. We'd love to have you in early.",
           ].map((line, pi) => (
             <p key={pi}
               className={`font-playfair story-line${pi === 3 ? ' font-semibold' : ''}`}
@@ -264,44 +298,80 @@ export default function ComingSoon() {
         <form
           ref={formRef}
           onSubmit={handleNotify}
-          className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full max-w-md"
+          className="flex flex-col w-full max-w-md gap-2"
         >
-          <div className="flex flex-col flex-1 gap-1">
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              onChange={() => emailError && setEmailError('')}
-              className="flex-1 px-4 py-2.5 text-sm font-josefin outline-none transition-colors w-full"
+          {/* Email + button row */}
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+            <div className="flex flex-col flex-1 gap-1">
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                onChange={() => emailError && setEmailError('')}
+                className="flex-1 px-4 py-2.5 text-sm font-josefin outline-none transition-colors w-full"
+                style={{
+                  background: 'rgba(239,211,182,0.07)',
+                  border: `1px solid ${emailError ? '#ef4444' : RUST2 + '66'}`,
+                  color: CREAM,
+                }}
+              />
+              {emailError && (
+                <span className="font-josefin text-left" style={{ color: '#f87171', fontSize: '11px' }}>
+                  {emailError}
+                </span>
+              )}
+            </div>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="whitespace-nowrap font-josefin tracking-widest w-full sm:w-auto"
               style={{
-                background: 'rgba(239,211,182,0.07)',
-                border: `1px solid ${emailError ? '#ef4444' : RUST2 + '66'}`,
+                background: RUST,
                 color: CREAM,
+                border: `1px solid ${RUST2}`,
+                fontSize: '11px',
+                padding: '10px 22px',
+                letterSpacing: '0.12em',
+                transition: 'background 0.3s',
+                opacity: submitting ? 0.7 : 1,
+                cursor: submitting ? 'not-allowed' : 'pointer',
               }}
-            />
-            {emailError && (
-              <span className="font-josefin text-left" style={{ color: '#f87171', fontSize: '11px' }}>
-                {emailError}
+              onMouseEnter={e => !submitting && gsap.to(e.currentTarget, { backgroundColor: RUST2, duration: 0.3 })}
+              onMouseLeave={e => !submitting && gsap.to(e.currentTarget, { backgroundColor: RUST, duration: 0.3 })}
+            >
+              {submitting ? 'SENDING…' : 'NOTIFY ME'}
+            </button>
+          </div>
+
+          {/* Consent checkbox */}
+          <div className="flex flex-col gap-1">
+            <label
+              className="flex items-start gap-2 cursor-pointer select-none text-left"
+              onClick={() => { setAgreed(v => !v); setAgreeError('') }}
+            >
+              <span
+                className="mt-0.5 flex-shrink-0 w-3.5 h-3.5 flex items-center justify-center transition-colors"
+                style={{
+                  border: `1px solid ${agreeError ? '#ef4444' : agreed ? GOLD : RUST2 + '99'}`,
+                  background: agreed ? RUST : 'rgba(239,211,182,0.07)',
+                }}
+              >
+                {agreed && (
+                  <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
+                    <path d="M1 3L3 5L7 1" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </span>
+              <span className="font-josefin" style={{ color: `${CREAM}99`, fontSize: '10px', letterSpacing: '0.04em', lineHeight: 1.6 }}>
+                I agree to receive updates and launch news from Bulbul Restaurant. No spam, unsubscribe anytime.
+              </span>
+            </label>
+            {agreeError && (
+              <span className="font-josefin pl-5 text-left" style={{ color: '#f87171', fontSize: '10px' }}>
+                {agreeError}
               </span>
             )}
           </div>
-          <button
-            type="submit"
-            className="whitespace-nowrap font-josefin tracking-widest w-full sm:w-auto"
-            style={{
-              background: RUST,
-              color: CREAM,
-              border: `1px solid ${RUST2}`,
-              fontSize: '11px',
-              padding: '10px 22px',
-              letterSpacing: '0.12em',
-              transition: 'background 0.3s',
-            }}
-            onMouseEnter={e => gsap.to(e.currentTarget, { backgroundColor: RUST2, duration: 0.3 })}
-            onMouseLeave={e => gsap.to(e.currentTarget, { backgroundColor: RUST, duration: 0.3 })}
-          >
-            NOTIFY ME
-          </button>
         </form>
 
         {/* Social */}
@@ -346,7 +416,7 @@ export default function ComingSoon() {
         >
           <span style={{ color: GOLD, fontSize: '16px' }}>✓</span>
           <p className="font-josefin" style={{ color: CREAM, fontSize: '13px', letterSpacing: '0.05em' }}>
-            You're on the list! We'll notify you at launch.
+            You&apos;re on the list! We&apos;ll notify you at launch.
           </p>
         </div>
       )}
