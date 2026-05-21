@@ -174,7 +174,7 @@ export default function ComingSoon() {
       >
         <div
           className="w-full max-w-3xl mx-auto px-5 sm:px-10 flex flex-col items-center text-center"
-          style={{ gap: 'clamp(8px, 2.6vh, 28px)' }}
+          style={{ gap: 'clamp(4px, min(1.8vh, 1.8vw), 22px)' }}
         >
 
           {/* Logo */}
@@ -183,14 +183,14 @@ export default function ComingSoon() {
             src="/images/brand/logo/Bulbul.png"
             alt="Bulbul Restaurant"
             className="object-contain"
-            style={{ width: 'clamp(100px, 14vh, 160px)', filter: `drop-shadow(0 0 16px ${RUST2}99)` }}
+            style={{ width: 'clamp(70px, min(11vh, 18vw), 160px)', filter: `drop-shadow(0 0 16px ${RUST2}99)` }}
           />
 
           {/* Tagline */}
           <p
             ref={taglineRef}
             className="font-cormorant italic whitespace-nowrap"
-            style={{ color: CREAM, fontSize: 'clamp(16px, min(3.5vw, 4.2vh), 40px)', fontWeight: 300, letterSpacing: '0.01em', opacity: 0 }}
+            style={{ color: CREAM, fontSize: 'clamp(13px, min(3.5vw, 3.5vh), 40px)', fontWeight: 300, letterSpacing: '0.01em', opacity: 0 }}
           >
             A Little birdie&apos;s been spreading the word.
           </p>
@@ -199,7 +199,7 @@ export default function ComingSoon() {
           <h1
             ref={titleRef}
             className="font-playfair"
-            style={{ color: CREAM, fontSize: 'clamp(40px, min(9vw, 13vh), 96px)', lineHeight: 1.05, letterSpacing: '0.03em', fontWeight: 700 }}
+            style={{ color: CREAM, fontSize: 'clamp(32px, min(9vw, 11vh), 96px)', lineHeight: 1.05, letterSpacing: '0.03em', fontWeight: 700 }}
           >
             {'Coming Soon'.split('').map((char, i) => (
               <span key={i} className="title-char" style={{ display: 'inline-block' }}>
@@ -227,9 +227,9 @@ export default function ComingSoon() {
                 className={`font-playfair story-line${pi === 3 ? ' font-semibold' : ''}`}
                 style={{
                   color: pi === 3 ? CREAM : `${CREAM}cc`,
-                  fontSize: 'clamp(13px, min(1.9vw, 2.4vh), 17px)',
-                  lineHeight: 1.7,
-                  marginBottom: pi < 3 ? '0.4em' : 0,
+                  fontSize: 'clamp(11px, min(1.9vw, 2vh), 17px)',
+                  lineHeight: 1.65,
+                  marginBottom: pi < 3 ? '0.3em' : 0,
                 }}
               >
                 {line.split(' ').map((word, wi) => (
