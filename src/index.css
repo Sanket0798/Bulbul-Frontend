@@ -1,84 +1,347 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   @import MUST be first — before @font-face and @tailwind directives
+   ───────────────────────────────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gilda+Display&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   SELF-HOSTED FONTS
+   FreightDispPro    — primary / global font  (woff2 → woff → ttf)
+   FreightTextCmpPro — secondary font for select body copy (otf)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── FreightDispPro : Book (400) ── */
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProBook-Regular.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProBook-Regular.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProBook-Regular.ttf')   format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProBook-Italic.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProBook-Italic.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProBook-Italic.ttf')   format('truetype');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+
+/* ── FreightDispPro : Light (300) ── */
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProLight-Regular.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProLight-Regular.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProLight-Regular.ttf')   format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProLight-Italic.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProLight-Italic.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProLight-Italic.ttf')   format('truetype');
+  font-weight: 300; font-style: italic; font-display: swap;
+}
+
+/* ── FreightDispPro : Medium (500) ── */
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProMedium-Regular.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProMedium-Regular.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProMedium-Regular.ttf')   format('truetype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProMedium-Italic.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProMedium-Italic.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProMedium-Italic.ttf')   format('truetype');
+  font-weight: 500; font-style: italic; font-display: swap;
+}
+
+/* ── FreightDispPro : Semibold (600) ── */
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProSemibold-Regular.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProSemibold-Regular.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProSemibold-Regular.ttf')   format('truetype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProSemibold-Italic.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProSemibold-Italic.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProSemibold-Italic.ttf')   format('truetype');
+  font-weight: 600; font-style: italic; font-display: swap;
+}
+
+/* ── FreightDispPro : Bold (700) ── */
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProBold-Regular.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProBold-Regular.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProBold-Regular.ttf')   format('truetype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProBold-Italic.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProBold-Italic.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProBold-Italic.ttf')   format('truetype');
+  font-weight: 700; font-style: italic; font-display: swap;
+}
+
+/* ── FreightDispPro : Black (900) ── */
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProBlack-Regular.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProBlack-Regular.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProBlack-Regular.ttf')   format('truetype');
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightDispPro';
+  src: url('/fonts/FreightDispPro/FreightDispProBlack-Italic.woff2') format('woff2'),
+       url('/fonts/FreightDispPro/FreightDispProBlack-Italic.woff')  format('woff'),
+       url('/fonts/FreightDispPro/FreightDispProBlack-Italic.ttf')   format('truetype');
+  font-weight: 900; font-style: italic; font-display: swap;
+}
+
+/* ── FreightTextCmpPro : Book (400) ── */
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpProBook-Regular.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpProBook-Italic.otf') format('opentype');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+
+/* ── FreightTextCmpPro : Light (300) ── */
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpProLight-Regular.otf') format('opentype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpPro-LightItalic.otf') format('opentype');
+  font-weight: 300; font-style: italic; font-display: swap;
+}
+
+/* ── FreightTextCmpPro : Medium (500) ── */
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpProMedium-Regular.otf') format('opentype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpPro-MedIta.otf') format('opentype');
+  font-weight: 500; font-style: italic; font-display: swap;
+}
+
+/* ── FreightTextCmpPro : Semibold (600) ── */
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpProSemibold-Regular.otf') format('opentype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpPro-SemBdIta.otf') format('opentype');
+  font-weight: 600; font-style: italic; font-display: swap;
+}
+
+/* ── FreightTextCmpPro : Bold (700) ── */
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpProBold-Regular.otf') format('opentype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpPro-BoldItalic.otf') format('opentype');
+  font-weight: 700; font-style: italic; font-display: swap;
+}
+
+/* ── FreightTextCmpPro : Black (900) ── */
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpProBlack-Regular.otf') format('opentype');
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'FreightTextCmpPro';
+  src: url('/fonts/FreightTextCmpPro/FreightTextCmpPro-BlackItalic.otf') format('opentype');
+  font-weight: 900; font-style: italic; font-display: swap;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   TAILWIND DIRECTIVES
+   ───────────────────────────────────────────────────────────────────────────── */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES — single source of truth for brand tokens
+   ───────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --color-bg:          #FAEBE1;   /* home page */
+  --color-bg-inner:    #F5DED2;   /* about, careers, group bookings, all inner pages */
+
+  /* Brand palette */
+  --color-rust-dark:   #7D332C;
+  --color-white:       #FFFFFF;
+  --color-rust:        #852C28;
+  --color-cream:       #EFD3B6;
+  --color-gold:        #C98218;
+  --color-terracotta:  #C45A38;
+  --color-black:       #000000;
+  --color-charcoal:    #232323;
+  --color-olive:       #787C1D;
+  --color-accent-gold: #EAB932;
+
+  /* Semantic */
+  --color-primary:    #852C28;
+  --color-secondary:  #C98218;
+  --color-text:       #232323;
+  --color-text-muted: rgba(35, 35, 35, 0.55);
+}
+
 @layer base {
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { @apply font-josefin text-navy overflow-x-hidden; }
 
-  h1 { @apply font-gilda font-normal leading-tight; font-size: clamp(48px, 6vw, 80px); }
-  h2 { @apply font-gilda font-normal leading-tight; font-size: clamp(28px, 3.5vw, 40px); }
-  h3 { @apply font-delafield font-normal; font-size: clamp(36px, 4vw, 55px); line-height: 1; }
-  h4 { @apply font-gilda font-normal text-2xl; }
-  h5 { @apply font-gilda font-medium text-xl; }
-  h6 { @apply font-josefin font-medium text-xs tracking-widest; }
-  p  { @apply font-josefin font-normal text-base leading-relaxed; }
-  a  { @apply font-gilda font-normal no-underline; font-size: 20px; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'FreightDispPro', Georgia, serif;
+    overflow-x: hidden;
+    background-color: #FAEBE1;
+    color: #232323;
+  }
+
+  /* ── Typography scale ── */
+  h1 { font-family: 'FreightDispPro', Georgia, serif; font-weight: 400; line-height: 1.1; font-size: clamp(48px, 6vw, 80px); }
+  h2 { font-family: 'FreightDispPro', Georgia, serif; font-weight: 400; line-height: 1.15; font-size: clamp(28px, 3.5vw, 40px); }
+  h3 { font-family: 'Mrs Saint Delafield', cursive; font-weight: 400; font-size: clamp(36px, 4vw, 55px); line-height: 1; }
+  h4 { font-family: 'FreightDispPro', Georgia, serif; font-weight: 400; font-size: 1.5rem; }
+  h5 { font-family: 'FreightDispPro', Georgia, serif; font-weight: 500; font-size: 1.25rem; }
+  h6 { font-family: 'Josefin Sans', sans-serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 0.1em; }
+  p  { font-family: 'Josefin Sans', sans-serif; font-weight: 400; font-size: 1rem; line-height: 1.7; }
+  a  { font-family: 'FreightDispPro', Georgia, serif; font-weight: 400; text-decoration: none; font-size: 20px; }
 }
 
 @layer components {
-  /* ---- Buttons ---- */
+  /* ── Buttons ─────────────────────────────────────────────────────────────── */
+
+  /* White outline — dark/image backgrounds */
   .btn-outline-white {
-    @apply inline-block relative overflow-hidden border border-white text-white z-10 cursor-pointer;
-    padding: 10px 35px;
-    font-family: theme('fontFamily.gilda');
-    font-size: 20px;
-    background: transparent;
-    transition: color 0.6s ease;
+    @apply inline-flex relative overflow-hidden border border-white text-white
+           z-10 cursor-pointer bg-transparent px-[35px] py-[10px]
+           font-freight text-[18px] transition-colors duration-500;
   }
   .btn-outline-white::after {
     content: '';
-    @apply absolute h-full bg-white;
-    width: 0; z-index: -1; bottom: 0; right: 0;
-    transition: width 0.6s ease;
+    @apply absolute h-full bg-white bottom-0 right-0 -z-10;
+    width: 0;
+    transition: width 0.5s ease;
   }
-  .btn-outline-white:hover { @apply text-primary; }
+  .btn-outline-white:hover { @apply text-rust; }
   .btn-outline-white:hover::after { width: 100%; left: 0; }
 
-  .btn-outline-primary {
-    @apply inline-block relative overflow-hidden border border-primary text-primary z-10 cursor-pointer;
-    padding: 10px 35px;
-    font-family: theme('fontFamily.gilda');
-    font-size: 20px;
-    transition: color 0.6s ease;
+  /* Primary rust outline — home page (#FAEBE1 bg) */
+  .btn-outline-primary-home {
+    @apply inline-flex relative overflow-hidden border border-rust text-rust
+           z-10 cursor-pointer bg-transparent px-[35px] py-[10px]
+           font-freight text-[18px] transition-colors duration-500;
   }
-  .btn-outline-primary::after {
+  .btn-outline-primary-home::after {
     content: '';
-    @apply absolute h-full bg-primary;
-    width: 0; z-index: -1; bottom: 0; right: 0;
-    transition: width 0.6s ease;
+    @apply absolute h-full bg-rust bottom-0 right-0 -z-10;
+    width: 0;
+    transition: width 0.5s ease;
   }
-  .btn-outline-primary:hover { @apply text-white; }
-  .btn-outline-primary:hover::after { width: 100%; left: 0; }
+  .btn-outline-primary-home:hover { @apply text-bg; }
+  .btn-outline-primary-home:hover::after { width: 100%; left: 0; }
 
-  /* ---- Link underline ---- */
+  /* Primary rust outline — inner pages (#F5DED2 bg) */
+  .btn-outline-primary-inner {
+    @apply inline-flex relative overflow-hidden border border-rust text-rust
+           z-10 cursor-pointer bg-transparent px-[35px] py-[10px]
+           font-freight text-[18px] transition-colors duration-500;
+  }
+  .btn-outline-primary-inner::after {
+    content: '';
+    @apply absolute h-full bg-rust bottom-0 right-0 -z-10;
+    width: 0;
+    transition: width 0.5s ease;
+  }
+  .btn-outline-primary-inner:hover { @apply text-bg-inner; }
+  .btn-outline-primary-inner:hover::after { width: 100%; left: 0; }
+
+  /* Gold outline — accent CTAs */
+  .btn-outline-gold {
+    @apply inline-flex relative overflow-hidden border border-accent-gold text-accent-gold
+           z-10 cursor-pointer bg-transparent px-[35px] py-[10px]
+           font-freight text-[18px] transition-colors duration-500;
+  }
+  .btn-outline-gold::after {
+    content: '';
+    @apply absolute h-full bg-accent-gold bottom-0 right-0 -z-10;
+    width: 0;
+    transition: width 0.5s ease;
+  }
+  .btn-outline-gold:hover { @apply text-charcoal; }
+  .btn-outline-gold:hover::after { width: 100%; left: 0; }
+
+  /* ── Link underline ── */
   .link-underline {
-    @apply text-primary relative;
-    font-family: theme('fontFamily.gilda');
-    transition: color 0.3s;
+    @apply relative text-rust font-freight transition-colors duration-300;
   }
   .link-underline::after {
     content: '';
-    @apply absolute left-0 bottom-0 bg-primary;
-    width: 0; height: 2px;
+    @apply absolute left-0 bottom-0 bg-rust h-[2px];
+    width: 0;
     transition: width 0.4s ease;
   }
   .link-underline:hover::after { width: 100%; }
 
-  /* ---- Section tag ---- */
-  .section-tag { @apply flex items-center gap-2 text-primary; }
-  .section-tag hr { @apply m-0 opacity-100 border-primary; width: 60px; }
+  /* ── Section tag (rule + label) ── */
+  .section-tag { @apply flex items-center gap-2 text-rust; }
+  .section-tag hr { @apply m-0 opacity-100 border-rust; width: 60px; }
 
-  /* ---- Back to top ---- */
+  /* ── Named gradient overlays — defined once, used as className ── */
+  .overlay-hero-left {
+    background: linear-gradient(to right, rgba(35,35,35,0.85) 0%, rgba(35,35,35,0.3) 60%, rgba(35,35,35,0.6) 100%);
+  }
+  .overlay-hero-bottom {
+    background: linear-gradient(to top, rgba(35,35,35,0.9) 0%, transparent 50%);
+  }
+  .overlay-card-bottom {
+    background: linear-gradient(to top, rgba(133,44,40,0.92) 0%, transparent 55%);
+  }
+  .overlay-card-bottom-dark {
+    background: linear-gradient(to top, rgba(26,11,9,0.88) 0%, transparent 55%);
+  }
+  .accent-line-rust-gold {
+    background: linear-gradient(90deg, transparent, #852C28, #EAB932, #852C28, transparent);
+  }
+
+  /* ── Form inputs — used on dark section forms ── */
+  .form-field {
+    @apply w-full px-5 py-4 font-josefin text-body-xs text-cream outline-none
+           bg-cream/5 border border-cream/15 transition-colors duration-300
+           focus:border-accent-gold;
+  }
+  .form-field::placeholder { @apply text-cream/30; }
+
+  /* ── Back to top ── */
   .back-to-top {
-    @apply fixed bg-primary text-white border-none rounded cursor-pointer invisible opacity-0;
+    @apply fixed bg-rust text-bg border-none cursor-pointer invisible opacity-0;
     bottom: 40px; right: 20px;
     width: 50px; height: 40px;
     font-size: 16px;
@@ -89,18 +352,38 @@
 }
 
 @layer utilities {
-  /* ---- Slick overrides ---- */
+  /* ── Slick carousel dots ── */
   .slick-dots li button:before {
     font-size: 0 !important;
-    width: 11px !important;
-    height: 11px !important;
-    @apply bg-primary border border-primary rounded-lg;
+    width: 11px !important; height: 11px !important;
+    background: var(--color-rust) !important;
+    border: 1px solid var(--color-rust) !important;
+    border-radius: 50%;
   }
   .slick-dots li.slick-active button:before {
     background: transparent !important;
-    @apply border border-primary;
-    width: 14px !important;
-    height: 14px !important;
+    border: 1px solid var(--color-rust) !important;
+    width: 14px !important; height: 14px !important;
     top: -1px;
   }
+
+  /* ── Background utilities ── */
+  .bg-brand-bg        { background-color: #FAEBE1; }
+  .bg-brand-bg-inner  { background-color: #F5DED2; }
+  .bg-brand-rust      { background-color: #852C28; }
+  .bg-brand-cream     { background-color: #EFD3B6; }
+  .bg-brand-gold      { background-color: #EAB932; }
+  .bg-brand-charcoal  { background-color: #232323; }
+
+  /* ── Text utilities ── */
+  .text-brand-rust        { color: #852C28; }
+  .text-brand-cream       { color: #EFD3B6; }
+  .text-brand-gold        { color: #EAB932; }
+  .text-brand-olive       { color: #787C1D; }
+  .text-brand-charcoal    { color: #232323; }
+  .text-brand-terracotta  { color: #C45A38; }
+
+  /* ── Font utilities ── */
+  .font-freight-disp  { font-family: 'FreightDispPro', Georgia, serif; }
+  .font-freight-text  { font-family: 'FreightTextCmpPro', Georgia, serif; }
 }
