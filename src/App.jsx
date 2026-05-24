@@ -1,7 +1,9 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import ComingSoon from './pages/ComingSoon'
 import Home from './pages/Home'
 import About from './pages/About'
+import GroupBookings from './pages/GroupBookings'
+import Careers from './pages/Careers'
 import Rooms from './pages/Rooms'
 import RoomDetail from './pages/RoomDetail'
 import Gallery from './pages/Gallery'
@@ -17,10 +19,12 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Temporary: show coming soon at root */}
+        {/* Coming soon at root — swap to <Navigate to="/home" replace /> when ready to launch */}
         <Route path="/" element={<ComingSoon />} />
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/group-bookings" element={<GroupBookings />} />
+        <Route path="/careers" element={<Careers />} />
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/rooms/:id" element={<RoomDetail />} />
         <Route path="/gallery" element={<Gallery />} />
