@@ -22,7 +22,6 @@ export default defineConfig({
   },
   build: {
     target: 'es2015',
-    minify: 'esbuild',
     chunkSizeWarningLimit: 1000,
     sourcemap: false,
   },
