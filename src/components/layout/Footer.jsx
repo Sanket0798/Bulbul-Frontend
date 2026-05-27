@@ -1,63 +1,52 @@
 import { Link } from "react-router-dom";
+import brandLogo from "@/assets/icons/svg/brand-white-logo.svg";
+import youtubeSvg from "@/assets/icons/svg/youtube.svg";
+import instagramSvg from "@/assets/icons/svg/instagram.svg";
+import facebookSvg from "@/assets/icons/svg/facebook.svg";
+import twitterPng from "@/assets/icons/svg/twitter.png";
 
 const SOCIAL_LINKS = [
   {
     label: "YouTube",
     href: import.meta.env.VITE_SOCIAL_YOUTUBE || "https://youtube.com/@bulbulrestaurant",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-      </svg>
-    ),
+    icon: youtubeSvg,
   },
   {
     label: "Instagram",
     href: import.meta.env.VITE_SOCIAL_INSTAGRAM || "https://instagram.com/bulbulrestaurant",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-      </svg>
-    ),
+    icon: instagramSvg,
   },
   {
     label: "Facebook",
     href: import.meta.env.VITE_SOCIAL_FACEBOOK || "https://facebook.com/bulbulrestaurant",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-      </svg>
-    ),
+    icon: facebookSvg,
   },
   {
     label: "Twitter",
     href: import.meta.env.VITE_SOCIAL_TWITTER || "https://twitter.com/bulbulrestaurant",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
+    icon: twitterPng,
   },
 ];
 
 const FOOTER_LINKS = [
-  { label: "Explore", to: "/home"    },
-  { label: "About",   to: "/about"   },
-  { label: "Menu",    to: "/rooms"   },
+  { label: "Explore", to: "/home" },
+  { label: "About", to: "/about" },
+  { label: "Menu", to: "/rooms" },
   { label: "Contact", to: "/contact" },
   { label: "Pricing", to: "/pricing" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="w-full py-8 bg-charcoal border-t border-accent-gold/15">
-      <div className="max-w-page mx-auto px-8 flex flex-col items-center gap-6">
+    <footer className="w-full py-[30px] bg-rust-dark border-t border-accent-gold/15">
+      <div className="max-w-page mx-auto px-8 flex flex-col items-center gap-[14px]">
 
         {/* Logo */}
-        <img src="/images/brand/logo/Bulbul.png" alt="Bulbul Restaurant"
-          className="h-20 w-auto object-contain" />
+        <img src={brandLogo} alt="Bulbul Restaurant"
+          className="w-auto object-contain" />
 
         {/* Connect label */}
-        <p className="font-josefin text-caption uppercase tracking-[0.3em] text-cream/60">
+        <p className="font-stack font-normal text-base text-white">
           connect with us
         </p>
 
@@ -66,17 +55,14 @@ export default function Footer() {
           {SOCIAL_LINKS.map(({ label, href, icon }) => (
             <a key={label} href={href} target="_blank" rel="noopener noreferrer"
               aria-label={label}
-              className="flex items-center justify-center w-[38px] h-[38px] rounded-full
-                border border-accent-gold/30 text-cream
-                hover:bg-accent-gold hover:border-accent-gold hover:text-charcoal
-                transition-all duration-300">
-              {icon}
+              className="">
+              <img src={icon} alt={label} />
             </a>
           ))}
         </div>
 
         {/* Copyright */}
-        <p className="font-josefin text-caption tracking-widest text-center text-cream/40">
+        <p className="font-stack font-normal text-base text-white">
           Ⓒ 2026 Bulbul. All Rights Reserved
         </p>
 
@@ -85,12 +71,12 @@ export default function Footer() {
           {FOOTER_LINKS.map(({ label, to }, i) => (
             <span key={label} className="flex items-center gap-4">
               <Link to={to}
-                className="font-josefin text-caption tracking-widest no-underline
-                  text-cream/50 hover:text-accent-gold transition-colors duration-300">
+                className="font-stack text-caption tracking-widest no-underline
+                  text-white font-normal text-base hover:text-accent-gold transition-colors duration-300">
                 {label}
               </Link>
               {i < FOOTER_LINKS.length - 1 && (
-                <span className="text-cream/20">|</span>
+                <span className="text-white font-medium text-base">|</span>
               )}
             </span>
           ))}

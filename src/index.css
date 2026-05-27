@@ -3,6 +3,7 @@
    ───────────────────────────────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap');
 
 /* ─────────────────────────────────────────────────────────────────────────────
    SELF-HOSTED FONTS
@@ -236,6 +237,15 @@
 }
 
 @layer components {
+  /* ── Container utilities ─────────────────────────────────────────────────── */
+  .container-custom {
+    @apply max-w-container mx-auto px-5 sm:px-8 lg:px-15;
+  }
+
+  .container-custom-lg {
+    @apply max-w-page mx-auto px-5 sm:px-8 lg:px-15;
+  }
+
   /* ── Buttons ─────────────────────────────────────────────────────────────── */
 
   /* White outline — dark/image backgrounds */
