@@ -23,14 +23,6 @@ export default defineConfig({
   build: {
     target: 'es2015',
     minify: 'esbuild',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'animation-vendor': ['gsap'],
-        },
-      },
-    },
     chunkSizeWarningLimit: 1000,
     sourcemap: false,
   },
