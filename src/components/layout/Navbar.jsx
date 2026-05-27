@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
-  { label: "Home",    to: "/home"    },
-  { label: "About",   to: "/about"   },
-  { label: "Menu",    to: "/rooms"   },
+  { label: "Home", to: "/home" },
+  { label: "About", to: "/about" },
+  { label: "Menu", to: "/rooms" },
   { label: "Contact", to: "/contact" },
 ];
 
 export default function Navbar({ transparent = false }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { pathname }            = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -25,21 +25,21 @@ export default function Navbar({ transparent = false }) {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500
       ${isTransparent
         ? "bg-transparent border-b-0"
-        : "bg-charcoal/96 backdrop-blur-md border-b border-accent-gold/15"}`}>
+        : "bg-charcoal/96 backdrop-blur-md"}`}>
 
-      <div className="max-w-page mx-auto px-15 h-[79px] flex items-center justify-between">
+      <div className="max-w-container mx-auto px-15 py-8 flex items-center justify-between">
 
         {/* Logo */}
         <Link to="/home" className="shrink-0">
-          <img src="/images/brand/logo/Bulbul.png" alt="Bulbul Restaurant"
-            className="h-16 w-auto object-contain" />
+          <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
+            className="w-48 object-contain" />
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-[30px]">
           {NAV_LINKS.map(({ label, to }) => (
             <Link key={label} to={to}
-              className={`font-freight text-[18px] no-underline transition-colors duration-300
+              className={`font-freight text-lg leading-[26px] font-semibold no-underline transition-colors duration-300
                 ${pathname === to ? "text-accent-gold" : "text-cream"}`}>
               {label}
             </Link>

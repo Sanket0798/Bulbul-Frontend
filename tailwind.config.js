@@ -60,6 +60,7 @@ export default {
       // ── Spacing extras ───────────────────────────────────────────────────────
       maxWidth: {
         'page': '1440px',
+        'container': '1320px',
       },
     },
   },
