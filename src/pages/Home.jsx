@@ -38,8 +38,8 @@ export default function Home() {
       <HeroSection />
       <AboutSection ref={aboutRef} />
       <ServicesSection ref={servicesRef} />
-      <MenuSection ref={menuRef} />
       <FeaturedDishesSection ref={featuredRef} />
+      <MenuSection ref={menuRef} />
       <Footer />
     </div>
   );
