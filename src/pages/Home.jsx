@@ -8,6 +8,7 @@ import AboutSection from "@/components/sections/AboutSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import MenuSection from "@/components/sections/MenuSection";
 import FeaturedDishesSection from "@/components/sections/FeaturedDishesSection";
+import PromotionSection from "@/components/sections/PromotionSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,6 +41,7 @@ export default function Home() {
       <ServicesSection ref={servicesRef} />
       <FeaturedDishesSection ref={featuredRef} />
       <MenuSection ref={menuRef} />
+      <PromotionSection />
       <Footer />
     </div>
   );
