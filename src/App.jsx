@@ -19,9 +19,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Coming soon at root — swap to <Navigate to="/home" replace /> when ready to launch */}
-        <Route path="/" element={<ComingSoon />} />
-        <Route path="/home" element={<Home />} />
+        {/* Home page at root */}
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Navigate to="/" replace />} />
+        <Route path="/coming-soon" element={<ComingSoon />} />
         <Route path="/about" element={<About />} />
         <Route path="/group-bookings" element={<GroupBookings />} />
         <Route path="/careers" element={<Careers />} />
