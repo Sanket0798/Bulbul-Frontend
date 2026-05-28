@@ -29,6 +29,7 @@ export default {
         'freight-text': ['"FreightTextCmpPro"', 'Georgia', 'serif'], // secondary — select body copy
         'josefin':  ['"Josefin Sans"', 'sans-serif'],              // labels, tags, small caps
         'stack':    ['"Stack Sans Text"', 'sans-serif'],           // footer text, UI labels
+        'playfair': ['"Playfair Display"', 'serif'],               // menu category tabs
         'script':   ['"Mrs Saint Delafield"', 'cursive'],          // decorative h3
         // legacy aliases so old className="font-gilda" etc. still work
         'gilda':    ['"FreightDispPro"', 'Georgia', 'serif'],

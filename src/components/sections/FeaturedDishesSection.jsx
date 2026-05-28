@@ -1,65 +1,167 @@
-import { forwardRef } from "react";
-import SectionTag from "@/components/common/SectionTag";
-import ArrowIcon from "@/components/common/ArrowIcon";
+import { forwardRef, useState, useRef, useEffect } from "react";
+import arrowRight from "@/assets/icons/svg/right-arrow-rust.svg";
+import DishModal from "@/components/common/DishModal";
+
+const CATEGORIES = ["ALL", "SOUPS", "MAIN", "SALADS"];
 
 const FEATURED_DISHES = [
-  { img: "/images/index/Room1.webp", name: "Truffle Pasta",  desc: "Creamy indulgence finished with rich truffle aroma and parmesan perfection." },
-  { img: "/images/index/Room2.webp", name: "Butter Chicken", desc: "Slow-cooked tender chicken in a rich, aromatic tomato-cream sauce."          },
-  { img: "/images/index/Room3.webp", name: "Crispy Wings",   desc: "Golden-fried wings tossed in our signature spice blend."                     },
-  { img: "/images/index/about.webp", name: "Dragon Roll",    desc: "A bold fusion roll with avocado, spicy tuna, and crispy tempura."             },
+  { img: "/images/cuisines/truffle-pasta.jpg", name: "Truffle Pasta", desc: "Creamy indulgence finished with rich truffle aroma and parmesan perfection.", category: "MAIN", highlights: ["Chef's Special", "Vegetarian"] },
+  { img: "/images/cuisines/butter-chicken.jpg", name: "Butter Chicken", desc: "Slow-cooked tender chicken in a rich, aromatic tomato-cream sauce.", category: "MAIN", highlights: ["Bestseller", "Gluten Free"] },
+  { img: "/images/cuisines/crispy-wings.jpg", name: "Crispy Wings", desc: "Golden-fried wings tossed in our signature spice blend.", category: "SALADS", highlights: ["Spicy", "Shareable"] },
+  { img: "/images/cuisines/dragon-roll.jpg", name: "Dragon Roll", desc: "A bold fusion roll with avocado, spicy tuna, and crispy tempura.", category: "SOUPS", highlights: ["Fusion", "Contains Seafood"] },
+  { img: "/images/cuisines/Img1.jpg", name: "Spiced Lamb Chops", desc: "Tender lamb chops marinated in aromatic spices and grilled to perfection.", category: "MAIN", highlights: ["Signature", "Grilled"] },
+  { img: "/images/cuisines/Img2.jpg", name: "Tom Yum Soup", desc: "A fragrant Thai broth with lemongrass, galangal, and fresh prawns.", category: "SOUPS", highlights: ["Spicy", "Contains Seafood"] },
+  { img: "/images/cuisines/Img3.jpg", name: "Garden Fresh Salad", desc: "Seasonal greens with citrus vinaigrette and toasted seeds.", category: "SALADS", highlights: ["Vegan", "Light"] },
+  { img: "/images/cuisines/Img4.jpg", name: "Paneer Tikka", desc: "Chargrilled cottage cheese with smoky tandoori spices.", category: "MAIN", highlights: ["Vegetarian", "Tandoor"] },
 ];
 
 const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) {
-  return (
-    <section ref={ref} className="w-full py-24 bg-charcoal/95">
-      <div className="max-w-page mx-auto px-15">
+  const [activeCategory, setActiveCategory] = useState("ALL");
+  const [selectedDish, setSelectedDish] = useState(null);
+  const scrollRef = useRef(null);
+  const animationRef = useRef(null);
 
-        {/* Header */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-14">
-          <div className="flex flex-col gap-4" data-animate>
-            <SectionTag label="Our Menu" light />
-            <h2 className="font-freight text-h2 text-cream font-normal">
-              Our Signature <span className="italic text-accent-gold">Menu</span>
+  const filteredDishes = activeCategory === "ALL"
+    ? FEATURED_DISHES
+    : FEATURED_DISHES.filter((dish) => dish.category === activeCategory);
+
+  // Duplicate dishes for seamless infinite loop
+  const loopDishes = [...filteredDishes, ...filteredDishes];
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    let scrollPos = 0;
+    const speed = 0.5; // pixels per frame
+
+    const animate = () => {
+      scrollPos += speed;
+      // Reset when first set scrolls out
+      const halfWidth = container.scrollWidth / 2;
+      if (scrollPos >= halfWidth) {
+        scrollPos = 0;
+      }
+      container.style.transform = `translateX(-${scrollPos}px)`;
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [filteredDishes]);
+
+  // Pause on hover
+  const handleMouseEnter = () => {
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const currentTransform = container.style.transform;
+    const match = currentTransform.match(/translateX\(-?([\d.]+)px\)/);
+    let scrollPos = match ? parseFloat(match[1]) : 0;
+    const speed = 0.5;
+
+    const animate = () => {
+      scrollPos += speed;
+      const halfWidth = container.scrollWidth / 2;
+      if (scrollPos >= halfWidth) {
+        scrollPos = 0;
+      }
+      container.style.transform = `translateX(-${scrollPos}px)`;
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+  };
+
+  return (
+    <section ref={ref} className="w-full py-[110px] overflow-hidden">
+
+      {/* Header — contained */}
+      <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-[66px]">
+          <div className="flex flex-col gap-2" data-animate>
+            <h2 className="font-freight uppercase font-black text-[28px] leading-[37px]">
+              <span className="text-olive">Our Menu</span>
+            </h2>
+            <h2 className="font-freight text-[62px] leading-[73px]">
+              <span className="text-rust-dark font-semibold">Our Signature</span>
+              <span className="italic font-normal text-gold"> Menu</span>
             </h2>
           </div>
-          <div className="flex flex-col gap-4 max-w-[590px]" data-animate>
-            <p className="font-josefin text-body-xs text-cream/60">
-              A carefully curated selection of bold flavors, handcrafted
-              recipes, and timeless favorites made to satisfy every craving.
+          <div className="flex flex-col gap-3 max-w-[590px]" data-animate>
+            <p className="font-freight font-medium text-[19px] leading-[25px] text-olive">
+              A carefully curated selection of bold flavors, handcrafted recipes, and timeless favorites made to satisfy every craving. From comforting classics to chef-inspired specialties, every dish is prepared with
             </p>
+            {/* Category filter tabs */}
             <div className="flex flex-wrap gap-3">
-              {["ALL", "SOUPS", "MAIN", "SALADS"].map((cat, i) => (
-                <button key={cat}
-                  className={`font-josefin text-caption tracking-widest px-4 py-2 border bg-transparent cursor-pointer transition-all duration-300
-                    ${i === 0 ? "border-accent-gold text-accent-gold" : "border-cream/20 text-cream/50"}`}>
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`font-playfair text-[14px] font-medium tracking-normal uppercase px-6 py-2 rounded-full cursor-pointer transition-all duration-300
+                    ${activeCategory === cat
+                      ? "bg-rust text-cream border border-rust"
+                      : "bg-transparent text-rust border border-rust/40 hover:border-rust"
+                    }`}>
                   {cat}
                 </button>
               ))}
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Dish cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {FEATURED_DISHES.map(({ img, name, desc }) => (
-            <div key={name} className="group flex flex-col" data-animate>
-              <div className="relative overflow-hidden h-80">
+      {/* Dish cards — full width, infinite scroll */}
+      <div
+        className="w-full"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div
+          ref={scrollRef}
+          className="flex gap-6 will-change-transform"
+          style={{ width: "max-content" }}
+        >
+          {loopDishes.map(({ img, name, desc, category, highlights }, i) => (
+            <div
+              key={`${name}-${i}`}
+              className="group flex flex-col w-[429px] shrink-0 cursor-pointer"
+              onClick={() => setSelectedDish({ img, name, desc, category, highlights })}
+            >
+              <div className="relative overflow-hidden w-[429px] h-[426px]">
                 <img src={img} alt={name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
-              <div className="flex flex-col gap-2 pt-4 pb-2 border-b border-cream/10">
-                <div className="flex items-start justify-between gap-2">
-                  <h4 className="font-freight text-h4 text-cream group-hover:text-accent-gold transition-colors duration-300">
+              <div className="flex flex-col gap-2 pt-4 pb-2">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-freight text-[41px] font-semibold text-rust-dark group-hover:text-accent-gold transition-colors duration-300">
                     {name}
                   </h4>
-                  <ArrowIcon className="stroke-accent-gold shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" size={16} />
+                  <img src={arrowRight} alt="" />
                 </div>
-                <p className="font-josefin text-body-xs text-cream/50">{desc}</p>
+                <p className="font-freight-text font-medium text-[21px] leading-[28px] text-terracotta">{desc}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Dish detail modal */}
+      {selectedDish && (
+        <DishModal dish={selectedDish} onClose={() => setSelectedDish(null)} />
+      )}
     </section>
   );
 });

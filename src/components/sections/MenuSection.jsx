@@ -1,64 +1,72 @@
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
-import SectionTag from "@/components/common/SectionTag";
-import ArrowIcon from "@/components/common/ArrowIcon";
 
 const MENU_ITEMS = [
-  { num: "01", name: "Crispy Wings"   },
-  { num: "02", name: "Butter Chicken" },
-  { num: "03", name: "Grilled Steak"  },
-  { num: "04", name: "Classic Slider" },
-  { num: "05", name: "Dragon Roll"    },
+  { num: "01", name: "Crispy", highlight: "Wings" },
+  { num: "02", name: "Butter", highlight: "Chicken" },
+  { num: "03", name: "Grilled", highlight: "Steak" },
+  { num: "04", name: "Classic", highlight: "Slider" },
+  { num: "05", name: "Dragon", highlight: "Roll" },
 ];
 
 const MenuSection = forwardRef(function MenuSection(_, ref) {
   return (
-    <section ref={ref} className="w-full py-24 bg-charcoal">
-      <div className="max-w-page mx-auto px-15">
+    <section ref={ref} className="w-full pt-[40px] pb-[100px]">
+      <div className="max-w-[1207px] mx-auto px-5 sm:px-8 lg:px-0">
 
         {/* Header */}
-        <div className="text-center mb-16" data-animate>
-          <SectionTag label="Our Bestseller" light />
-          <h2 className="font-freight text-h2 text-cream font-normal mt-4 mb-4">
+        <div className="text-center mb-10" data-animate>
+          <h3 className="font-freight font-black text-[28px] leading-[37px] uppercase text-terracotta mb-2">
+            Our Bestseller
+          </h3>
+          <h2 className="font-freight text-[54px] leading-[63px] font-semibold text-rust-dark mb-4">
             A Menu Crafted to Delight{" "}
-            <span className="italic text-accent-gold">Every Craving</span>
+            <span className="italic font-normal text-gold">Every Craving</span>
           </h2>
-          <p className="font-josefin text-body-xs text-cream/60 max-w-[700px] mx-auto">
-            From signature classics to chef-inspired specialties, every dish on
-            our menu is prepared with fresh ingredients, rich flavors, and a
-            passion for unforgettable dining experiences.
+          <p className="font-freight-text font-medium text-[19px] leading-[25px] text-terracotta max-w-[920px] mx-auto">
+            From signature classics to chef-inspired specialties, every dish on our menu is prepared with fresh ingredients, rich flavors, and a passion for unforgettable dining experiences.
           </p>
         </div>
 
-        {/* List + flanking images */}
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="hidden lg:block relative overflow-hidden rounded-sm shrink-0 w-[410px] h-[410px]" data-animate>
-            <img src="/images/index/Room2.webp" alt="Featured dish" className="w-full h-full object-cover" />
+        {/* Content — images + menu list */}
+        <div className="relative flex items-center justify-center" data-animate>
+
+          {/* Left image — tilted */}
+          <div className="hidden lg:block absolute left-5 top-[195px] -translate-y-1/2 w-[353px] h-[353px] rotate-[8deg] overflow-hidden shadow-xl z-10">
+            <img src="/images/cuisines/Img1.jpg" alt="Featured dish"
+              className="w-full h-full object-cover" />
           </div>
 
-          <div className="flex-1 w-full" data-animate>
-            {MENU_ITEMS.map(({ num, name }, i) => (
-              <div key={num}
-                className={`group flex items-center justify-between py-5 cursor-pointer transition-colors duration-300
-                  ${i < MENU_ITEMS.length - 1 ? "border-b border-cream/10" : ""}`}>
-                <h3 className="font-freight text-h2-sm text-cream group-hover:text-accent-gold transition-colors duration-300">
-                  {name}
+          {/* Center — menu list */}
+          <div className="flex flex-col items-center gap-1 py-4 z-20">
+            {MENU_ITEMS.map(({ num, name, highlight }) => (
+              <div key={num} className="flex items-start gap-3 group cursor-pointer">
+                <h3 className="font-freight text-[60px] leading-[85px] font-medium text-rust-dark transition-colors duration-300 group-hover:text-gold">
+                  {name}{" "}
+                  <span className="italic text-gold group-hover:text-rust-dark transition-colors duration-300">
+                    {highlight}
+                  </span>
                 </h3>
-                <span className="font-josefin text-caption text-cream/30 shrink-0 ml-4">[{num}]</span>
+                <span className="font-freight-text font-medium text-[19px] leading-[25px]">[{num}]</span>
               </div>
             ))}
           </div>
 
-          <div className="hidden lg:block relative overflow-hidden rounded-sm shrink-0 w-[410px] h-[410px]" data-animate>
-            <img src="/images/index/Room3.webp" alt="Featured dish" className="w-full h-full object-cover" />
+          {/* Right image — tilted */}
+          <div className="hidden lg:block absolute right-7 top-[235px] -translate-y-1/2 w-[353px] h-[353px] -rotate-[8deg] overflow-hidden shadow-xl z-10">
+            <img src="/images/cuisines/Img2.jpg" alt="Featured dish"
+              className="w-full h-full object-cover" />
           </div>
-        </div>
 
-        <div className="flex justify-end mt-10" data-animate>
-          <Link to="/rooms" className="btn-outline-white inline-flex items-center gap-3">
-            See Full Menu <ArrowIcon />
+          {/* See Full Menu circle button */}
+          <Link to="/rooms"
+            className="hidden lg:flex absolute right-[60px] -top-[10px] w-[100px] h-[100px] rounded-full bg-rust items-center justify-center text-center z-30 hover:bg-rust-dark transition-colors duration-300">
+            <span className="font-freight-text text-sm leading-[16px] text-cream font-semibold">
+              See Full<br />Menu
+            </span>
           </Link>
         </div>
+
       </div>
     </section>
   );
