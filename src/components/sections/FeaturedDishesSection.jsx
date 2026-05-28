@@ -86,22 +86,22 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
   };
 
   return (
-    <section ref={ref} className="w-full py-[110px] overflow-hidden">
+    <section ref={ref} className="w-full py-[60px] lg:py-[110px] overflow-hidden">
 
       {/* Header — contained */}
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-[66px]">
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-10 lg:mb-[66px]">
           <div className="flex flex-col gap-2" data-animate>
-            <h2 className="font-freight uppercase font-black text-[28px] leading-[37px]">
+            <h2 className="font-freight uppercase font-black text-[22px] sm:text-[28px] leading-[30px] sm:leading-[37px]">
               <span className="text-olive">Our Menu</span>
             </h2>
-            <h2 className="font-freight text-[62px] leading-[73px]">
+            <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[62px] leading-[44px] sm:leading-[58px] lg:leading-[73px]">
               <span className="text-rust-dark font-semibold">Our Signature</span>
               <span className="italic font-normal text-gold"> Menu</span>
             </h2>
           </div>
           <div className="flex flex-col gap-3 max-w-[590px]" data-animate>
-            <p className="font-freight font-medium text-[19px] leading-[25px] text-olive">
+            <p className="font-freight font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-olive">
               A carefully curated selection of bold flavors, handcrafted recipes, and timeless favorites made to satisfy every craving. From comforting classics to chef-inspired specialties, every dish is prepared with
             </p>
             {/* Category filter tabs */}
@@ -137,21 +137,21 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
           {loopDishes.map(({ img, name, desc, category, highlights }, i) => (
             <div
               key={`${name}-${i}`}
-              className="group flex flex-col w-[429px] shrink-0 cursor-pointer"
+              className="group flex flex-col w-[280px] sm:w-[340px] lg:w-[429px] shrink-0 cursor-pointer"
               onClick={() => setSelectedDish({ img, name, desc, category, highlights })}
             >
-              <div className="relative overflow-hidden w-[429px] h-[426px]">
+              <div className="relative overflow-hidden w-[280px] sm:w-[340px] lg:w-[429px] h-[280px] sm:h-[340px] lg:h-[426px]">
                 <img src={img} alt={name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="flex flex-col gap-2 pt-4 pb-2">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-freight text-[41px] font-semibold text-rust-dark group-hover:text-accent-gold transition-colors duration-300">
+                  <h4 className="font-freight text-[28px] sm:text-[34px] lg:text-[41px] font-semibold text-rust-dark group-hover:text-accent-gold transition-colors duration-300">
                     {name}
                   </h4>
                   <img src={arrowRight} alt="" />
                 </div>
-                <p className="font-freight-text font-medium text-[21px] leading-[28px] text-terracotta">{desc}</p>
+                <p className="font-freight-text font-medium text-[16px] sm:text-[18px] lg:text-[21px] leading-[22px] sm:leading-[24px] lg:leading-[28px] text-terracotta">{desc}</p>
               </div>
             </div>
           ))}

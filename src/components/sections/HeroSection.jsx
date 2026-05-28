@@ -51,7 +51,7 @@ export default function HeroSection() {
               Handcrafted Goodness
             </span>
 
-            <h1 ref={headingRef} className="font-freight text-h1 text-cream font-black text-[63px] mt-1">
+            <h1 ref={headingRef} className="font-freight text-h1 text-cream font-black text-[36px] sm:text-[48px] lg:text-[63px] mt-1">
               Flavors That Stay with You{" "}
               <span className="italic font-medium text-accent-gold">Forever</span>
             </h1>

@@ -101,7 +101,7 @@ export default function GroupBookings() {
         <div className="absolute inset-0 overlay-hero-bottom" />
         <div className="absolute top-0 left-0 right-0 h-[3px] z-10 accent-line-rust-gold" />
 
-        <div className="relative z-10 w-full max-w-page mx-auto px-15 pb-24 pt-[120px]">
+        <div className="relative z-10 w-full max-w-page mx-auto px-5 sm:px-8 lg:px-15 pb-24 pt-[120px]">
           <div className="max-w-[600px]">
             <SectionTag label="Crowd-pleasing plates to share" light />
             <h1 className="font-freight text-h1 text-cream font-normal mt-5 mb-6">
@@ -143,7 +143,7 @@ export default function GroupBookings() {
           PARTY HEARTILY
       ════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-24 bg-rust/5">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
 
             {/* Text */}
@@ -185,7 +185,7 @@ export default function GroupBookings() {
           GROUP RESERVATIONS INFO
       ════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-24 bg-charcoal">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-24">
 
             {/* Image */}
@@ -234,7 +234,7 @@ export default function GroupBookings() {
           FAQ ACCORDION
       ════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-24 bg-charcoal/95">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-24">
 
             {/* Header */}
@@ -291,7 +291,7 @@ export default function GroupBookings() {
           ENQUIRY FORM
       ════════════════════════════════════════════════════════════════════ */}
       <section id="enquiry" className="w-full py-24 bg-rust/5">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-24">
 
             {/* Left image */}

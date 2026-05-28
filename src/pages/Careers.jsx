@@ -147,7 +147,7 @@ export default function Careers() {
         <div className="absolute inset-0 overlay-hero-bottom" />
         <div className="absolute top-0 left-0 right-0 h-[3px] z-10 accent-line-rust-gold" />
 
-        <div className="relative z-10 w-full max-w-page mx-auto px-15 pb-24 pt-[120px]">
+        <div className="relative z-10 w-full max-w-page mx-auto px-5 sm:px-8 lg:px-15 pb-24 pt-[120px]">
           <div className="max-w-[600px]">
             <SectionTag label="Our Values" light />
             <h1 className="font-freight text-h1 text-cream font-normal mt-5 mb-6">
@@ -189,7 +189,7 @@ export default function Careers() {
           WHY WORK WITH US
       ════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-24 bg-rust/5">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="mb-14" data-animate>
             <SectionTag label="Why Work With Us" />
             <h2 className="font-freight text-h2 font-normal mt-4">
@@ -218,7 +218,7 @@ export default function Careers() {
           OPEN POSITIONS
       ════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-24 bg-charcoal">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-14">
             <div data-animate>
               <SectionTag label="Open Positions" light />
@@ -266,7 +266,7 @@ export default function Careers() {
           TEAM GALLERY + QUOTE
       ════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-24 bg-charcoal/95">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-20">
 
             {/* Gallery grid */}
@@ -310,7 +310,7 @@ export default function Careers() {
           APPLICATION FORM
       ════════════════════════════════════════════════════════════════════ */}
       <section id="apply" className="w-full py-24 bg-rust/5">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-24">
 
             {/* Left panel */}

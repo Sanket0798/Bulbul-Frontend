@@ -85,7 +85,7 @@ export default function About() {
         <div className="absolute inset-0 overlay-hero-bottom" />
         <div className="absolute top-0 left-0 right-0 h-[3px] z-10 accent-line-rust-gold" />
 
-        <div className="relative z-10 w-full max-w-page mx-auto px-15 pb-24 pt-[120px]">
+        <div className="relative z-10 w-full max-w-page mx-auto px-5 sm:px-8 lg:px-15 pb-24 pt-[120px]">
           <div className="max-w-[640px]">
             <SectionTag label="About Our Restaurant" light />
             <h1 className="font-freight text-h1 text-cream font-normal mt-5 mb-6">
@@ -109,7 +109,7 @@ export default function About() {
           STORY — image left, text + stats right
       ════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-24 overflow-hidden bg-rust/5">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
 
             {/* Large image */}
@@ -160,7 +160,7 @@ export default function About() {
           SIGNATURE EXPERIENCE — 3 cards
       ════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-24 bg-charcoal">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-14">
             <div className="flex flex-col gap-4 max-w-[520px]" data-animate>
               <SectionTag label="Signature Experience" light />
@@ -202,7 +202,7 @@ export default function About() {
           GALLERY GRID
       ════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-24 bg-charcoal/95">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-14">
             <div className="flex flex-col gap-4" data-animate>
               <SectionTag label="Team Experience" light />
@@ -234,7 +234,7 @@ export default function About() {
           CHEF EXPERIENCE
       ════════════════════════════════════════════════════════════════════ */}
       <section className="w-full py-24 bg-rust/5">
-        <div className="max-w-page mx-auto px-15">
+        <div className="max-w-page mx-auto px-5 sm:px-8 lg:px-15">
           <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-24">
 
             {/* Chef image */}

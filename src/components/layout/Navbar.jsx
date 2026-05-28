@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
-  { label: "Home", to: "/home" },
+  { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Menu", to: "/rooms" },
   { label: "Contact", to: "/contact" },
@@ -27,10 +27,10 @@ export default function Navbar({ transparent = false }) {
         ? "bg-transparent border-b-0"
         : "bg-charcoal/96 backdrop-blur-md"}`}>
 
-      <div className="max-w-container mx-auto px-15 py-4 flex items-center justify-between">
+      <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-15 py-4 flex items-center justify-between">
 
         {/* Logo */}
-        <Link to="/home" className="shrink-0">
+        <Link to="/" className="shrink-0">
           <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
             className="w-36 object-contain" />
         </Link>
@@ -60,16 +60,35 @@ export default function Navbar({ transparent = false }) {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — full screen overlay */}
       {menuOpen && (
-        <div className="md:hidden px-15 pb-6 flex flex-col gap-4 bg-charcoal/98">
-          {NAV_LINKS.map(({ label, to }) => (
-            <Link key={label} to={to}
-              className="font-freight text-[18px] text-cream no-underline"
-              onClick={() => setMenuOpen(false)}>
-              {label}
+        <div className="md:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 z-40 bg-charcoal flex flex-col">
+          {/* Menu header with logo and close */}
+          <div className="px-5 sm:px-8 py-4 flex items-center justify-between">
+            <Link to="/" className="shrink-0" onClick={() => setMenuOpen(false)}>
+              <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
+                className="w-36 object-contain" />
             </Link>
-          ))}
+            <button
+              className="p-2"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu">
+              <span className="block w-6 h-[2px] bg-cream rotate-45 translate-y-[1px]" />
+              <span className="block w-6 h-[2px] bg-cream -rotate-45 -translate-y-[1px]" />
+            </button>
+          </div>
+
+          {/* Nav links */}
+          <nav className="flex flex-col gap-6 px-5 sm:px-8 pt-10">
+            {NAV_LINKS.map(({ label, to }) => (
+              <Link key={label} to={to}
+                className={`font-freight text-[28px] leading-[36px] font-semibold no-underline transition-colors duration-300
+                  ${pathname === to ? "text-accent-gold" : "text-cream"}`}
+                onClick={() => setMenuOpen(false)}>
+                {label}
+              </Link>
+            ))}
+          </nav>
         </div>
       )}
     </header>

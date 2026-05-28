@@ -29,7 +29,7 @@ const SOCIAL_LINKS = [
 ];
 
 const FOOTER_LINKS = [
-  { label: "Explore", to: "/home" },
+  { label: "Explore", to: "/" },
   { label: "About", to: "/about" },
   { label: "Menu", to: "/rooms" },
   { label: "Contact", to: "/contact" },

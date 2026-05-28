@@ -125,14 +125,14 @@ const MenuSection = forwardRef(function MenuSection(_, ref) {
 
         {/* Header */}
         <div ref={headerRef} className="text-center mb-10">
-          <h3 className="font-freight font-black text-[28px] leading-[37px] uppercase text-terracotta mb-2">
+          <h3 className="font-freight font-black text-[22px] sm:text-[28px] leading-[30px] sm:leading-[37px] uppercase text-terracotta mb-2">
             Our Bestseller
           </h3>
-          <h2 className="font-freight text-[54px] leading-[63px] font-semibold text-rust-dark mb-4">
+          <h2 className="font-freight text-[32px] sm:text-[42px] lg:text-[54px] leading-[40px] sm:leading-[50px] lg:leading-[63px] font-semibold text-rust-dark mb-4">
             A Menu Crafted to Delight{" "}
             <span className="italic font-normal text-gold">Every Craving</span>
           </h2>
-          <p className="font-freight-text font-medium text-[19px] leading-[25px] text-terracotta max-w-[920px] mx-auto">
+          <p className="font-freight-text font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-terracotta max-w-[920px] mx-auto">
             From signature classics to chef-inspired specialties, every dish on our menu is prepared with fresh ingredients, rich flavors, and a passion for unforgettable dining experiences.
           </p>
         </div>
@@ -158,7 +158,7 @@ const MenuSection = forwardRef(function MenuSection(_, ref) {
                 onClick={() => handleItemClick(index)}
                 className="flex items-start gap-3 group cursor-pointer"
               >
-                <h3 className={`font-freight text-[60px] leading-[85px] font-medium transition-colors duration-300 ${
+                <h3 className={`font-freight text-[36px] sm:text-[48px] lg:text-[60px] leading-[50px] sm:leading-[65px] lg:leading-[85px] font-medium transition-colors duration-300 ${
                   activeIndex === index ? "text-gold" : "text-rust-dark group-hover:text-gold"
                 }`}>
                   {name}{" "}
@@ -168,7 +168,7 @@ const MenuSection = forwardRef(function MenuSection(_, ref) {
                     {highlight}
                   </span>
                 </h3>
-                <span className="font-freight-text font-medium text-[19px] leading-[25px]">[{num}]</span>
+                <span className="font-freight-text font-medium text-[14px] sm:text-[16px] lg:text-[19px] leading-[25px]">[{num}]</span>
               </div>
             ))}
           </div>

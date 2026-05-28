@@ -80,19 +80,19 @@ export default function PromotionSection() {
       <div className="absolute inset-0 bg-charcoal/60" />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col justify-center max-w-full mx-[60px] px-5 sm:px-8 lg:px-0">
+      <div className="relative z-10 h-full flex flex-col justify-center max-w-full mx-5 sm:mx-8 lg:mx-[60px] px-0">
         <div ref={contentRef} className="max-w-[671px]">
           {/* Logo */}
           <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
-            className="w-[380px] object-contain mb-[15px]" />
+            className="w-[200px] sm:w-[280px] lg:w-[380px] object-contain mb-[15px]" />
 
           {/* Heading */}
-          <h2 className="font-freight text-[73px] leading-[85px] font-semibold text-cream mb-6">
+          <h2 className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6">
             {slide.heading}
           </h2>
 
           {/* Description */}
-          <p className="font-freight-text font-light text-2xl leading-8 text-white">
+          <p className="font-freight-text font-light text-base sm:text-xl lg:text-2xl leading-6 sm:leading-7 lg:leading-8 text-white">
             {slide.description}
           </p>
         </div>
@@ -101,15 +101,15 @@ export default function PromotionSection() {
       {/* Navigation arrows */}
       <button
         onClick={() => goTo("prev")}
-        className="absolute left-5 top-[660px] -translate-y-1/2 z-20 w-[50px] h-[50px] rounded-full bg-white flex items-center justify-center cursor-pointer hover:bg-cream transition-colors duration-300"
+        className="absolute left-5 bottom-12 sm:bottom-auto sm:top-[660px] sm:-translate-y-1/2 z-20 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full bg-white flex items-center justify-center cursor-pointer hover:bg-cream transition-colors duration-300"
         aria-label="Previous slide"
       >
-        <img src={arrowRust} alt="" className="w-5 h-5 rotate-180" />
+        <img src={arrowRust} alt="" className="w-4 h-4 sm:w-5 sm:h-5 rotate-180" />
       </button>
 
       <button
         onClick={() => goTo("next")}
-        className="absolute right-5 top-[660px] -translate-y-1/2 z-20 w-[50px] h-[50px] rounded-full bg-white flex items-center justify-center cursor-pointer hover:bg-cream transition-colors duration-300"
+        className="absolute right-5 bottom-12 sm:bottom-auto sm:top-[660px] sm:-translate-y-1/2 z-20 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full bg-white flex items-center justify-center cursor-pointer hover:bg-cream transition-colors duration-300"
         aria-label="Next slide"
       >
         <img src={arrowRust} alt="" className="w-5 h-5" />

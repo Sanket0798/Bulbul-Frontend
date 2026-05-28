@@ -46,16 +46,16 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
   }, []);
 
   return (
-    <section ref={ref} className="w-full pt-[79px] pb-[92px] bg-gradient-to-b from-transparent to-[#787C1D]/10">
-      <div className="max-w-container mx-auto px-15">
+    <section ref={ref} className="w-full pt-[50px] sm:pt-[79px] pb-[60px] sm:pb-[92px] bg-gradient-to-b from-transparent to-[#787C1D]/10">
+      <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-15">
 
         {/* Header row */}
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-10 mb-16">
           <div ref={headerLeftRef} className="flex flex-col max-w-[510px]">
-            <h2 className="font-freight uppercase font-black text-[28px] leading-[37px] mb-2">
+            <h2 className="font-freight uppercase font-black text-[22px] sm:text-[28px] leading-[30px] sm:leading-[37px] mb-2">
               <span className="text-olive">Our Service</span>
             </h2>
-            <h2 className="font-freight text-[62px] leading-[73px] mb-6">
+            <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[62px] leading-[44px] sm:leading-[58px] lg:leading-[73px] mb-6">
               <span className="text-rust-dark font-semibold">The Heart of Great Food &amp;</span>
               <span className="italic font-normal text-gold"> Hospitality</span>
             </h2>
@@ -66,10 +66,10 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
           </div>
 
           <div ref={headerRightRef} className="flex flex-col max-w-[587px]">
-            <p className="font-freight font-medium text-[19px] leading-[25px] text-olive mb-8">
+            <p className="font-freight font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-olive mb-8">
               The menu moves across regions, bringing together dishes, references, and recipes drawn from homes, street-side cooking, and everyday meals. It is presented in a way that feels lighter and more suited to how people like to eat today. It is built around small plates, so you can try more, share across the table, and come back to the things you like.
             </p>
-            <div className="flex flex-row gap-11">
+            <div className="flex flex-wrap gap-4 sm:gap-6 lg:flex-row lg:gap-11">
               {["Culinary Excellence", "Rich Cultural Flavors", "Inspired Global Cuisine"].map((tag) => (
                 <div key={tag} className="flex items-center gap-2">
                   <img src={aboutVector} alt="" />
@@ -81,10 +81,10 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
         </div>
 
         {/* Service cards */}
-        <div ref={cardsRef} className="max-w-[1311px] mx-auto flex flex-row justify-between">
+        <div ref={cardsRef} className="max-w-[1311px] mx-auto flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap gap-6 sm:gap-4 lg:gap-0 sm:justify-center lg:justify-between">
           {SERVICE_CARDS.map(({ img, title, subtitle, to }) => (
             <Link key={title} to={to}
-              className="group relative overflow-hidden block no-underline w-[391px] h-[436px]">
+              className="group relative overflow-hidden block no-underline w-full sm:w-[48%] lg:w-[391px] h-[300px] sm:h-[380px] lg:h-[436px]">
               <img src={img} alt={title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 overlay-card-bottom transition-opacity duration-500" />
