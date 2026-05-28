@@ -1,5 +1,5 @@
-import { useState } from "react";
-import brandLogo from "@/assets/icons/svg/brand-white-logo.svg";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { gsap } from "gsap";
 import arrowRust from "@/assets/icons/svg/right-arrow-rust.svg";
 
 const SLIDES = [
@@ -22,9 +22,46 @@ const SLIDES = [
 
 export default function PromotionSection() {
   const [current, setCurrent] = useState(0);
+  const contentRef = useRef(null);
+  const bgRef = useRef(null);
+  const autoPlayRef = useRef(null);
 
-  const prev = () => setCurrent((c) => (c === 0 ? SLIDES.length - 1 : c - 1));
-  const next = () => setCurrent((c) => (c === SLIDES.length - 1 ? 0 : c + 1));
+  const animateSlide = useCallback(() => {
+    const tl = gsap.timeline();
+    tl.fromTo(bgRef.current, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power2.inOut" });
+    tl.fromTo(
+      contentRef.current.children,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, stagger: 0.15, duration: 0.7, ease: "power3.out" },
+      "-=0.4"
+    );
+  }, []);
+
+  useEffect(() => {
+    animateSlide();
+  }, [current, animateSlide]);
+
+  // Auto-play every 5 seconds
+  useEffect(() => {
+    autoPlayRef.current = setInterval(() => {
+      setCurrent((c) => (c === SLIDES.length - 1 ? 0 : c + 1));
+    }, 5000);
+    return () => clearInterval(autoPlayRef.current);
+  }, []);
+
+  const goTo = (direction) => {
+    // Reset autoplay timer on manual navigation
+    clearInterval(autoPlayRef.current);
+    autoPlayRef.current = setInterval(() => {
+      setCurrent((c) => (c === SLIDES.length - 1 ? 0 : c + 1));
+    }, 5000);
+
+    if (direction === "prev") {
+      setCurrent((c) => (c === 0 ? SLIDES.length - 1 : c - 1));
+    } else {
+      setCurrent((c) => (c === SLIDES.length - 1 ? 0 : c + 1));
+    }
+  };
 
   const slide = SLIDES[current];
 
@@ -33,9 +70,10 @@ export default function PromotionSection() {
 
       {/* Background image */}
       <img
+        ref={bgRef}
         src={slide.bg}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+        className="absolute inset-0 w-full h-full object-cover"
       />
 
       {/* Overlay */}
@@ -43,9 +81,8 @@ export default function PromotionSection() {
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col justify-center max-w-full mx-[60px] px-5 sm:px-8 lg:px-0">
-        <div className="max-w-[671px]">
+        <div ref={contentRef} className="max-w-[671px]">
           {/* Logo */}
-          {/* <img src={brandLogo} alt="Bulbul" className="w-[180px] mb-6" /> */}
           <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
             className="w-[380px] object-contain mb-[15px]" />
 
@@ -63,7 +100,7 @@ export default function PromotionSection() {
 
       {/* Navigation arrows */}
       <button
-        onClick={prev}
+        onClick={() => goTo("prev")}
         className="absolute left-5 top-[660px] -translate-y-1/2 z-20 w-[50px] h-[50px] rounded-full bg-white flex items-center justify-center cursor-pointer hover:bg-cream transition-colors duration-300"
         aria-label="Previous slide"
       >
@@ -71,12 +108,26 @@ export default function PromotionSection() {
       </button>
 
       <button
-        onClick={next}
+        onClick={() => goTo("next")}
         className="absolute right-5 top-[660px] -translate-y-1/2 z-20 w-[50px] h-[50px] rounded-full bg-white flex items-center justify-center cursor-pointer hover:bg-cream transition-colors duration-300"
         aria-label="Next slide"
       >
         <img src={arrowRust} alt="" className="w-5 h-5" />
       </button>
+
+      {/* Slide indicators */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => { clearInterval(autoPlayRef.current); setCurrent(i); }}
+            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+              i === current ? "bg-cream w-6" : "bg-cream/40"
+            }`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
     </section>
   );
 }

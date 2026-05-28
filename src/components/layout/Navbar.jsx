@@ -27,12 +27,12 @@ export default function Navbar({ transparent = false }) {
         ? "bg-transparent border-b-0"
         : "bg-charcoal/96 backdrop-blur-md"}`}>
 
-      <div className="max-w-container mx-auto px-15 py-8 flex items-center justify-between">
+      <div className="max-w-container mx-auto px-15 py-4 flex items-center justify-between">
 
         {/* Logo */}
         <Link to="/home" className="shrink-0">
           <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
-            className="w-48 object-contain" />
+            className="w-36 object-contain" />
         </Link>
 
         {/* Desktop nav */}
