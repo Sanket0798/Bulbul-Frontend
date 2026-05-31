@@ -1,50 +1,104 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SectionTag from "@/components/common/SectionTag";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const WHY_WORK = [
-  { title: "Creative Culture", desc: "We encourage bold ideas and celebrate the people who bring them to life every day." },
-  { title: "Growth & Learning", desc: "From day one, you'll have access to training, mentorship, and real opportunities to grow." },
-  { title: "Meaningful Work", desc: "Every role at Bulbul contributes to something bigger — a dining experience people remember." },
-  { title: "Inclusive Team", desc: "We are a team that shows up for each other — diverse, welcoming, and proud of it." },
+const REASONS = [
+  {
+    img: "/images/shared/team/two-men-kitchen-thumbsup.png",
+    title: "Growth & Learning",
+    desc: "Learn from experienced chefs and hospitality leaders.",
+  },
+  {
+    img: "/images/shared/team/kitchen-team-plating.png",
+    title: "Creative Environment",
+    desc: "A culture driven by ideas, flavor, and innovation.",
+  },
+  {
+    img: "/images/shared/team/business-people-three.png",
+    title: "Supportive Team",
+    desc: "Supportive Team",
+  },
+  {
+    img: "/images/shared/team/buffet-service-chef.png",
+    title: "Meaningful Hospitality",
+    desc: "Create experiences guests remember forever.",
+  },
 ];
 
 export default function CareersWhyWork() {
-  const gridRef = useRef(null);
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const cardsRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(gridRef.current.children, {
-        opacity: 0, y: 50, stagger: 0.12, duration: 0.7, ease: "power3.out",
-        scrollTrigger: { trigger: gridRef.current, start: "top 80%" },
-      });
-    });
+      gsap.fromTo(
+        headerRef.current,
+        { autoAlpha: 0, y: 20 },
+        {
+          autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out",
+          scrollTrigger: { trigger: headerRef.current, start: "top 85%" },
+        }
+      );
+
+      gsap.fromTo(
+        cardsRef.current.children,
+        { autoAlpha: 0, y: 40 },
+        {
+          autoAlpha: 1, y: 0, stagger: 0.12, duration: 0.8, ease: "power3.out",
+          scrollTrigger: { trigger: cardsRef.current, start: "top 80%" },
+        }
+      );
+    }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="w-full py-24 bg-rust/5">
+    <section ref={sectionRef} className="w-full py-[60px] lg:py-[100px] bg-bg">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
-        <div className="mb-14">
-          <SectionTag label="Why Work With Us" />
-          <h2 className="font-freight text-h2 font-normal mt-4">
-            <span className="text-rust">Why Work With </span>
-            <span className="italic text-accent-gold">Us</span>
-          </h2>
-        </div>
 
-        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {WHY_WORK.map(({ title, desc }) => (
-            <div key={title}
-              className="flex flex-col gap-5 p-7 border border-rust/20 bg-rust/4 transition-all duration-300 hover:border-accent-gold/40">
-              <h4 className="font-freight text-h4 text-charcoal">{title}</h4>
-              <p className="font-josefin text-body-xs text-charcoal/60">{desc}</p>
+        {/* Header */}
+        <h2
+          ref={headerRef}
+          className="font-freight uppercase font-black text-[18px] sm:text-[22px] lg:text-[26px] leading-[24px] sm:leading-[30px] tracking-wide text-olive mb-8 lg:mb-12"
+        >
+          Why Work With Us
+        </h2>
+
+        {/* Cards grid */}
+        <div
+          ref={cardsRef}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6"
+        >
+          {REASONS.map(({ img, title, desc }) => (
+            <div key={title} className="group relative overflow-hidden rounded-sm">
+              {/* Image */}
+              <div className="w-full h-[260px] sm:h-[300px] lg:h-[320px] overflow-hidden">
+                <img
+                  src={img}
+                  alt={title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+
+              {/* Gradient overlay */}
+              <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-rust-dark/80 to-transparent" />
+
+              {/* Text */}
+              <div className="absolute bottom-0 left-0 right-0 px-4 pb-5">
+                <h3 className="font-freight text-[20px] sm:text-[22px] leading-[26px] sm:leading-[28px] font-black text-cream mb-1">
+                  {title}
+                </h3>
+                <p className="font-freight-text text-[13px] sm:text-[14px] leading-[18px] text-cream/80 italic font-medium">
+                  {desc}
+                </p>
+              </div>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );

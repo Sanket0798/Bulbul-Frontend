@@ -1,97 +1,201 @@
-import { useState } from "react";
-import SectionTag from "@/components/common/SectionTag";
-import ArrowIcon from "@/components/common/ArrowIcon";
-import FormField from "@/components/common/FormField";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import arrowRight from "@/assets/icons/svg/right-arrow.svg";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function GroupEnquiryForm() {
-  const [agreed, setAgreed] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const sectionRef = useRef(null);
+  const imageRef = useRef(null);
+  const formRef = useRef(null);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    date: "",
+    guests: "",
+    notes: "",
+    consent: false,
+  });
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        imageRef.current,
+        { autoAlpha: 0, x: -50 },
+        {
+          autoAlpha: 1, x: 0, duration: 1, ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        }
+      );
+
+      gsap.fromTo(
+        formRef.current,
+        { autoAlpha: 0, y: 40 },
+        {
+          autoAlpha: 1, y: 0, duration: 0.9, ease: "power3.out",
+          scrollTrigger: { trigger: formRef.current, start: "top 85%" },
+        }
+      );
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
-    e.target.reset();
-    setAgreed(false);
+    // Handle form submission
+    console.log("Enquiry submitted:", formData);
   };
 
   return (
-    <section id="enquiry" className="w-full py-24 bg-rust/5">
+    <section ref={sectionRef} className="w-full py-[60px] lg:py-[100px] bg-bg">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
-        <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-24">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-stretch">
 
-          <div className="relative shrink-0 w-full lg:w-[580px] h-[600px] overflow-hidden rounded-sm">
-            <img src="/images/bg/testimonial.webp" alt="Group dining"
-              className="w-full h-full object-cover" />
-            <div className="absolute inset-0 overlay-hero-bottom" />
+          {/* Left — Image */}
+          <div ref={imageRef} className="w-full lg:w-[45%] h-[320px] sm:h-[420px] lg:h-auto min-h-[500px] overflow-hidden rounded-sm shrink-0">
+            <img
+              src="/images/shared/people/friends-pizza-bright.png"
+              alt="Friends enjoying a meal"
+              className="w-full h-full object-cover"
+            />
           </div>
 
-          <div className="flex-1 w-full">
-            <SectionTag label="Contact us" />
-            <h2 className="font-freight text-h2 font-normal mt-4 mb-8">
-              <span className="text-rust">Make an </span>
-              <span className="italic text-accent-gold">Enquiry</span>
+          {/* Right — Form */}
+          <div ref={formRef} className="flex-1">
+            <span className="font-freight uppercase font-black text-[13px] sm:text-[14px] leading-[18px] tracking-widest text-terracotta block mb-2">
+              Contact Us
+            </span>
+
+            <h2 className="font-freight text-[36px] sm:text-[44px] lg:text-[50px] leading-[42px] sm:leading-[50px] lg:leading-[56px] font-black text-rust-dark mb-8">
+              Make an Enquiry
             </h2>
 
-            {submitted && (
-              <div className="mb-6 px-5 py-4 font-josefin text-body-xs bg-olive/15 border border-olive text-olive">
-                Thank you! We'll be in touch shortly.
-              </div>
-            )}
-
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <FormField label="Name" placeholder="Enter your full name" required />
-                <FormField label="Email Address" placeholder="Enter your email" type="email" required />
+              {/* Name */}
+              <div className="flex flex-col gap-1">
+                <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter you full name"
+                  className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300"
+                />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <FormField label="Phone Number" placeholder="Enter your phone" type="tel" />
-                <FormField label="Date of Booking" placeholder="DD / MM / YYYY" type="date" required />
+
+              {/* Email */}
+              <div className="flex flex-col gap-1">
+                <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                  className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300"
+                />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <FormField label="Number of Guests" placeholder="e.g. 12" type="number" required />
-                <div className="flex flex-col gap-2">
-                  <label className="font-josefin text-body-xs text-cream/70">Occasion</label>
-                  <select className="form-field">
-                    <option value="" className="bg-charcoal">Select occasion</option>
-                    <option value="birthday" className="bg-charcoal">Birthday</option>
-                    <option value="anniversary" className="bg-charcoal">Anniversary</option>
-                    <option value="corporate" className="bg-charcoal">Corporate Event</option>
-                    <option value="other" className="bg-charcoal">Other</option>
-                  </select>
+
+              {/* Phone */}
+              <div className="flex flex-col gap-1">
+                <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Enter your phone number"
+                  className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300"
+                />
+              </div>
+
+              {/* Date + Guests row */}
+              <div className="flex flex-col sm:flex-row gap-5 sm:gap-4">
+                <div className="flex flex-col gap-1 flex-1">
+                  <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                    Date of Booking
+                  </label>
+                  <input
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300"
+                  />
+                </div>
+                <div className="flex flex-col gap-1 flex-1">
+                  <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                    Number of guests
+                  </label>
+                  <input
+                    type="number"
+                    name="guests"
+                    value={formData.guests}
+                    onChange={handleChange}
+                    placeholder="Enter number of guests"
+                    min="1"
+                    className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300"
+                  />
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="font-josefin text-body-xs text-cream/70">Notes</label>
-                <textarea rows={4}
+              {/* Notes */}
+              <div className="flex flex-col gap-1">
+                <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                  Notes
+                </label>
+                <textarea
+                  name="notes"
+                  value={formData.notes}
+                  onChange={handleChange}
                   placeholder="Dietary preferences, occasion, or anything you'd like us to know"
-                  className="form-field resize-none" />
+                  rows={4}
+                  className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300 resize-none"
+                />
               </div>
 
+              {/* Consent checkbox */}
               <label className="flex items-start gap-3 cursor-pointer">
-                <div
-                  className={`shrink-0 w-5 h-5 mt-0.5 flex items-center justify-center border transition-all duration-200 cursor-pointer
-                    ${agreed ? "bg-accent-gold border-accent-gold" : "bg-transparent border-cream/30"}`}
-                  onClick={() => setAgreed((v) => !v)}>
-                  {agreed && (
-                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-                      <path d="M1 4L3.5 6.5L9 1" stroke="#232323" strokeWidth="1.5" strokeLinecap="round" />
-                    </svg>
-                  )}
-                </div>
-                <span className="font-josefin text-caption text-cream/50">
-                  I consent to receive occasional emails from Bulbul, including updates,
-                  events, and news, in line with our Privacy Policy.
+                <input
+                  type="checkbox"
+                  name="consent"
+                  checked={formData.consent}
+                  onChange={handleChange}
+                  className="mt-1 w-4 h-4 shrink-0 accent-rust"
+                />
+                <span className="font-freight font-medium text-[13px] sm:text-[14px] leading-[19px] text-terracotta">
+                  I consent to receive occasional emails from Bulbul, including updates, events, and news, in line with our Privacy Policy.
                 </span>
               </label>
 
-              <button type="submit"
-                className="btn-outline-white inline-flex items-center gap-3 self-start mt-2">
-                Subscribe <ArrowIcon />
+              {/* Submit */}
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center gap-1 font-semibold leading-[25px] self-start px-8 py-[10px] bg-primary text-cream font-freight text-[16px] sm:text-[17px] transition-all duration-300 hover:bg-rust-dark rounded cursor-pointer"
+              >
+                Subscribe <img src={arrowRight} alt="" />
               </button>
             </form>
           </div>
+
         </div>
       </div>
     </section>

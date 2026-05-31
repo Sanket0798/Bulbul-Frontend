@@ -1,7 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GroupHero from "@/components/sections/group-bookings/GroupHero";
-import GroupGalleryStrip from "@/components/sections/group-bookings/GroupGalleryStrip";
+import GroupFeastMenus from "@/components/sections/group-bookings/GroupFeastMenus";
 import GroupPartySection from "@/components/sections/group-bookings/GroupPartySection";
 import GroupReservations from "@/components/sections/group-bookings/GroupReservations";
 import GroupFAQ from "@/components/sections/group-bookings/GroupFAQ";
@@ -12,7 +12,7 @@ export default function GroupBookings() {
     <div className="min-h-screen bg-bg-inner">
       <Navbar transparent />
       <GroupHero />
-      <GroupGalleryStrip />
+      <GroupFeastMenus />
       <GroupPartySection />
       <GroupReservations />
       <GroupFAQ />

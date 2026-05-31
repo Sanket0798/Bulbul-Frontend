@@ -2,9 +2,10 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AboutHero from "@/components/sections/about/AboutHero";
 import AboutStory from "@/components/sections/about/AboutStory";
+import AboutHighlights from "@/components/sections/about/AboutHighlights";
 import AboutExperience from "@/components/sections/about/AboutExperience";
-import AboutGallery from "@/components/sections/about/AboutGallery";
 import AboutChef from "@/components/sections/about/AboutChef";
+import AboutReserve from "@/components/sections/about/AboutReserve";
 
 export default function About() {
   return (
@@ -12,9 +13,10 @@ export default function About() {
       <Navbar transparent />
       <AboutHero />
       <AboutStory />
+      <AboutHighlights />
       <AboutExperience />
-      <AboutGallery />
       <AboutChef />
+      <AboutReserve />
       <Footer />
     </div>
   );

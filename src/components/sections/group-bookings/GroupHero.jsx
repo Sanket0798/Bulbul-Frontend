@@ -1,34 +1,55 @@
-import { Link } from "react-router-dom";
-import SectionTag from "@/components/common/SectionTag";
-import ArrowIcon from "@/components/common/ArrowIcon";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 export default function GroupHero() {
-  return (
-    <section className="relative w-full overflow-hidden flex items-end min-h-screen bg-charcoal">
-      <img src="/images/bg/choose.webp" alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-50" />
-      <div className="absolute inset-0 overlay-hero-left" />
-      <div className="absolute inset-0 overlay-hero-bottom" />
+  const sectionRef = useRef(null);
+  const tagRef = useRef(null);
+  const headingRef = useRef(null);
+  const descRef = useRef(null);
 
-      <div className="relative z-10 w-full max-w-container mx-auto px-5 sm:px-8 lg:px-0 pb-24 pt-[120px]">
-        <div className="max-w-[600px]">
-          <SectionTag label="Crowd-pleasing plates to share" light />
-          <h1 className="font-freight text-h1 text-cream font-normal mt-5 mb-6">
-            Group Feast <span className="italic text-accent-gold">Menus</span>
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.fromTo(tagRef.current, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.6, delay: 0.3 })
+        .fromTo(headingRef.current, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 1 }, "-=0.3")
+        .fromTo(descRef.current, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.8 }, "-=0.4");
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="relative w-full overflow-hidden flex items-end min-h-screen">
+
+      {/* Background image */}
+      <img
+        src="/images/shared/people/friends-rooftop-dining.png"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
+
+      {/* Content */}
+      <div className="relative z-10 w-full px-5 sm:px-8 lg:px-[60px] pb-16 sm:pb-20 lg:pb-[80px]">
+        <div className="max-w-[640px]">
+
+          <span ref={tagRef} className="block font-freight text-base leading-[22px] uppercase font-black tracking-widest text-accent-gold">
+            Our Menu
+          </span>
+
+          <h1 ref={headingRef} className="font-freight text-cream font-black text-[36px] sm:text-[48px] lg:text-[63px] leading-[44px] sm:leading-[56px] lg:leading-[70px] mt-4">
+            For when the table{" "}
+            <span className="block">
+              gets a <span className="italic font-medium text-accent-gold">little bigger</span>
+            </span>
           </h1>
-          <p className="font-josefin text-body-sm text-cream/75 mb-10 max-w-[520px]">
-            Finest snacks, grills, ruby murrays, fragrant biryanis, naans, rotis and
-            sweet puddings. Delicious and copious dishes that laden tables with café
-            favourites to share at breakfast, lunch and dinner.
+
+          <p ref={descRef} className="font-freight font-semibold text-[14px] sm:text-[15px] lg:text-base leading-[22px] sm:leading-[25px] text-cream tracking-[1.42px] mt-5 max-w-[580px]">
+            Whether it's a celebration, a team dinner, or simply a night to gather everyone together, we'll make sure the table is set, the food keeps coming, and everything flows as it should.
           </p>
-          <div className="flex flex-wrap gap-4">
-            <Link to="/rooms" className="btn-outline-white inline-flex items-center gap-3">
-              View Menu <ArrowIcon />
-            </Link>
-            <a href="#enquiry" className="btn-outline-white inline-flex items-center gap-3">
-              Make an Enquiry <ArrowIcon />
-            </a>
-          </div>
         </div>
       </div>
     </section>

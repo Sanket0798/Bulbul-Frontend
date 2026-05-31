@@ -2,59 +2,83 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SectionTag from "@/components/common/SectionTag";
-import ArrowIcon from "@/components/common/ArrowIcon";
+import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function GroupPartySection() {
   const sectionRef = useRef(null);
+  const imageRef = useRef(null);
+  const cardRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.utils.toArray("[data-animate]").forEach((el) => {
-        gsap.from(el, {
-          opacity: 0, y: 40, duration: 0.8, ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 82%" },
-        });
-      });
+      gsap.fromTo(
+        imageRef.current,
+        { autoAlpha: 0, x: -50 },
+        {
+          autoAlpha: 1, x: 0, duration: 1, ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        }
+      );
+
+      gsap.fromTo(
+        cardRef.current,
+        { autoAlpha: 0, y: 40 },
+        {
+          autoAlpha: 1, y: 0, duration: 0.9, ease: "power3.out",
+          scrollTrigger: { trigger: cardRef.current, start: "top 85%" },
+        }
+      );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full py-24 bg-rust/5">
+    <section ref={sectionRef} className="w-full py-[60px] lg:py-[100px] bg-bg">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
+        <div className="relative flex flex-col lg:flex-row items-center lg:items-stretch">
 
-          <div className="flex flex-col gap-6 flex-1 max-w-[560px]" data-animate>
-            <SectionTag label="Much to enjoy, little to do" />
-            <h2 className="font-freight text-h2 font-normal">
-              <span className="text-rust">Party Heartily, </span>
-              <span className="italic text-accent-gold">Fuss-free</span>
-            </h2>
-            <p className="font-josefin text-body-sm text-rust/85">
-              Finest snacks, grills, ruby murrays, fragrant biryanis, naans, rotis and
-              sweet puddings. Choose from Non-Veg., Veg. or Vegan menus upon arrival,
-              whichever combination you please — no need to order ahead. All appetites
-              will be pleased and leave most sated.
-            </p>
-            <Link to="/rooms" className="btn-outline-primary-inner inline-flex items-center gap-3 self-start">
-              View Menu <ArrowIcon className="stroke-rust" />
-            </Link>
+          {/* Left — Large image */}
+          <div
+            ref={imageRef}
+            className="w-full lg:w-[55%] h-[320px] sm:h-[420px] lg:h-[560px] overflow-hidden rounded-sm shrink-0"
+          >
+            <img
+              src="/images/shared/food/loaded-fries.png"
+              alt="Friends enjoying food"
+              className="w-full h-full object-cover"
+            />
           </div>
 
-          <div className="relative shrink-0 w-full lg:w-[620px] h-[480px]" data-animate>
-            <div className="absolute top-0 left-0 w-[48%] h-[55%] overflow-hidden rounded-sm">
-              <img src="/images/gallery/gallery5.webp" alt="Group dining"
-                className="w-full h-full object-cover" />
+          {/* Right — Bordered text card overlapping the image */}
+          <div
+            ref={cardRef}
+            className="relative lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-[52%] mt-[-40px] lg:mt-0 z-10"
+          >
+            <div className="border-2 border-rust/60 bg-bg p-6 sm:p-8 lg:p-10">
+              <span className="font-freight uppercase font-black text-[13px] sm:text-[14px] leading-[18px] tracking-widest text-terracotta block mb-3">
+                Much to Enjoy, Little to Do
+              </span>
+
+              <h2 className="font-freight text-[32px] sm:text-[42px] lg:text-[50px] leading-[38px] sm:leading-[48px] lg:leading-[56px] font-black text-rust-dark mb-5">
+                Party heartily,{" "}
+                <span className="italic font-normal text-gold">fuss-free</span>
+              </h2>
+
+              <p className="font-freight font-semibold text-[15px] sm:text-[16px] lg:text-[17px] leading-[22px] sm:leading-[24px] text-terracotta mb-6">
+                Finest snacks, grills, ruby murrays, fragrant biryanis, naans, rotis and sweet puddings. Delicious and copious dishes that laden tables with café favourites to share at breakfast, lunch and dinner. Choose from Non-Veg., Veg. or Vegan menus upon arrival, whichever combination you please (no need to order ahead). All appetites will be pleased and leave most sated. Thirsty lips – chai and tipples are happily at hand.
+              </p>
+
+              <Link
+                to="/rooms"
+                className="inline-flex items-center gap-1 font-semibold leading-[25px] px-6 py-[9px] bg-primary text-cream font-freight text-[16px] sm:text-[17px] transition-all duration-300 hover:bg-rust-dark rounded"
+              >
+                View Menu <img src={arrowRight} alt="" />
+              </Link>
             </div>
-            <div className="absolute bottom-0 right-0 w-[60%] h-[65%] overflow-hidden rounded-sm shadow-2xl">
-              <img src="/images/gallery/gallery6.webp" alt="Group feast"
-                className="w-full h-full object-cover" />
-            </div>
-            <div className="absolute top-[10%] right-[5%] w-[55%] h-[55%] rounded-sm border-2 border-accent-gold/25 -z-10" />
           </div>
+
         </div>
       </div>
     </section>
