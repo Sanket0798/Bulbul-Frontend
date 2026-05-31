@@ -5,6 +5,8 @@ const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Menu", to: "/rooms" },
+  { label: "Group Bookings", to: "/group-bookings" },
+  { label: "Careers", to: "/careers" },
   { label: "Contact", to: "/contact" },
 ];
 
