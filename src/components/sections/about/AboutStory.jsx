@@ -33,13 +33,13 @@ export default function AboutStory() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full py-24 overflow-hidden bg-rust/5">
+    <section ref={sectionRef} className="w-full pt-[102px] pb-[122px] overflow-hidden bg-rust/5">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
 
           {/* Large image */}
-          <div ref={imageRef} className="relative shrink-0 w-full lg:w-[610px] h-[560px] overflow-hidden rounded-sm">
-            <img src="/images/bg/aboutbg.webp" alt="Bulbul interior"
+          <div ref={imageRef} className="relative shrink-0 w-full lg:w-[611px] overflow-hidden rounded-sm">
+            <img src="/images/shared/team/two-men-kitchen-thumbsup.png" alt="Bulbul interior"
               className="w-full h-full object-cover" />
           </div>
 
