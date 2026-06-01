@@ -50,36 +50,36 @@ export default function AboutExperience() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full py-[60px] lg:py-[100px] bg-bg">
+    <section ref={sectionRef} className="w-full py-[61px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
 
         {/* Header row */}
-        <div ref={headerRef} className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-20 mb-10 lg:mb-14">
+        <div ref={headerRef} className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-20 mb-10 lg:mb-14">
           {/* Left — tag + heading */}
           <div className="max-w-[500px]">
-            <span className="font-freight uppercase font-black text-[14px] sm:text-[16px] leading-[18px] tracking-widest text-terracotta block mb-3">
+            <span className="font-freight uppercase font-black text-lg leading-[18px] text-terracotta mb-4">
               Signature Experience
             </span>
-            <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[56px] leading-[42px] sm:leading-[54px] lg:leading-[62px] font-black text-rust-dark">
+            <h2 className="font-freight text-[63px] leading-[70px] font-black text-rust">
               More Than Just{" "}
               <span className="italic font-normal text-gold block sm:inline">Dining</span>
             </h2>
           </div>
 
           {/* Right — description */}
-          <p className="font-freight font-semibold text-[16px] sm:text-[18px] lg:text-[19px] leading-[22px] sm:leading-[25px] text-terracotta max-w-[540px]">
+          <p className="font-freight font-semibold text-[19px] leading-[25px] text-terracotta max-w-[689px]">
             The menu moves across regions, bringing together dishes, references, and recipes drawn from homes, street-side cooking, and everyday meals. It is presented in a way that feels lighter and more suited to how people like to eat today. It is built around small plates, so you can try more, share across the table, and come back to the things you like.
           </p>
         </div>
 
         {/* Two-column image + text layout */}
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-10">
+        <div className="flex flex-col lg:flex-row">
 
           {/* Left column — image + quote + avatars */}
           <div ref={leftColRef} className="flex flex-col flex-1">
-            <div className="w-full h-[280px] sm:h-[340px] lg:h-[400px] overflow-hidden rounded-sm">
+            <div className="w-full h-[428px] overflow-hidden rounded-sm">
               <img
-                src="/images/shared/food/appetizer-balls.png"
+                src="/images/shared/food/smoky-grilled-meat.png"
                 alt="Signature appetizers"
                 className="w-full h-full object-cover"
               />
@@ -108,9 +108,9 @@ export default function AboutExperience() {
 
           {/* Right column — larger image */}
           <div ref={rightColRef} className="flex-1">
-            <div className="w-full h-[350px] sm:h-[450px] lg:h-[560px] overflow-hidden rounded-sm">
+            <div className="w-full h-[744px] overflow-hidden rounded-sm">
               <img
-                src="/images/shared/people/friends-cocktails-dark-bar.png"
+                src="/images/shared/food/sesame-ribs-potatoes.png"
                 alt="Guests enjoying cocktails"
                 className="w-full h-full object-cover"
               />
