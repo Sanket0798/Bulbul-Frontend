@@ -9,7 +9,7 @@ import GroupEnquiryForm from "@/components/sections/group-bookings/GroupEnquiryF
 
 export default function GroupBookings() {
   return (
-    <div className="min-h-screen bg-bg-inner">
+    <div className="min-h-screen">
       <Navbar transparent />
       <GroupHero />
       <GroupFeastMenus />

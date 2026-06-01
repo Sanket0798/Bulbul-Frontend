@@ -20,11 +20,11 @@ export default function GroupHero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full overflow-hidden flex items-end min-h-screen">
+    <section ref={sectionRef} className="relative w-full h-[782px] overflow-hidden flex items-end min-h-screen">
 
       {/* Background image */}
       <img
-        src="/images/shared/people/friends-rooftop-dining.png"
+        src="/images/shared/interior/busy-restaurant-aerial-wide.png"
         alt=""
         className="absolute inset-0 w-full h-full object-cover"
       />
@@ -33,21 +33,21 @@ export default function GroupHero() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
 
       {/* Content */}
-      <div className="relative z-10 w-full px-5 sm:px-8 lg:px-[60px] pb-16 sm:pb-20 lg:pb-[80px]">
+      <div className="relative z-10 w-full pb-[79px] px-[59px]">
         <div className="max-w-[640px]">
 
-          <span ref={tagRef} className="block font-freight text-base leading-[22px] uppercase font-black tracking-widest text-accent-gold">
+          <span ref={tagRef} className="block font-freight text-base leading-[23px] uppercase font-black tracking-widest text-accent-gold">
             Our Menu
           </span>
 
-          <h1 ref={headingRef} className="font-freight text-cream font-black text-[36px] sm:text-[48px] lg:text-[63px] leading-[44px] sm:leading-[56px] lg:leading-[70px] mt-4">
+          <h1 ref={headingRef} className="font-freight text-[#FEFBF8] font-black text-[54px] leading-[51px] mt-2">
             For when the table{" "}
             <span className="block">
-              gets a <span className="italic font-medium text-accent-gold">little bigger</span>
+              gets a <span className="italic font-medium text-gold">little bigger</span>
             </span>
           </h1>
 
-          <p ref={descRef} className="font-freight font-semibold text-[14px] sm:text-[15px] lg:text-base leading-[22px] sm:leading-[25px] text-cream tracking-[1.42px] mt-5 max-w-[580px]">
+          <p ref={descRef} className="font-freight font-semibold text-sm leading-[20px] text-cream mt-5 max-w-[490px]">
             Whether it's a celebration, a team dinner, or simply a night to gather everyone together, we'll make sure the table is set, the food keeps coming, and everything flows as it should.
           </p>
         </div>
