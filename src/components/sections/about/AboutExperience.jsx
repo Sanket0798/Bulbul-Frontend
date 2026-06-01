@@ -73,7 +73,7 @@ export default function AboutExperience() {
         </div>
 
         {/* Two-column image + text layout */}
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row gap-[19px]">
 
           {/* Left column — image + quote + avatars */}
           <div ref={leftColRef} className="flex flex-col flex-1">
@@ -86,7 +86,7 @@ export default function AboutExperience() {
             </div>
 
             {/* Quote text */}
-            <p className="font-freight italic text-[20px] sm:text-[24px] lg:text-[28px] leading-[28px] sm:leading-[32px] lg:leading-[38px] text-terracotta mt-6 lg:mt-8 max-w-[480px]">
+            <p className="font-freight font-bold italic text-4xl leading-[48px] text-olive mt-[25px]">
               The bar takes a similar route, with cocktails that pick up on familiar flavours, pantry staples, and techniques you would recognise, reworked to sit easily alongside the food.
             </p>
 
