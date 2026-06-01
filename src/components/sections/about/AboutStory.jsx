@@ -38,7 +38,7 @@ export default function AboutStory() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full pt-[102px] pb-[122px] overflow-hidden bg-rust/5">
+    <section ref={sectionRef} className="w-full pt-[102px] pb-[61px] overflow-hidden">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
         <div className="flex flex-col lg:flex-row items-end gap-16 lg:gap-20">
 

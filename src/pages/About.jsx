@@ -9,7 +9,7 @@ import AboutReserve from "@/components/sections/about/AboutReserve";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-bg-inner">
+    <div className="min-h-screen">
       <Navbar transparent />
       <AboutHero />
       <AboutStory />

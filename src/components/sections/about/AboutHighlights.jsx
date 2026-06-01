@@ -45,16 +45,16 @@ export default function AboutHighlights() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full py-[60px] lg:py-[100px] bg-bg-inner">
+    <section ref={sectionRef} className="w-full py-[61px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-4"
         >
           {HIGHLIGHTS.map(({ img, title, desc }) => (
-            <div key={title} className="group relative overflow-hidden rounded-sm">
+            <div key={title} className="relative group">
               {/* Image */}
-              <div className="w-full h-[400px] sm:h-[450px] lg:h-[520px] overflow-hidden">
+              <div className="w-full sm:w-[391px] h-[400px] sm:h-[568px] overflow-hidden">
                 <img
                   src={img}
                   alt={title}
@@ -63,14 +63,14 @@ export default function AboutHighlights() {
               </div>
 
               {/* Gradient overlay at bottom */}
-              <div className="absolute inset-x-0 bottom-0 h-[140px] bg-gradient-to-t from-black/70 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-[106px] bg-white/20 backdrop-blur-lg border-t border-white/40" />
 
               {/* Text content */}
-              <div className="absolute bottom-0 left-0 right-0 px-5 pb-6">
-                <h3 className="font-freight text-[22px] sm:text-[24px] leading-[30px] font-black text-cream mb-1">
+              <div className="absolute inset-x-0 bottom-0 h-[106px] flex flex-col items-start justify-center px-5">
+                <h3 className="font-freight font-black text-white text-2xl leading-[34px] mb-1">
                   {title}
                 </h3>
-                <p className="font-freight-text text-[14px] sm:text-[15px] leading-[20px] text-cream/80 italic font-medium">
+                <p className="font-freight-text italic text-sm leading-[19px] text-white">
                   {desc}
                 </p>
               </div>
