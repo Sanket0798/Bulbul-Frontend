@@ -60,12 +60,12 @@ export default function GroupEnquiryForm() {
   return (
     <section ref={sectionRef} className="w-full pt-[67px] pb-[57px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-stretch">
+        <div className="flex flex-col lg:flex-row items-stretch gap-9">
 
           {/* Left — Image */}
-          <div ref={imageRef} className="w-full lg:w-[45%] h-[320px] sm:h-[420px] lg:h-auto min-h-[500px] overflow-hidden rounded-sm shrink-0">
+          <div ref={imageRef} className="w-[717px] overflow-hidden rounded-sm shrink-0">
             <img
-              src="/images/shared/people/friends-pizza-bright.png"
+              src="/images/shared/team/chef-making-pizza.png"
               alt="Friends enjoying a meal"
               className="w-full h-full object-cover"
             />
@@ -73,18 +73,18 @@ export default function GroupEnquiryForm() {
 
           {/* Right — Form */}
           <div ref={formRef} className="flex-1">
-            <span className="font-freight uppercase font-black text-[13px] sm:text-[14px] leading-[18px] tracking-widest text-terracotta block mb-2">
+            <span className="font-freight uppercase font-black text-[15px] leading-[14px] tracking-widest text-terracotta block mb-[10px]">
               Contact Us
             </span>
 
-            <h2 className="font-freight text-[36px] sm:text-[44px] lg:text-[50px] leading-[42px] sm:leading-[50px] lg:leading-[56px] font-black text-rust-dark mb-8">
+            <h2 className="font-freight text-10 leading-[43px] font-black text-rust mb-5">
               Make an Enquiry
             </h2>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               {/* Name */}
               <div className="flex flex-col gap-1">
-                <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                <label className="font-freight font-semibold text-lg leading-6 text-terracotta">
                   Name
                 </label>
                 <input
@@ -93,13 +93,13 @@ export default function GroupEnquiryForm() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter you full name"
-                  className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300"
+                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
                 />
               </div>
 
               {/* Email */}
               <div className="flex flex-col gap-1">
-                <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                <label className="font-freight font-semibold text-lg leading-6 text-terracotta">
                   Email Address
                 </label>
                 <input
@@ -108,13 +108,13 @@ export default function GroupEnquiryForm() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
-                  className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300"
+                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
                 />
               </div>
 
               {/* Phone */}
               <div className="flex flex-col gap-1">
-                <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                <label className="font-freight font-semibold text-lg leading-6 text-terracotta">
                   Phone Number
                 </label>
                 <input
@@ -123,14 +123,14 @@ export default function GroupEnquiryForm() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Enter your phone number"
-                  className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300"
+                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
                 />
               </div>
 
               {/* Date + Guests row */}
               <div className="flex flex-col sm:flex-row gap-5 sm:gap-4">
                 <div className="flex flex-col gap-1 flex-1">
-                  <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                  <label className="font-freight font-semibold text-lg leading-6 text-terracotta">
                     Date of Booking
                   </label>
                   <input
@@ -138,11 +138,11 @@ export default function GroupEnquiryForm() {
                     name="date"
                     value={formData.date}
                     onChange={handleChange}
-                    className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300"
+                    className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
                   />
                 </div>
                 <div className="flex flex-col gap-1 flex-1">
-                  <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                  <label className="font-freight font-semibold text-lg leading-6 text-terracotta">
                     Number of guests
                   </label>
                   <input
@@ -152,14 +152,14 @@ export default function GroupEnquiryForm() {
                     onChange={handleChange}
                     placeholder="Enter number of guests"
                     min="1"
-                    className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300"
+                    className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
                   />
                 </div>
               </div>
 
               {/* Notes */}
               <div className="flex flex-col gap-1">
-                <label className="font-freight font-semibold text-[14px] sm:text-[15px] leading-[20px] text-rust-dark">
+                <label className="font-freight font-semibold text-lg leading-6 text-terracotta dark">
                   Notes
                 </label>
                 <textarea
@@ -168,7 +168,7 @@ export default function GroupEnquiryForm() {
                   onChange={handleChange}
                   placeholder="Dietary preferences, occasion, or anything you'd like us to know"
                   rows={4}
-                  className="w-full border border-terracotta/40 bg-transparent px-4 py-3 font-freight text-[15px] sm:text-[16px] leading-[22px] text-charcoal placeholder:text-charcoal/40 rounded-sm outline-none focus:border-rust transition-colors duration-300 resize-none"
+                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300 resize-none"
                 />
               </div>
 
@@ -179,9 +179,9 @@ export default function GroupEnquiryForm() {
                   name="consent"
                   checked={formData.consent}
                   onChange={handleChange}
-                  className="mt-1 w-4 h-4 shrink-0 accent-rust"
+                  className="mt-1 w-5 h-5 rounded-none bg-transparent shrink-0 accent-rust"
                 />
-                <span className="font-freight font-medium text-[13px] sm:text-[14px] leading-[19px] text-terracotta">
+                <span className="font-freight font-semibold text-lg leading-6 text-terracotta">
                   I consent to receive occasional emails from Bulbul, including updates, events, and news, in line with our Privacy Policy.
                 </span>
               </label>

@@ -69,16 +69,16 @@ export default function GroupFAQ() {
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
 
         {/* Header */}
-        <div ref={headerRef} className="mb-10 lg:mb-14">
-          <span className="font-freight uppercase font-black text-[13px] sm:text-[14px] leading-[18px] tracking-widest text-terracotta block mb-3">
+        <div ref={headerRef} className="">
+          <span className="font-freight uppercase font-black text-[15px] leading-[16px] tracking-widest text-terracotta block mb-3">
             Book for a First-Class Get-Together
           </span>
 
-          <h2 className="font-freight text-[42px] sm:text-[56px] lg:text-[68px] leading-[48px] sm:leading-[62px] lg:leading-[74px] font-black text-rust-dark mb-3">
+          <h2 className="font-freight text-11 leading-[49px] font-black text-rust mb-[14px]">
             FAQ'S
           </h2>
 
-          <p className="font-freight font-semibold text-[15px] sm:text-[16px] lg:text-[17px] leading-[22px] text-terracotta">
+          <p className="font-freight font-semibold text-xl leading-[27px] mb-8 text-terracotta">
             Answers to common queries about group feasting at Bulbul
           </p>
         </div>
@@ -86,30 +86,28 @@ export default function GroupFAQ() {
         {/* FAQ list */}
         <div ref={listRef} className="flex flex-col">
           {FAQ_ITEMS.map(({ question, answer }, index) => (
-            <div key={index} className="border-b border-terracotta/30">
+            <div key={index} className="border-b border-terracotta">
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full flex items-center justify-between py-5 sm:py-6 cursor-pointer bg-transparent"
               >
-                <span className="font-freight text-[20px] sm:text-[26px] lg:text-[30px] leading-[28px] sm:leading-[34px] lg:leading-[40px] font-semibold text-rust-dark text-left">
+                <span className="font-freight text-[37px] leading-[49px] font-semibold text-terracotta text-left">
                   {question}
                 </span>
                 <span
-                  className={`shrink-0 ml-4 text-rust-dark text-[24px] transition-transform duration-300 ${
-                    openIndex === index ? "rotate-180" : ""
-                  }`}
+                  className={`shrink-0 ml-4 text-rust-dark text-[24px] transition-transform duration-300 ${openIndex === index ? "rotate-180" : ""
+                    }`}
                 >
-                  &#8744;
+                  <img src="/src/assets/icons/svg/down-arrow.svg" alt="" className={`transition-transform duration-300 ${openIndex === index ? "rotate-270" : ""}`} />
                 </span>
               </button>
 
               {/* Answer */}
               <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  openIndex === index ? "max-h-[200px] pb-5" : "max-h-0"
-                }`}
+                className={`overflow-hidden transition-all duration-300 ${openIndex === index ? "max-h-[200px] pb-5" : "max-h-0"
+                  }`}
               >
-                <p className="font-freight font-medium text-[15px] sm:text-[16px] lg:text-[17px] leading-[22px] sm:leading-[24px] text-terracotta max-w-[700px]">
+                <p className="font-freight font-medium text-lg leading-[22px] sm:leading-[24px] text-terracotta max-w-[700px]">
                   {answer}
                 </p>
               </div>
