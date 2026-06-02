@@ -38,20 +38,20 @@ export default function GroupFeastMenus() {
   return (
     <section ref={sectionRef} className="w-full pt-[81px] pb-[61px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+        <div className="flex flex-row items-center gap-[99px]">
 
           {/* Left — Text content */}
-          <div ref={textRef} className="flex flex-col flex-1 lg:max-w-[440px] justify-center">
-            <span className="font-freight uppercase font-black text-[13px] sm:text-[14px] leading-[18px] tracking-widest text-terracotta block mb-3">
+          <div ref={textRef} className="flex flex-col flex-1 lg:max-w-[458px] justify-center">
+            <span className="font-freight uppercase font-black text-[15px] leading-[1p6x] tracking-widest text-terracotta block mb-3">
               Crowd-Pleasing Plates to Share
             </span>
 
-            <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[56px] leading-[42px] sm:leading-[54px] lg:leading-[62px] font-black text-rust-dark mb-5">
+            <h2 className="font-freight text-11 leading-[49px] font-black text-rust mb-[18px]">
               Group Feast{" "}
               <span className="italic font-normal text-gold">Menus</span>
             </h2>
 
-            <p className="font-freight font-semibold text-[15px] sm:text-[17px] lg:text-[18px] leading-[22px] sm:leading-[25px] text-terracotta mb-8">
+            <p className="font-freight font-semibold text-lg leading-[22px] text-terracotta mb-7">
               Finest snacks, grills, ruby murrays, fragrant biryanis, naans, rotis and sweet puddings. Delicious and copious dishes that laden tables with café favourites to share at breakfast, lunch and dinner. Choose from Non-Veg., Veg. or Vegan menus upon arrival, whichever combination you please (no need to order ahead). All appetites will be pleased and leave most sated. Thirsty lips – chai and tipples are happily at hand.
             </p>
 
@@ -59,13 +59,13 @@ export default function GroupFeastMenus() {
             <div className="flex flex-wrap gap-3">
               <Link
                 to="/rooms"
-                className="inline-flex items-center gap-1 font-semibold leading-[25px] px-6 py-[9px] bg-primary text-cream font-freight text-[16px] sm:text-[17px] transition-all duration-300 hover:bg-rust-dark rounded"
+                className="inline-flex items-center gap-1 font-semibold leading-[22px] px-8 py-[10px] bg-primary text-cream font-freight text-[16px] transition-all duration-300 hover:bg-rust-dark rounded"
               >
                 View Menu <img src={arrowRight} alt="" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-1 font-semibold leading-[25px] px-6 py-[9px] border border-rust text-rust font-freight text-[16px] sm:text-[17px] transition-all duration-300 hover:bg-rust hover:text-cream rounded"
+                className="inline-flex items-center gap-1 font-semibold leading-[22px] px-8 py-[10px] border border-rust text-rust font-freight text-[16px] transition-all duration-300 hover:bg-rust hover:text-cream rounded"
               >
                 Make an enquiry <img src={arrowRust} alt="" />
               </Link>
@@ -73,32 +73,35 @@ export default function GroupFeastMenus() {
           </div>
 
           {/* Right — Image grid */}
-          <div ref={imagesRef} className="flex-1 grid grid-cols-2 gap-3 sm:gap-4">
-            {/* Large top image spanning both columns */}
-            <div className="col-span-2 h-[220px] sm:h-[280px] lg:h-[340px] overflow-hidden rounded-sm">
+          <div ref={imagesRef} className="flex-1 flex flex-col gap-4">
+            {/* Large top image spanning full width */}
+            <div className="w-full lg:w-[762px] overflow-hidden rounded-sm">
               <img
-                src="/images/shared/food/indian-home-spread.png"
+                src="/images/shared/team/full-team-group-garden.png"
                 alt="Indian feast spread"
                 className="w-full h-full object-cover"
               />
             </div>
 
-            {/* Bottom left */}
-            <div className="h-[160px] sm:h-[200px] lg:h-[240px] overflow-hidden rounded-sm">
-              <img
-                src="/images/shared/food/lamb-kadai.png"
-                alt="Lamb kadai"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            {/* Bottom row */}
+            <div className="flex flex-row gap-6">
+              {/* Bottom left */}
+              <div className="w-full lg:w-[369px] lg:h-[226px] overflow-hidden rounded-sm">
+                <img
+                  src="/images/shared/food/lamb-kadai.png"
+                  alt="Lamb kadai"
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-            {/* Bottom right */}
-            <div className="h-[160px] sm:h-[200px] lg:h-[240px] overflow-hidden rounded-sm">
-              <img
-                src="/images/shared/food/sesame-ribs-potatoes.png"
-                alt="Sesame ribs"
-                className="w-full h-full object-cover"
-              />
+              {/* Bottom right */}
+              <div className="w-full lg:w-[369px] lg:h-[226px] overflow-hidden rounded-sm">
+                <img
+                  src="/images/shared/food/indian-home-spread.png"
+                  alt="Sesame ribs"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
 

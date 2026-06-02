@@ -58,7 +58,7 @@ export default function GroupEnquiryForm() {
   };
 
   return (
-    <section ref={sectionRef} className="w-full py-[60px] lg:py-[100px] bg-bg">
+    <section ref={sectionRef} className="w-full pt-[67px] pb-[57px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-stretch">
 

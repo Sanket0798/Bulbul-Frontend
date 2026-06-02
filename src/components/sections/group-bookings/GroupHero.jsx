@@ -33,7 +33,7 @@ export default function GroupHero() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
 
       {/* Content */}
-      <div className="relative z-10 w-full pb-[79px] px-[59px]">
+      <div className="relative z-10 w-full pb-[160px] px-[59px]">
         <div className="max-w-[640px]">
 
           <span ref={tagRef} className="block font-freight text-base leading-[23px] uppercase font-black tracking-widest text-accent-gold">

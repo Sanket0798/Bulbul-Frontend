@@ -65,7 +65,7 @@ export default function GroupFAQ() {
   };
 
   return (
-    <section ref={sectionRef} className="w-full py-[60px] lg:py-[100px] bg-bg">
+    <section ref={sectionRef} className="w-full pt-[61px] pb-[67px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
 
         {/* Header */}
