@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Layout from './components/layout/Layout'
 import ComingSoon from './pages/ComingSoon'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -19,22 +20,26 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Home page at root */}
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Navigate to="/" replace />} />
+        {/* Pages WITH shared Navbar + Footer */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Navigate to="/" replace />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/group-bookings" element={<GroupBookings />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/rooms" element={<Rooms />} />
+          <Route path="/rooms/:id" element={<RoomDetail />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/faqs" element={<Faqs />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:slug" element={<SinglePost />} />
+          <Route path="/contact" element={<Contact />} />
+        </Route>
+
+        {/* Standalone pages — NO Navbar/Footer */}
         <Route path="/coming-soon" element={<ComingSoon />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/group-bookings" element={<GroupBookings />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/rooms" element={<Rooms />} />
-        <Route path="/rooms/:id" element={<RoomDetail />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/faqs" element={<Faqs />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blogs/:slug" element={<SinglePost />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

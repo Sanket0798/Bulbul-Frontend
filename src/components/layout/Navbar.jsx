@@ -27,7 +27,7 @@ export default function Navbar({ transparent = false }) {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500
       ${isTransparent
         ? "bg-transparent border-b-0"
-        : "bg-charcoal/96 backdrop-blur-md"}`}>
+        : "bg-rust backdrop-blur-md shadow-md"}`}>
 
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-15 py-4 flex items-center justify-between">
 

@@ -3,7 +3,7 @@ import brandLogo from "@/assets/icons/svg/brand-white-logo.svg";
 import youtubeSvg from "@/assets/icons/svg/youtube.svg";
 import instagramSvg from "@/assets/icons/svg/instagram.svg";
 import facebookSvg from "@/assets/icons/svg/facebook.svg";
-import twitterPng from "@/assets/icons/svg/twitter.png";
+import twitterPng from "@/assets/icons/svg/twitter.svg";
 
 const SOCIAL_LINKS = [
   {

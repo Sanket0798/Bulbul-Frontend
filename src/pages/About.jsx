@@ -1,5 +1,3 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import AboutHero from "@/components/sections/about/AboutHero";
 import AboutStory from "@/components/sections/about/AboutStory";
 import AboutHighlights from "@/components/sections/about/AboutHighlights";
@@ -9,15 +7,13 @@ import AboutReserve from "@/components/sections/about/AboutReserve";
 
 export default function About() {
   return (
-    <div className="min-h-screen">
-      <Navbar transparent />
+    <>
       <AboutHero />
       <AboutStory />
       <AboutHighlights />
       <AboutExperience />
       <AboutChef />
       <AboutReserve />
-      <Footer />
-    </div>
+    </>
   );
 }

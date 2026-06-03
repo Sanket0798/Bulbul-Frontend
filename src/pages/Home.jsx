@@ -1,6 +1,4 @@
 import { useRef } from "react";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
 import ServicesSection from "@/components/sections/ServicesSection";
@@ -15,15 +13,13 @@ export default function Home() {
   const featuredRef = useRef(null);
 
   return (
-    <div className="min-h-screen bg-bg">
-      <Navbar transparent />
+    <div className="bg-bg">
       <HeroSection />
       <AboutSection ref={aboutRef} />
       <ServicesSection ref={servicesRef} />
       <FeaturedDishesSection ref={featuredRef} />
       <MenuSection ref={menuRef} />
       <PromotionSection />
-      <Footer />
     </div>
   );
 }

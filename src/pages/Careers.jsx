@@ -1,5 +1,3 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import CareersHero from "@/components/sections/careers/CareersHero";
 import CareersIntro from "@/components/sections/careers/CareersIntro";
 import CareersWhyWork from "@/components/sections/careers/CareersWhyWork";
@@ -9,15 +7,13 @@ import CareersApplicationForm from "@/components/sections/careers/CareersApplica
 
 export default function Careers() {
   return (
-    <div className="min-h-screen bg-bg-inner">
-      <Navbar transparent />
+    <div className="bg-bg-inner">
       <CareersHero />
       <CareersIntro />
       <CareersWhyWork />
       <CareersPositions />
       <CareersGallery />
       <CareersApplicationForm />
-      <Footer />
     </div>
   );
 }
