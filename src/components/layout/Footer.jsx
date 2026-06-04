@@ -46,7 +46,7 @@ export default function Footer() {
           className="w-auto object-contain" />
 
         {/* Connect label */}
-        <p className="font-stack font-normal text-base text-white">
+        <p className="font-freight font-medium text-xl text-white">
           connect with us
         </p>
 
@@ -62,7 +62,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <p className="font-stack font-normal text-base text-white">
+        <p className="font-freight font-medium text-lg text-white">
           Ⓒ 2026 Bulbul. All Rights Reserved
         </p>
 
@@ -71,8 +71,8 @@ export default function Footer() {
           {FOOTER_LINKS.map(({ label, to }, i) => (
             <span key={label} className="flex items-center gap-4">
               <Link to={to}
-                className="font-stack text-caption tracking-widest no-underline
-                  text-white font-normal text-base hover:text-accent-gold transition-colors duration-300">
+                className="font-freight text-caption tracking-widest no-underline
+                  text-white font-medium text-lg hover:text-accent-gold transition-colors duration-300">
                 {label}
               </Link>
               {i < FOOTER_LINKS.length - 1 && (
