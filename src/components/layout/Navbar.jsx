@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
@@ -21,50 +22,65 @@ export default function Navbar({ transparent = false }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
   const isTransparent = transparent && !scrolled;
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500
-      ${isTransparent
-        ? "bg-transparent border-b-0"
-        : "bg-rust backdrop-blur-md shadow-md"}`}>
+    <>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500
+        ${isTransparent
+          ? "bg-transparent border-b-0"
+          : "bg-rust backdrop-blur-md shadow-md"}`}>
 
-      <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-15 py-4 flex items-center justify-between">
+        <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-15 py-4 flex items-center justify-between">
 
-        {/* Logo */}
-        <Link to="/" className="shrink-0">
-          <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
-            className="w-36 object-contain" />
-        </Link>
+          {/* Logo */}
+          <Link to="/" className="shrink-0">
+            <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
+              className="w-36 object-contain" />
+          </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-[30px]">
-          {NAV_LINKS.map(({ label, to }) => (
-            <Link key={label} to={to}
-              className={`font-freight text-lg leading-[26px] font-semibold no-underline transition-colors duration-300
-                ${pathname === to ? "text-accent-gold" : "text-cream"}`}>
-              {label}
-            </Link>
-          ))}
-        </nav>
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-[30px]">
+            {NAV_LINKS.map(({ label, to }) => (
+              <Link key={label} to={to}
+                className={`font-freight text-lg leading-[26px] font-semibold no-underline transition-colors duration-300
+                  ${pathname === to ? "text-accent-gold" : "text-cream"}`}>
+                {label}
+              </Link>
+            ))}
+          </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden flex flex-col gap-[5px] p-2"
-          onClick={() => setMenuOpen((v) => !v)}
-          aria-label="Toggle menu">
-          <span className={`block w-6 h-[2px] bg-cream transition-all duration-300
-            ${menuOpen ? "rotate-45 translate-x-[5px] translate-y-[7px]" : ""}`} />
-          <span className={`block w-6 h-[2px] bg-cream transition-all duration-300
-            ${menuOpen ? "opacity-0" : "opacity-100"}`} />
-          <span className={`block w-6 h-[2px] bg-cream transition-all duration-300
-            ${menuOpen ? "-rotate-45 translate-x-[5px] -translate-y-[7px]" : ""}`} />
-        </button>
-      </div>
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden flex flex-col gap-[6px] p-2"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle menu">
+            <span className={`block w-7 h-[3px] rounded-sm bg-cream
+              ${menuOpen ? "rotate-45 translate-x-[5px] translate-y-[9px]" : ""}`} />
+            <span className={`block w-7 h-[3px] rounded-sm bg-cream
+              ${menuOpen ? "opacity-0" : "opacity-100"}`} />
+            <span className={`block w-7 h-[3px] rounded-sm bg-cream
+              ${menuOpen ? "-rotate-45 translate-x-[5px] -translate-y-[9px]" : ""}`} />
+          </button>
+        </div>
+      </header>
 
-      {/* Mobile menu — full screen overlay */}
-      {menuOpen && (
-        <div className="md:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 z-40 bg-charcoal flex flex-col">
+      {/* Mobile menu — rendered via portal to escape any parent constraints */}
+      {menuOpen && createPortal(
+        <div
+          className="md:hidden fixed inset-0 flex flex-col overflow-y-auto"
+          style={{ zIndex: 9999, backgroundColor: "#232323" }}
+        >
           {/* Menu header with logo and close */}
           <div className="px-5 sm:px-8 py-4 flex items-center justify-between">
             <Link to="/" className="shrink-0" onClick={() => setMenuOpen(false)}>
@@ -75,24 +91,25 @@ export default function Navbar({ transparent = false }) {
               className="p-2"
               onClick={() => setMenuOpen(false)}
               aria-label="Close menu">
-              <span className="block w-6 h-[2px] bg-cream rotate-45 translate-y-[1px]" />
-              <span className="block w-6 h-[2px] bg-cream -rotate-45 -translate-y-[1px]" />
+              <span className="block w-7 h-[3px] rounded-sm bg-cream rotate-45 translate-y-[1.5px]" />
+              <span className="block w-7 h-[3px] rounded-sm bg-cream -rotate-45 -translate-y-[1.5px]" />
             </button>
           </div>
 
           {/* Nav links */}
-          <nav className="flex flex-col gap-6 px-5 sm:px-8 pt-10">
+          <nav className="flex flex-col gap-8 px-5 sm:px-8 pt-10">
             {NAV_LINKS.map(({ label, to }) => (
               <Link key={label} to={to}
-                className={`font-freight text-[28px] leading-[36px] font-semibold no-underline transition-colors duration-300
+                className={`font-freight text-[28px] leading-[36px] font-semibold no-underline
                   ${pathname === to ? "text-accent-gold" : "text-cream"}`}
                 onClick={() => setMenuOpen(false)}>
                 {label}
               </Link>
             ))}
           </nav>
-        </div>
+        </div>,
+        document.body
       )}
-    </header>
+    </>
   );
 }
