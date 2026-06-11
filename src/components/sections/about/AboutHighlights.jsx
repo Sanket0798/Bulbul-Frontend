@@ -45,16 +45,16 @@ export default function AboutHighlights() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full py-[61px]">
+    <section ref={sectionRef} className="w-full py-10 lg:py-[61px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
         <div
           ref={cardsRef}
-          className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-4"
+          className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-6 sm:gap-4"
         >
           {HIGHLIGHTS.map(({ img, title, desc }) => (
-            <div key={title} className="relative group">
+            <div key={title} className="relative group w-full sm:w-[48%] lg:w-[391px]">
               {/* Image */}
-              <div className="w-full sm:w-[391px] h-[400px] sm:h-[568px] overflow-hidden">
+              <div className="w-full h-[400px] sm:h-[480px] lg:h-[568px] overflow-hidden">
                 <img
                   src={img}
                   alt={title}

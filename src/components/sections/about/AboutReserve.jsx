@@ -42,7 +42,7 @@ export default function AboutReserve() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full h-[654px] overflow-hidden">
+    <section ref={sectionRef} className="relative w-full h-auto min-h-[400px] lg:h-[654px] overflow-hidden">
 
       {/* Full-width background image */}
       <img
@@ -61,11 +61,11 @@ export default function AboutReserve() {
                   {/* Left — vertical "Reserve Table Now" text with border */}
         <div
           ref={sideTextRef}
-          className="hidden sm:flex items-center justify-center shrink-0 w-[143px] border-r-[3px] border-cream"
+          className="hidden sm:flex items-center justify-center shrink-0 w-[100px] lg:w-[143px] border-r-[3px] border-cream"
         >
           <Link
             to="/contact"
-            className="font-freight text-[48px] leading-[53px] font-black text-cream tracking-wide no-underline "
+            className="font-freight text-[36px] sm:text-[42px] lg:text-[48px] leading-[1.1] font-black text-cream tracking-wide no-underline"
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
           >
             Reserve Table Now
@@ -73,12 +73,12 @@ export default function AboutReserve() {
         </div>
 
         {/* Center — offers list */}
-        <div className="flex items-center px-6">
-          <div ref={listRef} className="flex flex-col gap-8">
+        <div className="flex items-center px-5 sm:px-6 py-10 lg:py-0">
+          <div ref={listRef} className="flex flex-col gap-5 sm:gap-6 lg:gap-8">
             {OFFERS.map((offer) => (
               <h3
                 key={offer}
-                className="font-freight text-[43px] leading-[57px] font-semibold text-cream"
+                className="font-freight text-[24px] sm:text-[34px] lg:text-[43px] leading-[1.3] font-semibold text-cream"
               >
                 {offer}
               </h3>

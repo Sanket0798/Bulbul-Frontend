@@ -50,7 +50,7 @@ export default function AboutExperience() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full py-[61px]">
+    <section ref={sectionRef} className="w-full py-10 lg:py-[61px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
 
         {/* Header row */}
@@ -60,24 +60,24 @@ export default function AboutExperience() {
             <span className="font-freight uppercase font-black text-lg leading-[18px] text-terracotta mb-4">
               Signature Experience
             </span>
-            <h2 className="font-freight text-[63px] leading-[70px] font-black text-rust">
+            <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[63px] leading-[1.1] font-black text-rust">
               More Than Just{" "}
               <span className="italic font-normal text-gold block sm:inline">Dining</span>
             </h2>
           </div>
 
           {/* Right — description */}
-          <p className="font-freight font-semibold text-[19px] leading-[25px] text-terracotta max-w-[689px]">
+          <p className="font-freight font-semibold text-[16px] sm:text-[17px] lg:text-[19px] leading-[22px] sm:leading-[24px] lg:leading-[25px] text-terracotta max-w-[689px]">
             The menu moves across regions, bringing together dishes, references, and recipes drawn from homes, street-side cooking, and everyday meals. It is presented in a way that feels lighter and more suited to how people like to eat today. It is built around small plates, so you can try more, share across the table, and come back to the things you like.
           </p>
         </div>
 
         {/* Two-column image + text layout */}
-        <div className="flex flex-col lg:flex-row gap-[19px]">
+        <div className="flex flex-col lg:flex-row gap-5 lg:gap-[19px]">
 
           {/* Left column — image + quote + avatars */}
           <div ref={leftColRef} className="flex flex-col flex-1">
-            <div className="w-full h-[428px] overflow-hidden rounded-sm">
+            <div className="w-full h-[250px] sm:h-[340px] lg:h-[428px] overflow-hidden rounded-sm">
               <img
                 src="/images/shared/food/smoky-grilled-meat.png"
                 alt="Signature appetizers"
@@ -86,7 +86,7 @@ export default function AboutExperience() {
             </div>
 
             {/* Quote text */}
-            <p className="font-freight font-bold italic text-4xl leading-[48px] text-olive mt-[25px]">
+            <p className="font-freight font-bold italic text-2xl sm:text-3xl lg:text-4xl leading-[34px] sm:leading-[40px] lg:leading-[48px] text-olive mt-5 lg:mt-[25px]">
               The bar takes a similar route, with cocktails that pick up on familiar flavours, pantry staples, and techniques you would recognise, reworked to sit easily alongside the food.
             </p>
 
@@ -108,7 +108,7 @@ export default function AboutExperience() {
 
           {/* Right column — larger image */}
           <div ref={rightColRef} className="flex-1">
-            <div className="w-full h-[744px] overflow-hidden rounded-sm">
+            <div className="w-full h-[350px] sm:h-[500px] lg:h-[744px] overflow-hidden rounded-sm">
               <img
                 src="/images/shared/food/sesame-ribs-potatoes.png"
                 alt="Guests enjoying cocktails"

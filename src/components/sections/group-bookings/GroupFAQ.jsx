@@ -65,7 +65,7 @@ export default function GroupFAQ() {
   };
 
   return (
-    <section ref={sectionRef} className="w-full pt-[61px] pb-[67px]">
+    <section ref={sectionRef} className="w-full pt-10 lg:pt-[61px] pb-10 lg:pb-[67px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
 
         {/* Header */}
@@ -74,11 +74,11 @@ export default function GroupFAQ() {
             Book for a First-Class Get-Together
           </span>
 
-          <h2 className="font-freight text-11 leading-[49px] font-black text-rust mb-[14px]">
+          <h2 className="font-freight text-[32px] sm:text-[38px] lg:text-[44px] leading-[1.1] font-black text-rust mb-[14px]">
             FAQ'S
           </h2>
 
-          <p className="font-freight font-semibold text-xl leading-[27px] mb-8 text-terracotta">
+          <p className="font-freight font-semibold text-base sm:text-xl leading-[27px] mb-8 text-terracotta">
             Answers to common queries about group feasting at Bulbul
           </p>
         </div>
@@ -89,9 +89,9 @@ export default function GroupFAQ() {
             <div key={index} className="border-b border-terracotta">
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between py-5 sm:py-6 cursor-pointer bg-transparent"
+                className="w-full flex items-center justify-between py-4 sm:py-6 cursor-pointer bg-transparent"
               >
-                <span className="font-freight text-[37px] leading-[49px] font-semibold text-terracotta text-left">
+                <span className="font-freight text-[20px] sm:text-[28px] lg:text-[37px] leading-[1.3] font-semibold text-terracotta text-left">
                   {question}
                 </span>
                 <span
@@ -107,7 +107,7 @@ export default function GroupFAQ() {
                 className={`overflow-hidden transition-all duration-300 ${openIndex === index ? "max-h-[200px] pb-5" : "max-h-0"
                   }`}
               >
-                <p className="font-freight font-medium text-lg leading-[22px] sm:leading-[24px] text-terracotta max-w-[700px]">
+                <p className="font-freight font-medium text-base sm:text-lg leading-[22px] sm:leading-[24px] text-terracotta max-w-[700px]">
                   {answer}
                 </p>
               </div>

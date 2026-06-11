@@ -101,7 +101,7 @@ export default function PromotionSection() {
       {/* Navigation arrows */}
       <button
         onClick={() => goTo("prev")}
-        className="absolute left-5 bottom-12 sm:bottom-auto sm:top-[660px] sm:-translate-y-1/2 z-20 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full bg-white flex items-center justify-center cursor-pointer hover:bg-cream transition-colors duration-300"
+        className="absolute left-5 bottom-12 sm:bottom-12 lg:bottom-16 z-20 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full bg-white flex items-center justify-center cursor-pointer hover:bg-cream transition-colors duration-300"
         aria-label="Previous slide"
       >
         <img src={arrowRust} alt="" className="w-4 h-4 sm:w-5 sm:h-5 rotate-180" />
@@ -109,7 +109,7 @@ export default function PromotionSection() {
 
       <button
         onClick={() => goTo("next")}
-        className="absolute right-5 bottom-12 sm:bottom-auto sm:top-[660px] sm:-translate-y-1/2 z-20 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full bg-white flex items-center justify-center cursor-pointer hover:bg-cream transition-colors duration-300"
+        className="absolute right-5 bottom-12 sm:bottom-12 lg:bottom-16 z-20 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full bg-white flex items-center justify-center cursor-pointer hover:bg-cream transition-colors duration-300"
         aria-label="Next slide"
       >
         <img src={arrowRust} alt="" className="w-5 h-5" />

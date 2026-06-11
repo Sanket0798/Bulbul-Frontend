@@ -39,7 +39,7 @@ const FOOTER_LINKS = [
 export default function Footer() {
   return (
     <footer className="w-full py-[30px] bg-rust-dark border-t border-accent-gold/15">
-      <div className="max-w-page mx-auto px-8 flex flex-col items-center gap-[14px]">
+      <div className="max-w-page mx-auto px-5 sm:px-8 flex flex-col items-center gap-[14px]">
 
         {/* Logo */}
         <img src={brandLogo} alt="Bulbul Restaurant"

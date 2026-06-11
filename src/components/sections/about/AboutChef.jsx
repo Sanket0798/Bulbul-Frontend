@@ -35,12 +35,12 @@ export default function AboutChef() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full pt-[62px] pb-[74px]">
+    <section ref={sectionRef} className="w-full pt-10 sm:pt-[62px] pb-12 sm:pb-[74px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
         <div className="flex flex-col lg:flex-row items-start gap-10 lg:gap-16">
 
           {/* Left — Chef portrait + polaroid */}
-          <div ref={leftRef} className="relative shrink-0 w-[651px]">
+          <div ref={leftRef} className="relative shrink-0 w-full lg:w-[651px]">
             {/* Main chef image */}
             <div className="w-full overflow-hidden rounded-sm">
               <img
@@ -73,12 +73,12 @@ export default function AboutChef() {
           {/* Right — Text content + plating image */}
           <div ref={rightRef} className="flex flex-col flex-1">
             {/* Tag */}
-            <span className="font-freight uppercase font-black text-xl leading-[21px] text-terracotta mb-[18px]">
+            <span className="font-freight uppercase font-black text-lg sm:text-xl leading-[21px] text-terracotta mb-[18px]">
               Chef Experience
             </span>
 
             {/* Heading */}
-            <h2 className="font-freight text-[74px] leading-[82px] font-black text-rust mb-6">
+            <h2 className="font-freight text-[36px] sm:text-[52px] lg:text-[74px] leading-[1.1] font-black text-rust mb-6">
               Passion Behind{" "}
               <span className="block">
                 Every <span className="italic font-normal text-gold">Plate</span>
@@ -86,12 +86,12 @@ export default function AboutChef() {
             </h2>
 
             {/* Description */}
-            <p className="font-freight font-semibold text-[22px] leading-[30px] max-w-[550px] text-terracotta mb-11">
+            <p className="font-freight font-semibold text-[16px] sm:text-[19px] lg:text-[22px] leading-[24px] sm:leading-[27px] lg:leading-[30px] max-w-[550px] text-terracotta mb-8 lg:mb-11">
               Our culinary team combines creativity, craftsmanship, and authentic ingredients to deliver dishes that celebrate flavor, culture, and the joy of sharing great food.
             </p>
 
             {/* Chef name + quote row */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-[51px]">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 lg:mb-[51px]">
               <div>
                 <p className="font-freight text-2xl leading-[32px] text-terracotta font-semibold">
                   Paul Jonas
@@ -100,13 +100,13 @@ export default function AboutChef() {
                   Head Chef
                 </p>
               </div>
-              <p className="font-freight italic text-[22px] leading-[30px] text-olive max-w-[320px] text-end">
+              <p className="font-freight italic text-lg sm:text-[22px] leading-[26px] sm:leading-[30px] text-olive max-w-[320px] sm:text-end">
                 "Great food is not just tasted — it is remembered."
               </p>
             </div>
 
             {/* Bottom image with Know More overlay */}
-            <div className="relative w-[604px] h-[246px] overflow-hidden rounded-sm group">
+            <div className="relative w-full lg:w-[604px] h-[180px] sm:h-[220px] lg:h-[246px] overflow-hidden rounded-sm group">
               <img
                 src="/images/pages/home/about-section.png"
                 alt="Chef plating a dish"
@@ -119,7 +119,7 @@ export default function AboutChef() {
                 to="/contact"
                 className="absolute inset-0 flex items-center justify-center gap-2"
               >
-                <span className="font-freight text-[32px] leading-[47px] font-semibold text-cream">
+                <span className="font-freight text-[24px] sm:text-[32px] leading-[47px] font-semibold text-cream">
                   Know More
                 </span>
                 <img src={arrowRight} alt="" className="w-6 h-[29px] brightness-0 invert text-cream" />

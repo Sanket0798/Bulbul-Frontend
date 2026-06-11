@@ -5,7 +5,7 @@ import ArrowIcon from "@/components/common/ArrowIcon";
 export default function CareersHero() {
   return (
     <section className="relative w-full overflow-hidden flex items-end min-h-screen bg-charcoal">
-      <img src="/images/bg/choose.webp" alt=""
+      <img src="/images/shared/people/friends-pizza-bright.png" alt=""
         className="absolute inset-0 w-full h-full object-cover opacity-45" />
       <div className="absolute inset-0 overlay-hero-left" />
       <div className="absolute inset-0 overlay-hero-bottom" />

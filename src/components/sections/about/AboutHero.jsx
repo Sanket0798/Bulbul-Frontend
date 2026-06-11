@@ -25,7 +25,7 @@ export default function AboutHero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full overflow-hidden flex items-end min-h-[782px]">
+    <section ref={sectionRef} className="relative w-full overflow-hidden flex items-end min-h-[500px] sm:min-h-[600px] lg:min-h-[782px]">
 
       {/* Background image */}
       <img src="/images/pages/home/about-section.png" alt=""
@@ -43,7 +43,7 @@ export default function AboutHero() {
             About Our Restaurant
           </span>
 
-          <h1 ref={headingRef} className="font-freight text-cream font-black text-[36px] sm:text-[48px] lg:text-[63px] leading-[70px] mt-4">
+          <h1 ref={headingRef} className="font-freight text-cream font-black text-[36px] sm:text-[48px] lg:text-[63px] leading-[1.1] mt-4">
             Where Flavor Meets Our{" "}
             <span className="italic font-medium text-cream">Emotions</span>
           </h1>

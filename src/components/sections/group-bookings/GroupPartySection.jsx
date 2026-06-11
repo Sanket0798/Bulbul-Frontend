@@ -35,14 +35,14 @@ export default function GroupPartySection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full pt-[61px] pb-[35px]">
+    <section ref={sectionRef} className="w-full pt-10 lg:pt-[61px] pb-8 lg:pb-[35px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
         <div className="relative flex flex-col lg:flex-row items-center lg:items-stretch">
 
           {/* Left — Large image */}
           <div
             ref={imageRef}
-            className="w-[668px] overflow-hidden rounded-sm shrink-0"
+            className="w-full lg:w-[668px] overflow-hidden rounded-sm shrink-0"
           >
             <img
               src="/images/shared/people/friends-cocktails-dark-bar.png"
@@ -54,25 +54,25 @@ export default function GroupPartySection() {
           {/* Right — Bordered text card overlapping the image */}
           <div
             ref={cardRef}
-            className="relative lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 w-[889px] h-[342px] mt-[-40px] lg:mt-0 z-10"
+            className="relative lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-[889px] mt-[-40px] lg:mt-0 z-10"
           >
-            <div className="border-[6px] border-rust bg-bg px-[30px] py-[52px]">
+            <div className="border-4 sm:border-[6px] border-rust bg-bg px-5 sm:px-[30px] py-8 sm:py-[52px]">
               <span className="font-freight uppercase font-black text-[15px] leading-[18px] tracking-widest text-terracotta block mb-3">
                 Much to Enjoy, Little to Do
               </span>
 
-              <h2 className="font-freight text-[44px] leading-[49px] font-black text-rust mb-4">
+              <h2 className="font-freight text-[30px] sm:text-[38px] lg:text-[44px] leading-[1.1] font-black text-rust mb-4">
                 Party heartily,{" "}
                 <span className="italic font-normal text-gold">fuss-free</span>
               </h2>
 
-              <p className="font-freight font-semibold text-[17px] leading-[25px] text-terracotta mb-[18px]">
+              <p className="font-freight font-semibold text-[15px] sm:text-[17px] leading-[22px] sm:leading-[25px] text-terracotta mb-[18px]">
                 Finest snacks, grills, ruby murrays, fragrant biryanis, naans, rotis and sweet puddings. Delicious and copious dishes that laden tables with café favourites to share at breakfast, lunch and dinner. Choose from Non-Veg., Veg. or Vegan menus upon arrival, whichever combination you please (no need to order ahead). All appetites will be pleased and leave most sated. Thirsty lips – chai and tipples are happily at hand.
               </p>
 
               <Link
                 to="/rooms"
-                className="inline-flex items-center gap-1 font-semibold leading-[22px] px-8 py-[10px] bg-primary text-cream font-freight text-[16px] transition-all duration-300 hover:bg-rust-dark rounded"
+                className="inline-flex items-center gap-1 font-semibold leading-[22px] px-6 sm:px-8 py-[10px] bg-primary text-cream font-freight text-[16px] transition-all duration-300 hover:bg-rust-dark rounded"
               >
                 View Menu <img src={arrowRight} alt="" />
               </Link>

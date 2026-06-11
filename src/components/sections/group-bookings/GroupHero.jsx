@@ -20,7 +20,7 @@ export default function GroupHero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full h-[782px] overflow-hidden flex items-end min-h-screen">
+    <section ref={sectionRef} className="relative w-full min-h-screen overflow-hidden flex items-end">
 
       {/* Background image */}
       <img
@@ -33,14 +33,14 @@ export default function GroupHero() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
 
       {/* Content */}
-      <div className="relative z-10 w-full pb-[160px] px-[59px]">
+      <div className="relative z-10 w-full pb-20 sm:pb-28 lg:pb-[160px] px-5 sm:px-8 lg:px-[59px]">
         <div className="max-w-[640px]">
 
-          <span ref={tagRef} className="block font-freight text-base leading-[23px] uppercase font-black tracking-widest text-accent-gold">
+          <span ref={tagRef} className="block font-freight text-sm sm:text-base leading-[23px] uppercase font-black tracking-widest text-accent-gold">
             Our Menu
           </span>
 
-          <h1 ref={headingRef} className="font-freight text-[#FEFBF8] font-black text-[54px] leading-[51px] mt-2">
+          <h1 ref={headingRef} className="font-freight text-[#FEFBF8] font-black text-[32px] sm:text-[42px] lg:text-[54px] leading-[1] mt-2">
             For when the table{" "}
             <span className="block">
               gets a <span className="italic font-medium text-gold">little bigger</span>

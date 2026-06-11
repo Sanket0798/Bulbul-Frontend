@@ -58,12 +58,12 @@ export default function GroupEnquiryForm() {
   };
 
   return (
-    <section ref={sectionRef} className="w-full pt-[67px] pb-[57px]">
+    <section ref={sectionRef} className="w-full pt-10 lg:pt-[67px] pb-10 lg:pb-[57px]">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
-        <div className="flex flex-col lg:flex-row items-stretch gap-9">
+        <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-9">
 
           {/* Left — Image */}
-          <div ref={imageRef} className="w-[717px] overflow-hidden rounded-sm shrink-0">
+          <div ref={imageRef} className="w-full lg:w-[717px] overflow-hidden rounded-sm shrink-0">
             <img
               src="/images/shared/team/chef-making-pizza.png"
               alt="Friends enjoying a meal"
@@ -77,14 +77,14 @@ export default function GroupEnquiryForm() {
               Contact Us
             </span>
 
-            <h2 className="font-freight text-10 leading-[43px] font-black text-rust mb-5">
+            <h2 className="font-freight text-[32px] sm:text-[38px] lg:text-[43px] leading-[1.1] font-black text-rust mb-5">
               Make an Enquiry
             </h2>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5 sm:gap-6">
               {/* Name */}
               <div className="flex flex-col gap-1">
-                <label className="font-freight font-semibold text-lg leading-6 text-terracotta">
+                <label className="font-freight font-semibold text-base sm:text-lg leading-6 text-terracotta">
                   Name
                 </label>
                 <input
@@ -93,13 +93,13 @@ export default function GroupEnquiryForm() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter you full name"
-                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
+                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-base sm:text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
                 />
               </div>
 
               {/* Email */}
               <div className="flex flex-col gap-1">
-                <label className="font-freight font-semibold text-lg leading-6 text-terracotta">
+                <label className="font-freight font-semibold text-base sm:text-lg leading-6 text-terracotta">
                   Email Address
                 </label>
                 <input
@@ -108,13 +108,13 @@ export default function GroupEnquiryForm() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
-                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
+                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-base sm:text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
                 />
               </div>
 
               {/* Phone */}
               <div className="flex flex-col gap-1">
-                <label className="font-freight font-semibold text-lg leading-6 text-terracotta">
+                <label className="font-freight font-semibold text-base sm:text-lg leading-6 text-terracotta">
                   Phone Number
                 </label>
                 <input
@@ -123,14 +123,14 @@ export default function GroupEnquiryForm() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Enter your phone number"
-                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
+                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-base sm:text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
                 />
               </div>
 
               {/* Date + Guests row */}
               <div className="flex flex-col sm:flex-row gap-5 sm:gap-4">
                 <div className="flex flex-col gap-1 flex-1">
-                  <label className="font-freight font-semibold text-lg leading-6 text-terracotta">
+                  <label className="font-freight font-semibold text-base sm:text-lg leading-6 text-terracotta">
                     Date of Booking
                   </label>
                   <input
@@ -138,11 +138,11 @@ export default function GroupEnquiryForm() {
                     name="date"
                     value={formData.date}
                     onChange={handleChange}
-                    className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
+                    className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-base sm:text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
                   />
                 </div>
                 <div className="flex flex-col gap-1 flex-1">
-                  <label className="font-freight font-semibold text-lg leading-6 text-terracotta">
+                  <label className="font-freight font-semibold text-base sm:text-lg leading-6 text-terracotta">
                     Number of guests
                   </label>
                   <input
@@ -152,14 +152,14 @@ export default function GroupEnquiryForm() {
                     onChange={handleChange}
                     placeholder="Enter number of guests"
                     min="1"
-                    className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
+                    className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-base sm:text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300"
                   />
                 </div>
               </div>
 
               {/* Notes */}
               <div className="flex flex-col gap-1">
-                <label className="font-freight font-semibold text-lg leading-6 text-terracotta dark">
+                <label className="font-freight font-semibold text-base sm:text-lg leading-6 text-terracotta">
                   Notes
                 </label>
                 <textarea
@@ -168,7 +168,7 @@ export default function GroupEnquiryForm() {
                   onChange={handleChange}
                   placeholder="Dietary preferences, occasion, or anything you'd like us to know"
                   rows={4}
-                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300 resize-none"
+                  className="w-full border border-[#35370E] bg-transparent px-4 py-3 font-freight font-semibold text-base sm:text-lg leading-6 text-rust-dark placeholder:text-[#737373] outline-none focus:border-rust transition-colors duration-300 resize-none"
                 />
               </div>
 
@@ -181,7 +181,7 @@ export default function GroupEnquiryForm() {
                   onChange={handleChange}
                   className="mt-1 w-5 h-5 rounded-none bg-transparent shrink-0 accent-rust"
                 />
-                <span className="font-freight font-semibold text-lg leading-6 text-terracotta">
+                <span className="font-freight font-semibold text-base sm:text-lg leading-6 text-terracotta">
                   I consent to receive occasional emails from Bulbul, including updates, events, and news, in line with our Privacy Policy.
                 </span>
               </label>
@@ -189,7 +189,7 @@ export default function GroupEnquiryForm() {
               {/* Submit */}
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-1 font-semibold leading-[25px] self-start px-8 py-[10px] bg-primary text-cream font-freight text-[16px] sm:text-[17px] transition-all duration-300 hover:bg-rust-dark rounded cursor-pointer"
+                className="inline-flex items-center justify-center gap-1 font-semibold leading-[25px] self-start px-6 sm:px-8 py-[10px] bg-primary text-cream font-freight text-[16px] sm:text-[17px] transition-all duration-300 hover:bg-rust-dark rounded cursor-pointer"
               >
                 Subscribe <img src={arrowRight} alt="" />
               </button>
