@@ -12,13 +12,15 @@ const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || ''
 
 export default function ComingSoon() {
   const [toast, setToast]           = useState(false)
+  const [toastType, setToastType]   = useState('success') // 'success' | 'error'
   const [emailError, setEmailError] = useState('')
   const [agreeError, setAgreeError] = useState('')
   const [agreed, setAgreed]         = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const toastRef = useRef(null)
 
-  const showToast = () => {
+  const showToast = (type = 'success') => {
+    setToastType(type)
     setToast(true)
     gsap.fromTo(toastRef.current,
       { y: -30, opacity: 0, scale: 0.95 },
@@ -51,9 +53,9 @@ export default function ComingSoon() {
           email,
         }),
       })
-      if (res.ok) { showToast(); e.target.reset(); setAgreed(false) }
-      else showToast()
-    } catch { showToast() }
+      if (res.ok) { showToast('success'); e.target.reset(); setAgreed(false) }
+      else { showToast('error') }
+    } catch { showToast('error') }
     finally { setSubmitting(false) }
   }
 
@@ -341,11 +343,15 @@ export default function ComingSoon() {
         <div
           ref={toastRef}
           className="fixed top-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 w-[90vw] sm:w-auto max-w-sm"
-          style={{ background: '#1a0b09ee', border: `1px solid ${RUST2}`, backdropFilter: 'blur(14px)', boxShadow: `0 8px 32px ${RUST}66` }}
+          style={{ background: '#1a0b09ee', border: `1px solid ${toastType === 'success' ? RUST2 : '#ef4444'}`, backdropFilter: 'blur(14px)', boxShadow: `0 8px 32px ${RUST}66` }}
         >
-          <span style={{ color: GOLD, fontSize: '16px' }}>✓</span>
+          <span style={{ color: toastType === 'success' ? GOLD : '#ef4444', fontSize: '16px' }}>
+            {toastType === 'success' ? '✓' : '✕'}
+          </span>
           <p className="font-josefin" style={{ color: CREAM, fontSize: '13px', letterSpacing: '0.05em' }}>
-            You&apos;re on the list! We&apos;ll notify you at launch.
+            {toastType === 'success'
+              ? "You're on the list! We'll notify you at launch."
+              : 'Something went wrong. Please try again.'}
           </p>
         </div>
       )}
