@@ -42,7 +42,7 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
 
           {/* Image collage */}
           <div ref={imageColRef} className="relative shrink-0 w-full sm:w-[400px] lg:w-[480px] h-[350px] sm:h-[420px] lg:h-[462px]">
-            <div className="absolute top-0 left-[60px] sm:left-[87px] w-[180px] sm:w-[240px] h-[280px] sm:h-[380px] border-2 border-rust-dark" />
+            {/* <div className="absolute top-0 left-[60px] sm:left-[87px] w-[180px] sm:w-[240px] h-[280px] sm:h-[380px] border-2 border-rust-dark" /> */}
             <div className="absolute top-[24px] left-0 w-[175px] sm:w-[234px] h-[250px] sm:h-[334px] overflow-hidden rounded-sm">
               <img src="/images/shared/food/steak-herbs-plated.png" alt="Bulbul restaurant interior"
                 className="w-full h-full object-cover" />
@@ -56,16 +56,20 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
           {/* Text */}
           <div ref={textColRef} className="flex flex-col max-w-[619px]">
             <h2 className="font-freight text-[36px] sm:text-5xl leading-[44px] sm:leading-[56px] mb-4">
-              <span className="text-rust font-semibold">About </span>
-              <span className="italic text-accent-gold">Bulbul</span>
+              <span className="text-rust font-semibold">Rooted in India.</span>
+              <br />
+              <span className="italic text-accent-gold">At home in London.</span>
             </h2>
             <p className="font-freight font-semibold text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-terracotta">
-              Bulbul started with a simple thought. Indian food is far broader, more regional, and more nuanced than the handful of dishes it is often reduced to. Cooking styles change every few hundred kilometres, sometimes every few streets. It is shaped as much by homes and everyday cooking as it is by tradition.
+              Bulbul started with a simple thought. Indian food is far broader, more regional, and more nuanced than the handful of dishes it is often reduced to. Cooking styles change every few hundred kilometres, sometimes from one household to the next.
+            </p>
+            <p className="font-freight font-semibold text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-terracotta mt-4">
+              So we travelled. Through forests, villages, cities, coastlines and old market streets. We sat at tables, listened to stories, learned family recipes and ways of cooking that have quietly endured for generations.
             </p>
             {/* <Link to="/about" className="btn-outline-primary-home inline-flex items-center gap-3 self-start mt-6">
               Read More <ArrowIcon className="stroke-rust" />
             </Link> */}
-            <Link to="/about"
+            <Link to="/contact#contact-staff"
               className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-lg transition-all duration-100 hover:bg-rust-dark rounded mt-6">
               Read More <img src={arrowRight} alt="" />
             </Link>

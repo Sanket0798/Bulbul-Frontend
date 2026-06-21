@@ -5,8 +5,10 @@ import { Link, useLocation } from "react-router-dom";
 const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
-  // { label: "Menu", to: "/rooms" },
+  { label: "Menu", to: "/menu" },
+  { label: "Reservations", to: "https://www.sevenrooms.com/explore/bulbul/reservations/create/search/", external: true },
   { label: "Group Bookings", to: "/group-bookings" },
+  { label: "Talent Pool", to: "/talent-pool" },
   { label: "Careers", to: "/careers" },
   { label: "Contact", to: "/contact" },
 ];
@@ -45,18 +47,25 @@ export default function Navbar({ transparent = false }) {
 
           {/* Logo */}
           <Link to="/" className="shrink-0">
-            <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
+            <img src="/images/brand/logo/Bulbul.png" alt="Bulbul Restaurant"
               className="w-36 object-contain" />
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-[30px]">
-            {NAV_LINKS.map(({ label, to }) => (
-              <Link key={label} to={to}
-                className={`font-freight text-lg leading-[26px] font-semibold no-underline transition-colors duration-300
-                  ${pathname === to ? "text-accent-gold" : "text-cream"}`}>
-                {label}
-              </Link>
+            {NAV_LINKS.map(({ label, to, external }) => (
+              external ? (
+                <a key={label} href={to} target="_blank" rel="noopener noreferrer"
+                  className="font-freight text-lg leading-[26px] font-semibold no-underline transition-colors duration-300 text-cream">
+                  {label}
+                </a>
+              ) : (
+                <Link key={label} to={to}
+                  className={`font-freight text-lg leading-[26px] font-semibold no-underline transition-colors duration-300
+                    ${pathname === to ? "text-accent-gold" : "text-cream"}`}>
+                  {label}
+                </Link>
+              )
             ))}
           </nav>
 
@@ -98,13 +107,21 @@ export default function Navbar({ transparent = false }) {
 
           {/* Nav links */}
           <nav className="flex flex-col gap-8 px-5 sm:px-8 pt-10">
-            {NAV_LINKS.map(({ label, to }) => (
-              <Link key={label} to={to}
-                className={`font-freight text-[28px] leading-[36px] font-semibold no-underline
-                  ${pathname === to ? "text-accent-gold" : "text-cream"}`}
-                onClick={() => setMenuOpen(false)}>
-                {label}
-              </Link>
+            {NAV_LINKS.map(({ label, to, external }) => (
+              external ? (
+                <a key={label} href={to} target="_blank" rel="noopener noreferrer"
+                  className="font-freight text-[28px] leading-[36px] font-semibold no-underline text-cream"
+                  onClick={() => setMenuOpen(false)}>
+                  {label}
+                </a>
+              ) : (
+                <Link key={label} to={to}
+                  className={`font-freight text-[28px] leading-[36px] font-semibold no-underline
+                    ${pathname === to ? "text-accent-gold" : "text-cream"}`}
+                  onClick={() => setMenuOpen(false)}>
+                  {label}
+                </Link>
+              )
             ))}
           </nav>
         </div>,

@@ -125,12 +125,12 @@ const MenuSection = forwardRef(function MenuSection(_, ref) {
 
         {/* Header */}
         <div ref={headerRef} className="text-center mb-10">
-          <h3 className="font-freight font-black text-[22px] sm:text-[28px] leading-[30px] sm:leading-[37px] uppercase text-terracotta mb-2">
+          {/* <h3 className="font-freight font-black text-[22px] sm:text-[28px] leading-[30px] sm:leading-[37px] uppercase text-terracotta mb-2">
             Our Bestseller
-          </h3>
+          </h3> */}
           <h2 className="font-freight text-[32px] sm:text-[42px] lg:text-[54px] leading-[40px] sm:leading-[50px] lg:leading-[63px] font-semibold text-rust-dark mb-4">
-            A Menu Crafted to Delight{" "}
-            <span className="italic font-normal text-gold">Every Craving</span>
+            Meet the{" "}
+            <span className="italic font-normal text-gold">‘A’  Team</span>
           </h2>
           <p className="font-freight-text font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-terracotta max-w-[920px] mx-auto">
             From signature classics to chef-inspired specialties, every dish on our menu is prepared with fresh ingredients, rich flavors, and a passion for unforgettable dining experiences.

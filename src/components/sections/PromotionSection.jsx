@@ -1,22 +1,26 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import arrowRust from "@/assets/icons/svg/right-arrow-rust.svg";
 
 const SLIDES = [
   {
     bg: "/images/shared/interior/restaurant-dark-chandeliers.png",
-    heading: "More Than Just a Meal",
-    description: "Discover a menu crafted to bring together rich ingredients, authentic recipes, and beautifully prepared dishes designed to turn every meal into a memorable experience.",
+    heading: "More the merrier.",
+    widget: "Group bookings",
+    to: "/group-bookings",
   },
   {
     bg: "/images/shared/interior/busy-restaurant-aerial-wide.png",
-    heading: "A Place to Gather",
-    description: "Whether it's a quiet dinner for two or a celebration with friends, Bulbul offers the warmth of home with the elegance of fine dining.",
+    heading: "It'll be fun they said",
+    widget: "Join our team",
+    to: "/careers",
   },
   {
     bg: "/images/shared/interior/restaurant-wooden-lanterns.png",
-    heading: "Crafted with Passion",
-    description: "Every dish tells a story — of regions, of homes, of flavours passed down through generations and reimagined for today.",
+    heading: "Mom look!",
+    widget: "Press releases",
+    to: "/blogs",
   },
 ];
 
@@ -91,10 +95,11 @@ export default function PromotionSection() {
             {slide.heading}
           </h2>
 
-          {/* Description */}
-          <p className="font-freight-text font-light text-base sm:text-xl lg:text-2xl leading-6 sm:leading-7 lg:leading-8 text-white">
-            {slide.description}
-          </p>
+          {/* Widget button */}
+          <Link to={slide.to}
+            className="inline-flex items-center gap-2 font-playfair text-[14px] font-medium tracking-normal uppercase px-6 py-2 rounded-full bg-white text-rust cursor-pointer hover:bg-cream transition-colors duration-300">
+            {slide.widget}
+          </Link>
         </div>
       </div>
 

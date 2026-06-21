@@ -56,7 +56,7 @@ export default function ContactStaff() {
   };
 
   return (
-    <section ref={sectionRef} className="w-full py-16 md:py-20">
+    <section ref={sectionRef} id="contact-staff" className="w-full py-16 md:py-20">
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-15">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
 

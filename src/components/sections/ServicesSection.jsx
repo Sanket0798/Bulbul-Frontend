@@ -8,9 +8,9 @@ import aboutVector from "@/assets/icons/svg/About-vector.svg";
 gsap.registerPlugin(ScrollTrigger);
 
 const SERVICE_CARDS = [
-  { img: "/images/shared/food/lamb-kadai.png", title: "Explore Menu", subtitle: "Elegant dishes preview", to: "/rooms" },
-  { img: "/images/shared/people/restaurant.jpg", title: "Reservations", subtitle: "Reserve table instantly", to: "/contact" },
-  { img: "/images/shared/people/delivery.jpg", title: "Online Ordering", subtitle: "Order your favorites", to: "/rooms" },
+  { img: "/images/cuisines/food.svg", title: "Explore Menu", subtitle: "Elegant dishes preview", to: "/rooms" },
+  { img: "/images/cuisines/drinks.svg", title: "Reservations", subtitle: "Reserve table instantly", to: "/contact" },
+  { img: "/images/cuisines/wine.svg", title: "Online Ordering", subtitle: "Order your favorites", to: "/rooms" },
 ];
 
 const ServicesSection = forwardRef(function ServicesSection(_, ref) {
@@ -50,18 +50,15 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-15">
 
         {/* Header row */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-10 mb-16">
+        <div className="flex flex-col lg:flex-row items-start lg:items-start justify-between gap-10 mb-16">
           <div ref={headerLeftRef} className="flex flex-col max-w-[510px]">
-            <h2 className="font-freight uppercase font-black text-[22px] sm:text-[28px] leading-[30px] sm:leading-[37px] mb-2">
-              <span className="text-olive">Our Service</span>
-            </h2>
             <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[62px] leading-[44px] sm:leading-[58px] lg:leading-[73px] mb-6">
-              <span className="text-rust-dark font-semibold">The Heart of Great Food &amp;</span>
-              <span className="italic font-normal text-gold"> Hospitality</span>
+              <span className="text-rust-dark font-semibold">Micro Regional Indian Cuisine &amp;</span>
+              <span className="italic font-normal text-gold"> Indian Ingredient Forward Cocktails</span>
             </h2>
-            <Link to="/rooms"
+            <Link to="/menu"
               className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-lg transition-all duration-300 hover:bg-rust-dark rounded">
-              View our Menu <img src={arrowRight} alt="" />
+              Menu <img src={arrowRight} alt="" />
             </Link>
           </div>
 
@@ -69,14 +66,14 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
             <p className="font-freight font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-olive mb-8">
               The menu moves across regions, bringing together dishes, references, and recipes drawn from homes, street-side cooking, and everyday meals. It is presented in a way that feels lighter and more suited to how people like to eat today. It is built around small plates, so you can try more, share across the table, and come back to the things you like.
             </p>
-            <div className="flex flex-wrap gap-4 sm:gap-6 lg:flex-row lg:gap-11">
+            {/* <div className="flex flex-wrap gap-4 sm:gap-6 lg:flex-row lg:gap-11">
               {["Culinary Excellence", "Rich Cultural Flavors", "Inspired Global Cuisine"].map((tag) => (
                 <div key={tag} className="flex items-center gap-2">
                   <img src={aboutVector} alt="" />
                   <span className="font-freight text-base leading-[25px] font-semibold text-gold">{tag}</span>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
 
