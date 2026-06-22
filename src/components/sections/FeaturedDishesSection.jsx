@@ -1,4 +1,5 @@
 import { forwardRef, useState, useRef, useEffect } from "react";
+import { gsap, SplitText, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import arrowRight from "@/assets/icons/svg/right-arrow-rust.svg";
 import DishModal from "@/components/common/DishModal";
 
@@ -18,84 +19,98 @@ const FEATURED_DISHES = [
 const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) {
   const [activeCategory, setActiveCategory] = useState("Gallery");
   const [selectedDish, setSelectedDish] = useState(null);
-  const scrollRef = useRef(null);
-  const animationRef = useRef(null);
+  const headerRef = useRef(null);
+  const headingRef = useRef(null);
+  const trackRef = useRef(null);
+  const loopRef = useRef(null);
 
   const filteredDishes = FEATURED_DISHES;
 
-  // Duplicate dishes for seamless infinite loop
+  // Duplicate dishes so a -50% shift of the track lands seamlessly back at the start.
   const loopDishes = [...filteredDishes, ...filteredDishes];
 
+  // ── Header reveal (SplitText) + card scroll-in ─────────────────────────────
   useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
+    const el = ref?.current;
+    if (!el) return;
 
-    let scrollPos = 0;
-    const speed = 0.5; // pixels per frame
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
 
-    const animate = () => {
-      scrollPos += speed;
-      // Reset when first set scrolls out
-      const halfWidth = container.scrollWidth / 2;
-      if (scrollPos >= halfWidth) {
-        scrollPos = 0;
-      }
-      container.style.transform = `translateX(-${scrollPos}px)`;
-      animationRef.current = requestAnimationFrame(animate);
-    };
+      mm.add(NO_PREFERENCE, () => {
+        const heading = SplitText.create(headingRef.current, {
+          type: "lines", mask: "lines", autoSplit: true,
+        });
 
-    animationRef.current = requestAnimationFrame(animate);
+        const tl = gsap.timeline({
+          defaults: { ease: "power4.out" },
+          scrollTrigger: { trigger: headerRef.current, start: "top 82%" },
+        });
+        tl.from(heading.lines, { yPercent: 120, duration: 1, stagger: 0.12 })
+          .from(headerRef.current.querySelector("[data-animate-copy]"), {
+            autoAlpha: 0, y: 30, filter: "blur(6px)", duration: 0.9,
+          }, "-=0.7");
 
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
+        // Cards rise + fade as the strip scrolls into view.
+        gsap.from(trackRef.current.children, {
+          autoAlpha: 0, yPercent: 18, scale: 0.94,
+          duration: 1, stagger: 0.06, ease: "power3.out",
+          scrollTrigger: { trigger: trackRef.current, start: "top 90%" },
+        });
+
+        return () => heading.revert();
+      });
+
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set([headingRef.current, headerRef.current.children, trackRef.current.children], {
+          autoAlpha: 1, clearProps: "transform,filter",
+        });
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, [ref]);
+
+  // ── Seamless GSAP marquee (replaces hand-rolled requestAnimationFrame) ──────
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    // Respect reduced-motion: leave the strip static.
+    if (window.matchMedia(REDUCED_MOTION).matches) return;
+
+    const ctx = gsap.context(() => {
+      // ~70px/sec, scaled to the width of one full set for a constant speed.
+      const setWidth = track.scrollWidth / 2;
+      const duration = setWidth / 70;
+
+      loopRef.current = gsap.to(track, {
+        xPercent: -50,
+        ease: "none",
+        duration,
+        repeat: -1,
+      });
+    }, track);
+
+    return () => ctx.revert();
   }, [filteredDishes]);
 
-  // Pause on hover
-  const handleMouseEnter = () => {
-    if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
-      animationRef.current = null;
-    }
-  };
-
-  const handleMouseLeave = () => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const currentTransform = container.style.transform;
-    const match = currentTransform.match(/translateX\(-?([\d.]+)px\)/);
-    let scrollPos = match ? parseFloat(match[1]) : 0;
-    const speed = 0.5;
-
-    const animate = () => {
-      scrollPos += speed;
-      const halfWidth = container.scrollWidth / 2;
-      if (scrollPos >= halfWidth) {
-        scrollPos = 0;
-      }
-      container.style.transform = `translateX(-${scrollPos}px)`;
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-  };
+  const pauseLoop = () => loopRef.current?.pause();
+  const resumeLoop = () => loopRef.current?.resume();
 
   return (
     <section ref={ref} className="w-full py-[60px] lg:py-[110px] overflow-hidden">
 
       {/* Header — contained */}
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-10 lg:mb-[45px]">
-          <div className="flex flex-col gap-2" data-animate>
-            <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[62px] leading-[44px] sm:leading-[58px] lg:leading-[73px]">
+        <div ref={headerRef} className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-10 lg:mb-[45px]">
+          <div className="flex flex-col gap-2">
+            <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[48px] lg:text-[62px] leading-[44px] sm:leading-[58px] lg:leading-[73px]">
               <span className="text-rust-dark font-semibold">Beneath Tudor Street, a place to</span>
               <span className="italic font-normal text-gold"> gather.</span>
             </h2>
           </div>
-          <div className="flex flex-col gap-3 max-w-[590px]" data-animate>
+          <div className="flex flex-col gap-3 max-w-[590px]" data-animate-copy>
             <p className="font-freight font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-rust">
               For a working lunch, a celebratory dinner or a drink at the bar - with glowing flower lights and a cave-inspired bar that feels a world away from London.
             </p>
@@ -121,11 +136,11 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
       {/* Dish cards — full width, infinite scroll */}
       <div
         className="w-full"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={pauseLoop}
+        onMouseLeave={resumeLoop}
       >
         <div
-          ref={scrollRef}
+          ref={trackRef}
           className="flex gap-6 will-change-transform"
           style={{ width: "max-content" }}
         >

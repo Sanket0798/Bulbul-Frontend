@@ -1,13 +1,11 @@
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger, SplitText, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import MagneticButton from "@/components/common/MagneticButton";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function HeroSection() {
   const sectionRef = useRef(null);
+  const mediaRef = useRef(null);
   const videoRef = useRef(null);
   const headingRef = useRef(null);
   const mainHeadingRef = useRef(null);
@@ -32,47 +30,77 @@ export default function HeroSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+      const mm = gsap.matchMedia();
 
-      // Heading — clip-path wipe + blur
-      tl.fromTo(headingRef.current,
-        { clipPath: "inset(0 0 100% 0)", autoAlpha: 0, filter: "blur(8px)" },
-        { clipPath: "inset(0 0 0% 0)", autoAlpha: 1, filter: "blur(0px)", duration: 1.4, delay: 0.4 }
-      )
-      // Quote — slide from right with blur
-      .fromTo(quoteRef.current,
-        { autoAlpha: 0, x: 60, filter: "blur(6px)" },
-        { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: 1 }, "-=0.7"
-      )
-      // CTA — scale up from small
-      .fromTo(ctaRef.current,
-        { autoAlpha: 0, scale: 0.8, y: 20 },
-        { autoAlpha: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.5)" }, "-=0.4"
-      );
+      // ── Full motion ────────────────────────────────────────────────────────
+      mm.add(NO_PREFERENCE, () => {
+        // Split the three text blocks. `mask: "lines"` clips each line so the
+        // reveal slides up from behind an invisible mask. `autoSplit` re-splits
+        // when the web font finishes loading or on resize so lines never break.
+        const eyebrow = SplitText.create(headingRef.current, {
+          type: "lines", mask: "lines", autoSplit: true,
+        });
+        const heading = SplitText.create(mainHeadingRef.current, {
+          type: "lines,chars", mask: "lines", autoSplit: true,
+        });
+        const quote = SplitText.create(quoteRef.current, {
+          type: "lines,words", mask: "lines", autoSplit: true,
+        });
 
-      // Main heading — character split animation
-      if (mainHeadingRef.current) {
-        const text = mainHeadingRef.current.textContent;
-        const chars = text.split("").map((char) =>
-          char === " " ? "&nbsp;" : `<span class="hero-char" style="display:inline-block;will-change:transform,opacity;">${char}</span>`
-        ).join("");
-        mainHeadingRef.current.innerHTML = chars;
+        // Intro Ken-Burns on the background video.
+        gsap.from(mediaRef.current, {
+          scale: 1.18, autoAlpha: 0, duration: 2.2, ease: "power2.out",
+        });
 
-        gsap.fromTo(
-          mainHeadingRef.current.querySelectorAll(".hero-char"),
-          { opacity: 0, y: 50, rotateX: -60, scale: 0.6 },
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+        tl.from(eyebrow.lines, {
+            yPercent: 120, duration: 1, stagger: 0.12,
+          }, 0.3)
+          .from(heading.chars, {
+            yPercent: 120, rotateX: -90, opacity: 0,
+            duration: 0.9, stagger: 0.018, ease: "back.out(1.4)",
+          }, 0.5)
+          .from(quote.words, {
+            yPercent: 110, opacity: 0, duration: 0.7, stagger: 0.02,
+          }, 0.9)
+          .from(ctaRef.current, {
+            autoAlpha: 0, scale: 0.8, y: 20, duration: 0.7, ease: "back.out(1.6)",
+          }, 1.1);
+
+        // Background parallax — video drifts slower than the page on scroll.
+        gsap.fromTo(mediaRef.current,
+          { yPercent: -6 },
           {
-            opacity: 1, y: 0, rotateX: 0, scale: 1,
-            stagger: 0.025, duration: 0.8, delay: 0.8,
-            ease: "back.out(1.7)",
+            yPercent: 6, ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top", end: "bottom top", scrub: true,
+            },
           }
         );
-      }
 
-      // Continuous subtle parallax on scroll
-      gsap.to(headingRef.current, {
-        yPercent: -15, ease: "none",
-        scrollTrigger: { trigger: sectionRef.current, start: "top top", end: "bottom top", scrub: true }
+        // Content lifts and fades as the hero scrolls out of view.
+        gsap.to([headingRef.current, quoteRef.current, ctaRef.current], {
+          yPercent: -18, autoAlpha: 0, ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top", end: "bottom top", scrub: true,
+          },
+        });
+
+        return () => {
+          eyebrow.revert();
+          heading.revert();
+          quote.revert();
+        };
+      });
+
+      // ── Reduced motion — show everything, no transforms ──────────────────────
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set(
+          [headingRef.current, mainHeadingRef.current, quoteRef.current, ctaRef.current, mediaRef.current],
+          { autoAlpha: 1, clearProps: "transform" }
+        );
       });
     }, sectionRef);
 
@@ -82,24 +110,20 @@ export default function HeroSection() {
   return (
     <section ref={sectionRef} className="relative w-full overflow-hidden flex items-end min-h-screen">
 
-      {/* Background video */}
-      <video
-        ref={videoRef}
-        autoPlay muted loop playsInline
-        preload="metadata"
-        disablePictureInPicture
-        controls={false}
-        controlsList="nodownload nofullscreen noremoteplayback"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      >
-        <source src="/videos/Hero-Banner.mp4" type="video/mp4" />
-      </video>
-
-      {/* Gradient overlays */}
-      {/* <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-black/50" /> */}
-      {/* <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40" /> */}
-
-
+      {/* Background video — oversized wrapper so parallax never reveals edges */}
+      <div ref={mediaRef} className="absolute inset-[-8%] will-change-transform">
+        <video
+          ref={videoRef}
+          autoPlay muted loop playsInline
+          preload="metadata"
+          disablePictureInPicture
+          controls={false}
+          controlsList="nodownload nofullscreen noremoteplayback"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        >
+          <source src="/videos/Hero-Banner.mp4" type="video/mp4" />
+        </video>
+      </div>
 
       {/* Content */}
       <div className="relative z-10 w-full px-5 sm:px-8 lg:px-[60px] pb-20 lg:pb-[67px]">
@@ -111,7 +135,7 @@ export default function HeroSection() {
               Food that feels a little familiar, a little <span className="italic font-medium text-accent-gold">new</span>
             </span>
 
-            <h1 className="font-freight text-h1 text-cream font-black text-[36px] sm:text-[48px] lg:text-[58px] mt-4">
+            <h1 ref={mainHeadingRef} className="font-freight text-h1 text-cream font-black text-[36px] sm:text-[48px] lg:text-[58px] mt-4">
               Flavors That Stay with You{" "}
               <span className="italic font-medium text-accent-gold">Forever</span>
             </h1>
@@ -123,7 +147,7 @@ export default function HeroSection() {
               "We've grown up with a version of Indian food shaped by homes and everyday cooking, the kind that rarely makes it onto restaurant menus. At Bulbul, that is what comes to the table, gathered along the way and shared with you."
             </p>
            <MagneticButton>
-              <a ref={ctaRef} href="https://www.sevenrooms.com/explore/bulbul/reservations/create/search/" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.sevenrooms.com/explore/bulbul/reservations/create/search/" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-[18px] transition-all duration-300 hover:bg-rust-dark rounded">
                 Book a table <img src={arrowRight} alt="" />
               </a>

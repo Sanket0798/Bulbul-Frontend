@@ -1,8 +1,5 @@
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, NO_PREFERENCE } from "@/utils/animations";
 
 /**
  * Wraps a section with a parallax background image.
@@ -15,20 +12,24 @@ export default function ParallaxBanner({ src, alt = "", children, overlay = fals
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        imageRef.current,
-        { yPercent: -15 },
-        {
-          yPercent: 15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
+      // Parallax only runs when the user hasn't requested reduced motion.
+      const mm = gsap.matchMedia();
+      mm.add(NO_PREFERENCE, () => {
+        gsap.fromTo(
+          imageRef.current,
+          { yPercent: -15 },
+          {
+            yPercent: 15,
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      });
     }, containerRef);
 
     return () => ctx.revert();

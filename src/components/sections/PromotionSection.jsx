@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { gsap } from "gsap";
+import { gsap, SplitText, REDUCED_MOTION } from "@/utils/animations";
 import arrowRust from "@/assets/icons/svg/right-arrow-rust.svg";
 
 const SLIDES = [
@@ -28,28 +28,55 @@ const SLIDES = [
 export default function PromotionSection() {
   const [current, setCurrent] = useState(0);
   const contentRef = useRef(null);
+  const headingRef = useRef(null);
+  const ctaRef = useRef(null);
   const bgRef = useRef(null);
   const autoPlayRef = useRef(null);
+  const splitRef = useRef(null);
 
   const animateSlide = useCallback(() => {
+    const reduce = window.matchMedia(REDUCED_MOTION).matches;
+
+    // Clean up the previous slide's word split before re-splitting.
+    splitRef.current?.revert();
+    splitRef.current = null;
+
     const tl = gsap.timeline();
-    // Background — scale reveal
+
+    // Background — scale reveal (plain cross-fade when reduced motion)
     tl.fromTo(bgRef.current,
-      { opacity: 0, scale: 1.1 },
+      { opacity: 0, scale: reduce ? 1 : 1.1 },
       { opacity: 1, scale: 1, duration: 1.2, ease: "power3.inOut" }
     );
-    // Content — staggered clip-path + blur
-    tl.fromTo(
-      contentRef.current.children,
-      { opacity: 0, y: 40, filter: "blur(6px)", clipPath: "inset(0 0 100% 0)" },
-      { opacity: 1, y: 0, filter: "blur(0px)", clipPath: "inset(0 0 0% 0)", stagger: 0.15, duration: 0.9, ease: "power4.out" },
+
+    if (reduce) {
+      tl.fromTo(contentRef.current.children,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, stagger: 0.1 },
+        "-=0.6"
+      );
+      return;
+    }
+
+    // Heading — word-by-word reveal from behind a line mask.
+    const split = SplitText.create(headingRef.current, { type: "lines,words", mask: "lines" });
+    splitRef.current = split;
+
+    tl.from(split.words,
+      { yPercent: 110, opacity: 0, stagger: 0.04, duration: 0.8, ease: "power4.out" },
       "-=0.6"
+    ).from(ctaRef.current,
+      { autoAlpha: 0, y: 24, duration: 0.6, ease: "back.out(1.5)" },
+      "-=0.4"
     );
   }, []);
 
   useEffect(() => {
     animateSlide();
   }, [current, animateSlide]);
+
+  // Revert any lingering split on unmount.
+  useEffect(() => () => splitRef.current?.revert(), []);
 
   // Auto-play every 5 seconds
   useEffect(() => {
@@ -99,17 +126,18 @@ export default function PromotionSection() {
           {/* Heading */}
           {slide.headingHtml ? (
             <h2
+              ref={headingRef}
               className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6"
               dangerouslySetInnerHTML={{ __html: slide.heading }}
             />
           ) : (
-            <h2 className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6">
+            <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6">
               {slide.heading}
             </h2>
           )}
 
           {/* Widget button */}
-          <Link to={slide.to}
+          <Link ref={ctaRef} to={slide.to}
             className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-lg transition-all duration-300 hover:bg-rust-dark rounded uppercase tracking-wider">
             {slide.widget}
           </Link>

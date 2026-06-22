@@ -1,54 +1,76 @@
 import { forwardRef, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, SplitText, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import ArrowIcon from "@/components/common/ArrowIcon";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const AboutSection = forwardRef(function AboutSection(_, ref) {
   const imageColRef = useRef(null);
   const textColRef = useRef(null);
+  const headingRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Image collage — clip-path reveal + parallax depth
-      const images = imageColRef.current.children;
-      gsap.fromTo(images[0],
-        { clipPath: "inset(0 100% 0 0)", autoAlpha: 0 },
-        {
-          clipPath: "inset(0 0% 0 0)", autoAlpha: 1, duration: 1.2, ease: "power4.inOut",
-          scrollTrigger: { trigger: imageColRef.current, start: "top 80%" }
-        }
-      );
-      gsap.fromTo(images[1],
-        { clipPath: "inset(100% 0 0 0)", autoAlpha: 0, scale: 0.9 },
-        {
-          clipPath: "inset(0% 0 0 0)", autoAlpha: 1, scale: 1, duration: 1.2, delay: 0.3, ease: "power4.inOut",
-          scrollTrigger: { trigger: imageColRef.current, start: "top 80%" }
-        }
-      );
+      const mm = gsap.matchMedia();
 
-      // Parallax float on images
-      gsap.to(images[0], {
-        yPercent: -8, ease: "none",
-        scrollTrigger: { trigger: imageColRef.current, start: "top bottom", end: "bottom top", scrub: true }
-      });
-      gsap.to(images[1], {
-        yPercent: 6, ease: "none",
-        scrollTrigger: { trigger: imageColRef.current, start: "top bottom", end: "bottom top", scrub: true }
+      mm.add(NO_PREFERENCE, () => {
+        const images = imageColRef.current.children;
+        // Everything below the heading (paragraphs + CTA) staggers in together.
+        const copy = gsap.utils.toArray(textColRef.current.children).slice(1);
+
+        // Image collage — clip-path reveal + parallax depth
+        gsap.fromTo(images[0],
+          { clipPath: "inset(0 100% 0 0)", autoAlpha: 0 },
+          {
+            clipPath: "inset(0 0% 0 0)", autoAlpha: 1, duration: 1.2, ease: "power4.inOut",
+            scrollTrigger: { trigger: imageColRef.current, start: "top 80%" }
+          }
+        );
+        gsap.fromTo(images[1],
+          { clipPath: "inset(100% 0 0 0)", autoAlpha: 0, scale: 0.9 },
+          {
+            clipPath: "inset(0% 0 0 0)", autoAlpha: 1, scale: 1, duration: 1.2, delay: 0.3, ease: "power4.inOut",
+            scrollTrigger: { trigger: imageColRef.current, start: "top 80%" }
+          }
+        );
+
+        // Parallax float on images
+        gsap.to(images[0], {
+          yPercent: -8, ease: "none",
+          scrollTrigger: { trigger: imageColRef.current, start: "top bottom", end: "bottom top", scrub: true }
+        });
+        gsap.to(images[1], {
+          yPercent: 6, ease: "none",
+          scrollTrigger: { trigger: imageColRef.current, start: "top bottom", end: "bottom top", scrub: true }
+        });
+
+        // Heading — line-masked reveal
+        const heading = SplitText.create(headingRef.current, {
+          type: "lines", mask: "lines", autoSplit: true,
+        });
+        gsap.from(heading.lines, {
+          yPercent: 120, duration: 1, stagger: 0.12, ease: "power4.out",
+          scrollTrigger: { trigger: textColRef.current, start: "top 80%" },
+        });
+
+        // Copy — staggered blur-in with rotation
+        gsap.fromTo(copy,
+          { autoAlpha: 0, y: 40, filter: "blur(4px)", rotateY: -5 },
+          {
+            autoAlpha: 1, y: 0, filter: "blur(0px)", rotateY: 0,
+            stagger: 0.12, duration: 1, ease: "power3.out", delay: 0.2,
+            scrollTrigger: { trigger: textColRef.current, start: "top 80%" }
+          }
+        );
+
+        return () => heading.revert();
       });
 
-      // Text column — staggered blur-in with rotation
-      gsap.fromTo(textColRef.current.children,
-        { autoAlpha: 0, y: 40, filter: "blur(4px)", rotateY: -5 },
-        {
-          autoAlpha: 1, y: 0, filter: "blur(0px)", rotateY: 0,
-          stagger: 0.12, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: textColRef.current, start: "top 80%" }
-        }
-      );
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set([imageColRef.current.children, textColRef.current.children], {
+          autoAlpha: 1, clearProps: "transform,filter,clipPath",
+        });
+      });
     }, ref);
 
     return () => ctx.revert();
@@ -74,7 +96,7 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
 
           {/* Text */}
           <div ref={textColRef} className="flex flex-col max-w-[619px]">
-            <h2 className="font-freight text-[36px] sm:text-5xl leading-[44px] sm:leading-[56px] mb-4">
+            <h2 ref={headingRef} className="font-freight text-[36px] sm:text-5xl leading-[44px] sm:leading-[56px] mb-4">
               <span className="text-rust font-semibold">Rooted in India.</span>
               <br />
               <span className="italic text-accent-gold">At home in London.</span>

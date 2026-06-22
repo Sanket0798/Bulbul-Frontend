@@ -1,11 +1,8 @@
 import { forwardRef, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, SplitText, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 import aboutVector from "@/assets/icons/svg/About-vector.svg";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const SERVICE_CARDS = [
   { img: "/images/cuisines/food.svg", title: "Food", to: "/rooms" },
@@ -16,30 +13,51 @@ const SERVICE_CARDS = [
 const ServicesSection = forwardRef(function ServicesSection(_, ref) {
   const headerLeftRef = useRef(null);
   const headerRightRef = useRef(null);
+  const headingRef = useRef(null);
   const cardsRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header left — rotate in from depth
-      gsap.fromTo(headerLeftRef.current,
-        { autoAlpha: 0, x: -80, rotateY: 8, filter: "blur(4px)" },
-        { autoAlpha: 1, x: 0, rotateY: 0, filter: "blur(0px)", duration: 1.2, ease: "power4.out",
-          scrollTrigger: { trigger: headerLeftRef.current, start: "top 85%" } }
-      );
+      const mm = gsap.matchMedia();
 
-      // Header right — blur-in with slide
-      gsap.fromTo(headerRightRef.current,
-        { autoAlpha: 0, x: 80, filter: "blur(6px)" },
-        { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: 1.2, ease: "power4.out",
-          scrollTrigger: { trigger: headerRightRef.current, start: "top 85%" } }
-      );
+      mm.add(NO_PREFERENCE, () => {
+        // Heading — line-masked reveal
+        const heading = SplitText.create(headingRef.current, {
+          type: "lines", mask: "lines", autoSplit: true,
+        });
+        gsap.from(heading.lines, {
+          yPercent: 120, duration: 1, stagger: 0.1, ease: "power4.out",
+          scrollTrigger: { trigger: headerLeftRef.current, start: "top 85%" },
+        });
 
-      // Service cards — clip-path wipe from bottom + stagger
-      gsap.fromTo(cardsRef.current.children,
-        { clipPath: "inset(100% 0 0 0)", autoAlpha: 0 },
-        { clipPath: "inset(0% 0 0 0)", autoAlpha: 1, stagger: 0.2, duration: 1.1, ease: "power4.out",
-          scrollTrigger: { trigger: cardsRef.current, start: "top 80%" } }
-      );
+        // Header left CTA — fade up after the heading
+        gsap.from(headerLeftRef.current.querySelector("a"), {
+          autoAlpha: 0, y: 24, duration: 0.9, ease: "power3.out", delay: 0.3,
+          scrollTrigger: { trigger: headerLeftRef.current, start: "top 85%" },
+        });
+
+        // Header right — blur-in with slide
+        gsap.fromTo(headerRightRef.current,
+          { autoAlpha: 0, x: 80, filter: "blur(6px)" },
+          { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: 1.2, ease: "power4.out",
+            scrollTrigger: { trigger: headerRightRef.current, start: "top 85%" } }
+        );
+
+        // Service cards — clip-path wipe from bottom + stagger
+        gsap.fromTo(cardsRef.current.children,
+          { clipPath: "inset(100% 0 0 0)", autoAlpha: 0 },
+          { clipPath: "inset(0% 0 0 0)", autoAlpha: 1, stagger: 0.2, duration: 1.1, ease: "power4.out",
+            scrollTrigger: { trigger: cardsRef.current, start: "top 80%" } }
+        );
+
+        return () => heading.revert();
+      });
+
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set([headerLeftRef.current, headerRightRef.current, cardsRef.current.children], {
+          autoAlpha: 1, clearProps: "transform,filter,clipPath",
+        });
+      });
     }, ref);
 
     return () => ctx.revert();
@@ -52,7 +70,7 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
         {/* Header row */}
         <div className="flex flex-col lg:flex-row items-start lg:items-start justify-between gap-10 mb-16">
           <div ref={headerLeftRef} className="flex flex-col max-w-[510px]">
-            <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[62px] leading-[44px] sm:leading-[58px] lg:leading-[73px] mb-6">
+            <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[48px] lg:text-[62px] leading-[44px] sm:leading-[58px] lg:leading-[73px] mb-6">
               <span className="text-cream font-semibold">Micro Regional Indian Cuisine &amp;</span>
               <span className="italic font-normal text-gold"> Indian Ingredient Forward Cocktails</span>
             </h2>
