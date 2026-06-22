@@ -31,9 +31,9 @@ export default function Home() {
       </ParallaxBanner>
 
       {/* Promotion section with 5th banner as parallax background */}
-      <ParallaxBanner src="/images/bg/5th banner.svg">
+      {/* <ParallaxBanner src="/images/bg/5th banner.svg"> */}
         <PromotionSection />
-      </ParallaxBanner>
+      {/* </ParallaxBanner> */}
     </div>
   );
 }

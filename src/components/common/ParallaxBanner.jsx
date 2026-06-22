@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
  * The background scrolls at a slower rate than the content,
  * creating a depth effect similar to casamon.it.
  */
-export default function ParallaxBanner({ src, alt = "", children, overlay = false }) {
+export default function ParallaxBanner({ src, alt = "", children, overlay = false, overlayClass = "bg-black/10" }) {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
 
@@ -45,7 +45,7 @@ export default function ParallaxBanner({ src, alt = "", children, overlay = fals
         style={{ top: "-15%" }}
       />
       {overlay && (
-        <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+        <div className={`absolute inset-0 pointer-events-none ${overlayClass}`} />
       )}
       {/* Section content renders on top */}
       <div className="relative z-10">

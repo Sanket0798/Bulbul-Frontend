@@ -12,7 +12,8 @@ const SLIDES = [
   },
   {
     bg: "/images/bg/Last Screen Banner 2-Talent Pool.png",
-    heading: "It'll be fun they said",
+    heading: "<s>It'll be fun they said</s>",
+    headingHtml: true,
     widget: "Join our team",
     to: "/careers",
   },
@@ -87,17 +88,24 @@ export default function PromotionSection() {
       <div className="relative z-10 h-full flex flex-col justify-center max-w-full mx-5 sm:mx-8 lg:mx-[60px] px-0">
         <div ref={contentRef} className="max-w-[671px]">
           {/* Logo */}
-          <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
-            className="w-[200px] sm:w-[280px] lg:w-[380px] object-contain mb-[15px]" />
+          {/* <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
+            className="w-[200px] sm:w-[280px] lg:w-[380px] object-contain mb-[15px]" /> */}
 
           {/* Heading */}
-          <h2 className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6">
-            {slide.heading}
-          </h2>
+          {slide.headingHtml ? (
+            <h2
+              className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6"
+              dangerouslySetInnerHTML={{ __html: slide.heading }}
+            />
+          ) : (
+            <h2 className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6">
+              {slide.heading}
+            </h2>
+          )}
 
           {/* Widget button */}
           <Link to={slide.to}
-            className="inline-flex items-center gap-2 font-playfair text-[14px] font-medium tracking-normal uppercase px-6 py-2 rounded-full bg-white text-rust cursor-pointer hover:bg-cream transition-colors duration-300">
+            className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-lg transition-all duration-300 hover:bg-rust-dark rounded uppercase tracking-wider">
             {slide.widget}
           </Link>
         </div>
