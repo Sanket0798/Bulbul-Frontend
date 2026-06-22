@@ -398,3 +398,23 @@
   .font-freight-disp  { font-family: 'FreightDispPro', Georgia, serif; }
   .font-freight-text  { font-family: 'FreightTextCmpPro', Georgia, serif; }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   LENIS SMOOTH SCROLL
+   ───────────────────────────────────────────────────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}

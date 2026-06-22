@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import SmoothScroll from "@/components/common/SmoothScroll";
 
 /**
  * Shared layout wrapper — renders Navbar and Footer once.
@@ -26,10 +27,12 @@ export default function Layout() {
   }, [pathname, hash]);
 
   return (
-    <div className="min-h-screen">
-      <Navbar transparent />
-      <Outlet />
-      <Footer />
-    </div>
+    <SmoothScroll>
+      <div className="min-h-screen">
+        <Navbar transparent />
+        <Outlet />
+        <Footer />
+      </div>
+    </SmoothScroll>
   );
 }

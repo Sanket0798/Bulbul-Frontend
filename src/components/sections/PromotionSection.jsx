@@ -12,7 +12,7 @@ const SLIDES = [
   },
   {
     bg: "/images/bg/Last Screen Banner 2-Talent Pool.png",
-    heading: "<s>It'll be fun they said</s>",
+    heading: "It'll be fun <s>they said</s>",
     headingHtml: true,
     widget: "Join our team",
     to: "/careers",

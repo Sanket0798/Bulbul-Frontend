@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import MagneticButton from "@/components/common/MagneticButton";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -10,6 +10,7 @@ export default function HeroSection() {
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
   const headingRef = useRef(null);
+  const mainHeadingRef = useRef(null);
   const quoteRef = useRef(null);
   const ctaRef = useRef(null);
 
@@ -48,6 +49,25 @@ export default function HeroSection() {
         { autoAlpha: 0, scale: 0.8, y: 20 },
         { autoAlpha: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.5)" }, "-=0.4"
       );
+
+      // Main heading — character split animation
+      if (mainHeadingRef.current) {
+        const text = mainHeadingRef.current.textContent;
+        const chars = text.split("").map((char) =>
+          char === " " ? "&nbsp;" : `<span class="hero-char" style="display:inline-block;will-change:transform,opacity;">${char}</span>`
+        ).join("");
+        mainHeadingRef.current.innerHTML = chars;
+
+        gsap.fromTo(
+          mainHeadingRef.current.querySelectorAll(".hero-char"),
+          { opacity: 0, y: 50, rotateX: -60, scale: 0.6 },
+          {
+            opacity: 1, y: 0, rotateX: 0, scale: 1,
+            stagger: 0.025, duration: 0.8, delay: 0.8,
+            ease: "back.out(1.7)",
+          }
+        );
+      }
 
       // Continuous subtle parallax on scroll
       gsap.to(headingRef.current, {
@@ -102,10 +122,12 @@ export default function HeroSection() {
             <p ref={quoteRef} className="font-freight font-semibold text-base leading-[25px] text-cream tracking-[1.42px]">
               "We've grown up with a version of Indian food shaped by homes and everyday cooking, the kind that rarely makes it onto restaurant menus. At Bulbul, that is what comes to the table, gathered along the way and shared with you."
             </p>
-           <a ref={ctaRef} href="https://www.sevenrooms.com/explore/bulbul/reservations/create/search/" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-[18px] transition-all duration-300 hover:bg-rust-dark rounded">
-              Book a table <img src={arrowRight} alt="" />
-            </a>
+           <MagneticButton>
+              <a ref={ctaRef} href="https://www.sevenrooms.com/explore/bulbul/reservations/create/search/" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-[18px] transition-all duration-300 hover:bg-rust-dark rounded">
+                Book a table <img src={arrowRight} alt="" />
+              </a>
+            </MagneticButton>
           </div>
         </div>
       </div>
