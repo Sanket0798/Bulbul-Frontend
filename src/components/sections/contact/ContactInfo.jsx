@@ -39,7 +39,7 @@ const SOCIAL_LINKS = [
 ];
 
 const CONTACT_DETAILS = [
-  { text: "Bandra West, Mumbai, Maharashtra, India" },
+  { text: "Victoria House, Part Ground & Lower Ground Floor, 25 Tudor St, London EC4Y 0DD, United Kingdom" },
   { text: "T: (+91) 22 1234 5678" },
   { text: "M: hello@bulbulrestaurant.com" },
 ];

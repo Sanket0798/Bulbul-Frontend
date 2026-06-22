@@ -12,8 +12,8 @@ const SLIDES = [
   },
   {
     bg: "/images/bg/Last Screen Banner 2-Talent Pool.png",
-    heading: "It'll be fun <s>they said</s>",
-    headingHtml: true,
+    heading: "It'll be fun they said",
+    strikeWords: "they said",
     widget: "Join our team",
     to: "/careers",
   },
@@ -65,6 +65,16 @@ export default function PromotionSection() {
     const split = SplitText.create(headingRef.current, { type: "lines,words", mask: "lines" });
     splitRef.current = split;
 
+    // Apply strikethrough to specific words after SplitText processes them
+    if (SLIDES[current].strikeWords) {
+      const strikeText = SLIDES[current].strikeWords;
+      split.words.forEach((wordEl) => {
+        if (strikeText.includes(wordEl.textContent.trim())) {
+          wordEl.style.textDecoration = "line-through";
+        }
+      });
+    }
+
     tl.from(split.words,
       { yPercent: 110, opacity: 0, stagger: 0.04, duration: 0.8, ease: "power4.out" },
       "-=0.6"
@@ -75,7 +85,7 @@ export default function PromotionSection() {
         "-=0.4"
       );
     }
-  }, []);
+  }, [current]);
 
   useEffect(() => {
     animateSlide();
@@ -130,17 +140,14 @@ export default function PromotionSection() {
             className="w-[200px] sm:w-[280px] lg:w-[380px] object-contain mb-[15px]" /> */}
 
           {/* Heading */}
-          {slide.headingHtml ? (
-            <h2
-              ref={headingRef}
-              className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6"
-              dangerouslySetInnerHTML={{ __html: slide.heading }}
-            />
-          ) : (
-            <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6">
-              {slide.heading}
-            </h2>
-          )}
+          <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6">
+            {slide.strikeWords
+              ? <>
+                  {slide.heading.replace(slide.strikeWords, '')}<s className="decoration-cream/60">{slide.strikeWords}</s>
+                </>
+              : slide.heading
+            }
+          </h2>
 
           {/* Widget button */}
           <Link to={slide.to}

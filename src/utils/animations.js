@@ -10,11 +10,12 @@ import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 // Bidirectional scroll reveals for every non-scrub ScrollTrigger:
-//   onEnter      (scroll down into view)  → play
-//   onLeaveBack  (scroll back up past it) → reverse
-// So animations also run when the user scrolls bottom → top, then replay on the
-// way down again. Scrub-based parallax ignores toggleActions, so it's unaffected.
-ScrollTrigger.defaults({ toggleActions: "play none none reverse" });
+//   onEnter       (scroll down into view)    → play
+//   onLeave       (scroll past it going down) → reverse
+//   onEnterBack   (scroll back into view)    → play
+//   onLeaveBack   (scroll back up past it)   → reverse
+// Animations trigger in both directions for a fully interactive scroll experience.
+ScrollTrigger.defaults({ toggleActions: "play reverse play reverse" });
 
 // Media-query strings for use with gsap.matchMedia().
 // Heavy motion runs only when the user has NOT asked for reduced motion.

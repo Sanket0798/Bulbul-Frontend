@@ -18,8 +18,8 @@ const customMarker = new L.DivIcon({
   popupAnchor: [0, -48],
 });
 
-// Bandra West, Mumbai coordinates
-const POSITION = [19.0596, 72.8295];
+// 25 Tudor St, London EC4Y 0DD coordinates (approximate)
+const POSITION = [51.5127, -0.1066];
 
 export default function ContactMap() {
   const sectionRef = useRef(null);
@@ -57,7 +57,7 @@ export default function ContactMap() {
             <div className="text-center">
               <strong className="text-base">Bulbul Restaurant</strong>
               <br />
-              <span className="text-sm">Bandra West, Mumbai</span>
+              <span className="text-sm">25 Tudor St, London EC4Y 0DD</span>
             </div>
           </Popup>
         </Marker>

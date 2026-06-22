@@ -72,6 +72,7 @@ export function useTextSplit({
       scrollTrigger: {
         trigger: el,
         start,
+        toggleActions: "play reverse play reverse",
       },
     });
 

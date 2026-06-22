@@ -127,17 +127,20 @@ export default function HeroSection() {
         </video>
       </div>
 
+      {/* Gradient overlay for mobile text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent lg:from-black/50 lg:via-transparent" />
+
       {/* Content */}
-      <div className="relative z-10 w-full px-5 sm:px-8 lg:px-[60px] pb-20 lg:pb-[67px]">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 lg:gap-20">
+      <div className="relative z-10 w-full px-5 sm:px-8 lg:px-[60px] pt-[120px] pb-10 sm:pb-16 lg:pb-[67px]">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 sm:gap-8 lg:gap-20">
 
           {/* Left column — heading */}
           <div className="max-w-[630px]">
-            <span ref={headingRef} className="font-freight text-h1 text-cream font-black text-[36px] sm:text-[48px] lg:text-[35px]">
+            <span ref={headingRef} className="block font-freight text-cream font-black text-[18px] sm:text-[24px] lg:text-[35px] leading-[1.3]">
               Food that feels a little familiar, a little <span className="italic font-medium text-accent-gold">new</span>
             </span>
 
-            <h1 ref={mainHeadingRef} className="font-freight text-h1 text-cream font-black text-[36px] sm:text-[48px] lg:text-[58px] mt-4">
+            <h1 ref={mainHeadingRef} className="font-freight text-cream font-black text-[32px] sm:text-[44px] lg:text-[58px] leading-[1.1] mt-2 sm:mt-3 lg:mt-4">
               Flavors That Stay with You{" "}
               <span className="italic font-medium text-accent-gold">Forever</span>
             </h1>
@@ -145,12 +148,12 @@ export default function HeroSection() {
 
           {/* Right column — quote + CTA */}
           <div className="max-w-[574px] flex flex-col gap-4">
-            <p ref={quoteRef} className="font-freight font-semibold text-base leading-[25px] text-cream tracking-[1.42px]">
+            <p ref={quoteRef} className="font-freight font-semibold text-sm sm:text-base leading-[22px] sm:leading-[25px] text-cream tracking-[0.5px] sm:tracking-[1.42px]">
               "We've grown up with a version of Indian food shaped by homes and everyday cooking, the kind that rarely makes it onto restaurant menus. At Bulbul, that is what comes to the table, gathered along the way and shared with you."
             </p>
            <MagneticButton>
               <a href="https://www.sevenrooms.com/explore/bulbul/reservations/create/search/" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-[18px] transition-all duration-300 hover:bg-rust-dark rounded">
+                className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-[16px] sm:text-[18px] transition-all duration-300 hover:bg-rust-dark rounded">
                 Book a table <img src={arrowRight} alt="" />
               </a>
             </MagneticButton>
