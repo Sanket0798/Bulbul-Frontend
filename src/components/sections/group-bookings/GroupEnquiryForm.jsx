@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, splitLines, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function GroupEnquiryForm() {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
   const formRef = useRef(null);
+  const headingRef = useRef(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -22,23 +20,42 @@ export default function GroupEnquiryForm() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        imageRef.current,
-        { autoAlpha: 0, x: -50 },
-        {
-          autoAlpha: 1, x: 0, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-        }
-      );
+      const mm = gsap.matchMedia();
 
-      gsap.fromTo(
-        formRef.current,
-        { autoAlpha: 0, y: 40 },
-        {
-          autoAlpha: 1, y: 0, duration: 0.9, ease: "power3.out",
+      mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
+        // Image — clip reveal + parallax scale
+        gsap.fromTo(imageRef.current,
+          { clipPath: "inset(0 100% 0 0)", autoAlpha: 0 },
+          {
+            clipPath: "inset(0 0% 0 0)", autoAlpha: 1, duration: 1.2, ease: "power4.inOut",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+          }
+        );
+        gsap.fromTo(imageRef.current.querySelector("img"),
+          { scale: 1.2 },
+          { scale: 1, ease: "none",
+            scrollTrigger: { trigger: sectionRef.current, start: "top bottom", end: "bottom top", scrub: true } }
+        );
+
+        // Heading — line-masked reveal
+        const heading = splitLines(headingRef.current);
+        gsap.from(heading.lines, {
+          yPercent: 120, duration: 1, stagger: 0.1, ease: "power4.out",
           scrollTrigger: { trigger: formRef.current, start: "top 85%" },
-        }
-      );
+        });
+
+        // Eyebrow + each form field staggers up
+        gsap.from([formRef.current.querySelector("span"), ...formRef.current.querySelectorAll("form > *")], {
+          autoAlpha: 0, y: 28, duration: 0.7, stagger: 0.08, ease: "power3.out", delay: 0.2,
+          scrollTrigger: { trigger: formRef.current, start: "top 85%" },
+        });
+
+        return () => heading.revert();
+      }));
+
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set([imageRef.current, formRef.current], { autoAlpha: 1, clearProps: "transform,clipPath" });
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -77,7 +94,7 @@ export default function GroupEnquiryForm() {
               Contact Us
             </span>
 
-            <h2 className="font-freight text-[32px] sm:text-[38px] lg:text-[43px] leading-[1.1] font-black text-rust mb-5">
+            <h2 ref={headingRef} className="font-freight text-[32px] sm:text-[38px] lg:text-[43px] leading-[1.1] font-black text-rust mb-5">
               Make an Enquiry
             </h2>
 

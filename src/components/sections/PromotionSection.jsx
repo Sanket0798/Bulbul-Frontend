@@ -36,6 +36,9 @@ export default function PromotionSection() {
 
   const animateSlide = useCallback(() => {
     const reduce = window.matchMedia(REDUCED_MOTION).matches;
+    // SplitText must measure against loaded fonts; on a cold load the first
+    // slide falls back to a plain fade until fonts are ready.
+    const fontsReady = !document.fonts || document.fonts.status === "loaded";
 
     // Clean up the previous slide's word split before re-splitting.
     splitRef.current?.revert();
@@ -49,7 +52,7 @@ export default function PromotionSection() {
       { opacity: 1, scale: 1, duration: 1.2, ease: "power3.inOut" }
     );
 
-    if (reduce) {
+    if (reduce || !fontsReady) {
       tl.fromTo(contentRef.current.children,
         { opacity: 0 },
         { opacity: 1, duration: 0.5, stagger: 0.1 },
@@ -65,10 +68,13 @@ export default function PromotionSection() {
     tl.from(split.words,
       { yPercent: 110, opacity: 0, stagger: 0.04, duration: 0.8, ease: "power4.out" },
       "-=0.6"
-    ).from(ctaRef.current,
-      { autoAlpha: 0, y: 24, duration: 0.6, ease: "back.out(1.5)" },
-      "-=0.4"
     );
+    if (ctaRef.current) {
+      tl.from(ctaRef.current,
+        { autoAlpha: 0, y: 24, duration: 0.6, ease: "back.out(1.5)" },
+        "-=0.4"
+      );
+    }
   }, []);
 
   useEffect(() => {

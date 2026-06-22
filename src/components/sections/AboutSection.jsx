@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap, SplitText, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import ArrowIcon from "@/components/common/ArrowIcon";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 
@@ -13,7 +13,7 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add(NO_PREFERENCE, () => {
+      mm.add(NO_PREFERENCE, () => afterFonts(ref, () => {
         const images = imageColRef.current.children;
         // Everything below the heading (paragraphs + CTA) staggers in together.
         const copy = gsap.utils.toArray(textColRef.current.children).slice(1);
@@ -46,7 +46,7 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
 
         // Heading — line-masked reveal
         const heading = SplitText.create(headingRef.current, {
-          type: "lines", mask: "lines", autoSplit: true,
+          type: "lines", mask: "lines",
         });
         gsap.from(heading.lines, {
           yPercent: 120, duration: 1, stagger: 0.12, ease: "power4.out",
@@ -64,7 +64,7 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
         );
 
         return () => heading.revert();
-      });
+      }));
 
       mm.add(REDUCED_MOTION, () => {
         gsap.set([imageColRef.current.children, textColRef.current.children], {

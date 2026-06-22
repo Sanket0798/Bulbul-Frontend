@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { gsap } from "gsap";
+import { gsap, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 
 // Custom marker icon matching brand colors
 const customMarker = new L.DivIcon({
@@ -26,11 +26,15 @@ export default function ContactMap() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        sectionRef.current,
-        { autoAlpha: 0, y: 30 },
-        { autoAlpha: 1, y: 0, duration: 1, ease: "power3.out" }
-      );
+      const mm = gsap.matchMedia();
+      mm.add(NO_PREFERENCE, () => {
+        gsap.fromTo(
+          sectionRef.current,
+          { autoAlpha: 0, scale: 1.04 },
+          { autoAlpha: 1, scale: 1, duration: 1.2, ease: "power3.out" }
+        );
+      });
+      mm.add(REDUCED_MOTION, () => gsap.set(sectionRef.current, { autoAlpha: 1, clearProps: "transform" }));
     }, sectionRef);
     return () => ctx.revert();
   }, []);

@@ -1,9 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 
 const OFFERS = [
   "Buy 1 Get 1",
@@ -15,28 +12,46 @@ const OFFERS = [
 
 export default function AboutReserve() {
   const sectionRef = useRef(null);
+  const mediaRef = useRef(null);
   const sideTextRef = useRef(null);
   const listRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        sideTextRef.current,
-        { autoAlpha: 0, x: -30 },
-        {
-          autoAlpha: 1, x: 0, duration: 0.8, ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-        }
-      );
+      const mm = gsap.matchMedia();
 
-      gsap.fromTo(
-        listRef.current.children,
-        { autoAlpha: 0, y: 30 },
-        {
-          autoAlpha: 1, y: 0, stagger: 0.1, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: listRef.current, start: "top 85%" },
-        }
-      );
+      mm.add(NO_PREFERENCE, () => {
+        // Background parallax drift
+        gsap.fromTo(mediaRef.current,
+          { yPercent: -8 },
+          {
+            yPercent: 8, ease: "none",
+            scrollTrigger: { trigger: sectionRef.current, start: "top bottom", end: "bottom top", scrub: true },
+          }
+        );
+
+        gsap.fromTo(sideTextRef.current,
+          { autoAlpha: 0, x: -30 },
+          { autoAlpha: 1, x: 0, duration: 0.8, ease: "power3.out",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 80%" } }
+        );
+
+        // Offers — clip-wipe up with stagger
+        gsap.fromTo(listRef.current.children,
+          { autoAlpha: 0, yPercent: 60, clipPath: "inset(0 0 100% 0)" },
+          {
+            autoAlpha: 1, yPercent: 0, clipPath: "inset(0 0 0% 0)",
+            stagger: 0.1, duration: 0.8, ease: "power4.out",
+            scrollTrigger: { trigger: listRef.current, start: "top 85%" },
+          }
+        );
+      });
+
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set([sideTextRef.current, listRef.current.children, mediaRef.current], {
+          autoAlpha: 1, clearProps: "transform,clipPath",
+        });
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -44,12 +59,14 @@ export default function AboutReserve() {
   return (
     <section ref={sectionRef} className="relative w-full h-auto min-h-[400px] lg:h-[654px] overflow-hidden">
 
-      {/* Full-width background image */}
-      <img
-        src="/images/shared/interior/busy-restaurant-aerial.png"
-        alt="Restaurant interior"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+      {/* Full-width background image — oversized for parallax */}
+      <div ref={mediaRef} className="absolute inset-[-8%] will-change-transform">
+        <img
+          src="/images/shared/interior/busy-restaurant-aerial.png"
+          alt="Restaurant interior"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      </div>
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-charcoal/40" />

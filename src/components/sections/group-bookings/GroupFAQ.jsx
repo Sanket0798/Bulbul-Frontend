@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, splitLines, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 
 const FAQ_ITEMS = [
   {
@@ -34,28 +31,45 @@ const FAQ_ITEMS = [
 export default function GroupFAQ() {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
+  const headingRef = useRef(null);
   const listRef = useRef(null);
   const [openIndex, setOpenIndex] = useState(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        headerRef.current.children,
-        { autoAlpha: 0, y: 20 },
-        {
-          autoAlpha: 1, y: 0, stagger: 0.1, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: headerRef.current, start: "top 85%" },
-        }
-      );
+      const mm = gsap.matchMedia();
 
-      gsap.fromTo(
-        listRef.current.children,
-        { autoAlpha: 0, y: 20 },
-        {
-          autoAlpha: 1, y: 0, stagger: 0.08, duration: 0.6, ease: "power3.out",
-          scrollTrigger: { trigger: listRef.current, start: "top 85%" },
-        }
-      );
+      mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
+        // Heading — line-masked reveal; eyebrow + intro stagger around it
+        const heading = splitLines(headingRef.current);
+        gsap.from(heading.lines, {
+          yPercent: 120, duration: 0.9, stagger: 0.1, ease: "power4.out",
+          scrollTrigger: { trigger: headerRef.current, start: "top 85%" },
+        });
+        gsap.fromTo(
+          [headerRef.current.querySelector("span"), headerRef.current.querySelector("p")],
+          { autoAlpha: 0, y: 20 },
+          {
+            autoAlpha: 1, y: 0, stagger: 0.1, duration: 0.7, ease: "power3.out", delay: 0.1,
+            scrollTrigger: { trigger: headerRef.current, start: "top 85%" },
+          }
+        );
+
+        // FAQ rows wipe up one after another
+        gsap.fromTo(listRef.current.children,
+          { autoAlpha: 0, y: 24 },
+          {
+            autoAlpha: 1, y: 0, stagger: 0.08, duration: 0.6, ease: "power3.out",
+            scrollTrigger: { trigger: listRef.current, start: "top 85%" },
+          }
+        );
+
+        return () => heading.revert();
+      }));
+
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set([headerRef.current.children, listRef.current.children], { autoAlpha: 1, clearProps: "transform" });
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -74,7 +88,7 @@ export default function GroupFAQ() {
             Book for a First-Class Get-Together
           </span>
 
-          <h2 className="font-freight text-[32px] sm:text-[38px] lg:text-[44px] leading-[1.1] font-black text-rust mb-[14px]">
+          <h2 ref={headingRef} className="font-freight text-[32px] sm:text-[38px] lg:text-[44px] leading-[1.1] font-black text-rust mb-[14px]">
             FAQ'S
           </h2>
 

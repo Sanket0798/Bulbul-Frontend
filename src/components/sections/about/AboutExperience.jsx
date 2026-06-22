@@ -1,8 +1,5 @@
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, splitLines, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 
 const TEAM_AVATARS = [
   "/images/shared/team/chef-portrait-beard-apron.png",
@@ -14,37 +11,59 @@ const TEAM_AVATARS = [
 export default function AboutExperience() {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
+  const headingRef = useRef(null);
   const leftColRef = useRef(null);
   const rightColRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        headerRef.current.children,
-        { autoAlpha: 0, y: 30 },
-        {
-          autoAlpha: 1, y: 0, stagger: 0.12, duration: 0.8, ease: "power3.out",
+      const mm = gsap.matchMedia();
+
+      mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
+        // Heading — line-masked reveal; rest of header staggers in
+        const heading = splitLines(headingRef.current);
+        gsap.from(heading.lines, {
+          yPercent: 120, duration: 1, stagger: 0.1, ease: "power4.out",
           scrollTrigger: { trigger: headerRef.current, start: "top 85%" },
-        }
-      );
+        });
+        gsap.fromTo(
+          [headerRef.current.querySelector("span"), headerRef.current.querySelector("p")],
+          { autoAlpha: 0, y: 30 },
+          {
+            autoAlpha: 1, y: 0, stagger: 0.12, duration: 0.8, ease: "power3.out", delay: 0.15,
+            scrollTrigger: { trigger: headerRef.current, start: "top 85%" },
+          }
+        );
 
-      gsap.fromTo(
-        leftColRef.current,
-        { autoAlpha: 0, x: -50 },
-        {
-          autoAlpha: 1, x: 0, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: leftColRef.current, start: "top 80%" },
-        }
-      );
+        // Columns slide in from opposite sides
+        gsap.fromTo(leftColRef.current,
+          { autoAlpha: 0, x: -50 },
+          { autoAlpha: 1, x: 0, duration: 1, ease: "power3.out",
+            scrollTrigger: { trigger: leftColRef.current, start: "top 80%" } }
+        );
+        gsap.fromTo(rightColRef.current,
+          { autoAlpha: 0, x: 50 },
+          { autoAlpha: 1, x: 0, duration: 1, ease: "power3.out",
+            scrollTrigger: { trigger: rightColRef.current, start: "top 80%" } }
+        );
 
-      gsap.fromTo(
-        rightColRef.current,
-        { autoAlpha: 0, x: 50 },
-        {
-          autoAlpha: 1, x: 0, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: rightColRef.current, start: "top 80%" },
-        }
-      );
+        // Parallax scale on both feature photos
+        gsap.utils.toArray([leftColRef.current.querySelector("img"), rightColRef.current.querySelector("img")])
+          .forEach((img) => {
+            gsap.fromTo(img, { scale: 1.15 }, {
+              scale: 1, ease: "none",
+              scrollTrigger: { trigger: img, start: "top bottom", end: "bottom top", scrub: true },
+            });
+          });
+
+        return () => heading.revert();
+      }));
+
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set([headerRef.current.children, leftColRef.current, rightColRef.current], {
+          autoAlpha: 1, clearProps: "transform",
+        });
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -60,7 +79,7 @@ export default function AboutExperience() {
             <span className="font-freight uppercase font-black text-lg leading-[18px] text-terracotta mb-4">
               Signature Experience
             </span>
-            <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[63px] leading-[1.1] font-black text-rust">
+            <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[48px] lg:text-[63px] leading-[1.1] font-black text-rust">
               More Than Just{" "}
               <span className="italic font-normal text-gold block sm:inline">Dining</span>
             </h2>

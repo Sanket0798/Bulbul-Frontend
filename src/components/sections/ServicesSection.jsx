@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap, SplitText, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 import aboutVector from "@/assets/icons/svg/About-vector.svg";
 
@@ -20,10 +20,10 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add(NO_PREFERENCE, () => {
+      mm.add(NO_PREFERENCE, () => afterFonts(ref, () => {
         // Heading — line-masked reveal
         const heading = SplitText.create(headingRef.current, {
-          type: "lines", mask: "lines", autoSplit: true,
+          type: "lines", mask: "lines",
         });
         gsap.from(heading.lines, {
           yPercent: 120, duration: 1, stagger: 0.1, ease: "power4.out",
@@ -51,7 +51,7 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
         );
 
         return () => heading.revert();
-      });
+      }));
 
       mm.add(REDUCED_MOTION, () => {
         gsap.set([headerLeftRef.current, headerRightRef.current, cardsRef.current.children], {

@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, splitLines, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const POSITION_OPTIONS = [
   "Floor Manager",
@@ -18,6 +15,7 @@ export default function CareersApplicationForm() {
   const sectionRef = useRef(null);
   const formRef = useRef(null);
   const imageRef = useRef(null);
+  const headingRef = useRef(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -30,23 +28,46 @@ export default function CareersApplicationForm() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        formRef.current,
-        { autoAlpha: 0, x: -40 },
-        {
-          autoAlpha: 1, x: 0, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-        }
-      );
+      const mm = gsap.matchMedia();
 
-      gsap.fromTo(
-        imageRef.current,
-        { autoAlpha: 0, x: 40 },
-        {
-          autoAlpha: 1, x: 0, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: imageRef.current, start: "top 80%" },
-        }
-      );
+      mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
+        // Heading — line-masked reveal
+        const heading = splitLines(headingRef.current);
+        gsap.from(heading.lines, {
+          yPercent: 120, duration: 1, stagger: 0.1, ease: "power4.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        });
+
+        // Eyebrow + intro + each field stagger up
+        gsap.from([
+          formRef.current.querySelector("span"),
+          formRef.current.querySelector("p"),
+          ...formRef.current.querySelectorAll("form > *"),
+        ], {
+          autoAlpha: 0, y: 26, duration: 0.7, stagger: 0.07, ease: "power3.out", delay: 0.2,
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        });
+
+        // Image — clip reveal + parallax scale
+        gsap.fromTo(imageRef.current,
+          { clipPath: "inset(0 0 0 100%)", autoAlpha: 0 },
+          {
+            clipPath: "inset(0 0 0 0%)", autoAlpha: 1, duration: 1.2, ease: "power4.inOut",
+            scrollTrigger: { trigger: imageRef.current, start: "top 80%" },
+          }
+        );
+        gsap.fromTo(imageRef.current.querySelector("img"),
+          { scale: 1.2 },
+          { scale: 1, ease: "none",
+            scrollTrigger: { trigger: imageRef.current, start: "top bottom", end: "bottom top", scrub: true } }
+        );
+
+        return () => heading.revert();
+      }));
+
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set([formRef.current, imageRef.current], { autoAlpha: 1, clearProps: "transform,clipPath" });
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -77,7 +98,7 @@ export default function CareersApplicationForm() {
               Application Form
             </span>
 
-            <h2 className="font-freight text-[36px] sm:text-[44px] lg:text-[50px] leading-[42px] sm:leading-[50px] lg:leading-[56px] font-black text-rust-dark mb-3">
+            <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[44px] lg:text-[50px] leading-[42px] sm:leading-[50px] lg:leading-[56px] font-black text-rust-dark mb-3">
               Make an Application
             </h2>
 

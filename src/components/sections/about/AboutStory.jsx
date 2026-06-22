@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, splitLines, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import SectionTag from "@/components/common/SectionTag";
 import ArrowIcon from "@/components/common/ArrowIcon";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
@@ -9,8 +8,6 @@ import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 import utensilsIcon from "@/assets/icons/svg/utensils.svg";
 import maskIcon from "@/assets/icons/svg/mask.svg";
 import progressIcon from "@/assets/icons/svg/progress.svg";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const STATS = [
   { icon: utensilsIcon, bold: "15+ Signature", italic: "Dishes" },
@@ -22,16 +19,48 @@ export default function AboutStory() {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
   const textRef = useRef(null);
+  const headingRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(imageRef.current, {
-        opacity: 0, x: -60, duration: 1, ease: "power3.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-      });
-      gsap.from(textRef.current.children, {
-        opacity: 0, x: 50, stagger: 0.12, duration: 0.8, ease: "power3.out",
-        scrollTrigger: { trigger: textRef.current, start: "top 80%" },
+      const mm = gsap.matchMedia();
+
+      mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
+        // Image — clip reveal + parallax on the inner photo
+        gsap.fromTo(imageRef.current,
+          { clipPath: "inset(0 0 0 100%)", autoAlpha: 0 },
+          {
+            clipPath: "inset(0 0 0 0%)", autoAlpha: 1, duration: 1.2, ease: "power4.inOut",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+          }
+        );
+        gsap.fromTo(imageRef.current.querySelector("img"),
+          { scale: 1.2 },
+          {
+            scale: 1, ease: "none",
+            scrollTrigger: { trigger: sectionRef.current, start: "top bottom", end: "bottom top", scrub: true },
+          }
+        );
+
+        // Heading — line-masked reveal
+        const heading = splitLines(headingRef.current);
+        gsap.from(heading.lines, {
+          yPercent: 120, duration: 1, stagger: 0.12, ease: "power4.out",
+          scrollTrigger: { trigger: textRef.current, start: "top 80%" },
+        });
+
+        // Remaining copy/stats/CTA — staggered slide-in (heading excluded)
+        const rest = gsap.utils.toArray(textRef.current.children).filter((c) => c !== headingRef.current);
+        gsap.from(rest, {
+          opacity: 0, x: 50, stagger: 0.12, duration: 0.8, ease: "power3.out", delay: 0.15,
+          scrollTrigger: { trigger: textRef.current, start: "top 80%" },
+        });
+
+        return () => heading.revert();
+      }));
+
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set([imageRef.current, textRef.current.children], { autoAlpha: 1, clearProps: "transform,clipPath" });
       });
     }, sectionRef);
     return () => ctx.revert();
@@ -53,7 +82,7 @@ export default function AboutStory() {
             <h2 className="font-freight uppercase font-black text-lg leading-[18px] mb-4">
               <span className="text-olive">Our Story</span>
             </h2>
-            <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[63px] leading-[1.1] mb-5">
+            <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[48px] lg:text-[63px] leading-[1.1] mb-5">
               <span className="text-rust-dark font-black">Crafted with Flavor, Served</span>
               <span className="italic font-normal text-gold"> with Heart</span>
             </h2>

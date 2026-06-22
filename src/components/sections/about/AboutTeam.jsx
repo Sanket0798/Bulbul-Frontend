@@ -1,8 +1,5 @@
 import { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, splitLines, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 
 const FOUNDERS = [
   {
@@ -42,40 +39,33 @@ function MugshotCard({ member, index }) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Staggered reveal with clip-path wipe + parallax float
-      gsap.fromTo(
-        cardRef.current,
-        {
-          clipPath: "inset(100% 0 0 0)",
-          opacity: 0,
-        },
-        {
-          clipPath: "inset(0% 0 0 0)",
-          opacity: 1,
-          duration: 1.2,
-          ease: "power4.out",
-          delay: index * 0.15,
-          scrollTrigger: {
-            trigger: cardRef.current,
-            start: "top 85%",
-          },
-        }
-      );
+      const mm = gsap.matchMedia();
 
-      // Subtle float on the image
-      const img = cardRef.current.querySelector(".mugshot-img");
-      if (img) {
-        gsap.to(img, {
-          yPercent: -4,
-          ease: "none",
-          scrollTrigger: {
-            trigger: cardRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
+      mm.add(NO_PREFERENCE, () => {
+        // Staggered reveal with clip-path wipe + parallax float
+        gsap.fromTo(
+          cardRef.current,
+          { clipPath: "inset(100% 0 0 0)", opacity: 0 },
+          {
+            clipPath: "inset(0% 0 0 0)", opacity: 1, duration: 1.2, ease: "power4.out",
+            delay: index * 0.15,
+            scrollTrigger: { trigger: cardRef.current, start: "top 85%" },
+          }
+        );
+
+        // Subtle float on the image
+        const img = cardRef.current.querySelector(".mugshot-img");
+        if (img) {
+          gsap.to(img, {
+            yPercent: -4, ease: "none",
+            scrollTrigger: { trigger: cardRef.current, start: "top bottom", end: "bottom top", scrub: true },
+          });
+        }
+      });
+
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set(cardRef.current, { autoAlpha: 1, clearProps: "clipPath" });
+      });
     }, cardRef);
 
     return () => ctx.revert();
@@ -116,17 +106,18 @@ function TeamGroup({ title, members, startIndex }) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        titleRef.current,
-        { x: -40, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: { trigger: titleRef.current, start: "top 85%" },
-        }
-      );
+      const mm = gsap.matchMedia();
+      mm.add(NO_PREFERENCE, () => {
+        gsap.fromTo(
+          titleRef.current,
+          { x: -40, opacity: 0 },
+          {
+            x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+            scrollTrigger: { trigger: titleRef.current, start: "top 85%" },
+          }
+        );
+      });
+      mm.add(REDUCED_MOTION, () => gsap.set(titleRef.current, { autoAlpha: 1, clearProps: "transform" }));
     }, titleRef);
     return () => ctx.revert();
   }, []);
@@ -155,34 +146,32 @@ export default function AboutTeam() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading: split-style reveal
-      gsap.fromTo(
-        headingRef.current,
-        { yPercent: 60, opacity: 0, rotateX: -15 },
-        {
-          yPercent: 0,
-          opacity: 1,
-          rotateX: 0,
-          duration: 1.2,
-          ease: "power4.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-        }
-      );
+      const mm = gsap.matchMedia();
 
-      // Intro paragraph: gentle blur-in
-      gsap.fromTo(
-        introRef.current,
-        { opacity: 0, y: 30, filter: "blur(6px)" },
-        {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          duration: 1,
-          delay: 0.3,
-          ease: "power3.out",
-          scrollTrigger: { trigger: introRef.current, start: "top 85%" },
-        }
-      );
+      mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
+        // Heading: line-masked reveal
+        const heading = splitLines(headingRef.current);
+        gsap.from(heading.lines, {
+          yPercent: 120, duration: 1.1, stagger: 0.12, ease: "power4.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+        });
+
+        // Intro paragraph: gentle blur-in
+        gsap.fromTo(
+          introRef.current,
+          { opacity: 0, y: 30, filter: "blur(6px)" },
+          {
+            opacity: 1, y: 0, filter: "blur(0px)", duration: 1, delay: 0.3, ease: "power3.out",
+            scrollTrigger: { trigger: introRef.current, start: "top 85%" },
+          }
+        );
+
+        return () => heading.revert();
+      }));
+
+      mm.add(REDUCED_MOTION, () => {
+        gsap.set([headingRef.current, introRef.current], { autoAlpha: 1, clearProps: "transform,filter" });
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);

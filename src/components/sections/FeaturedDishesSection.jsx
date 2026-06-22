@@ -1,5 +1,5 @@
 import { forwardRef, useState, useRef, useEffect } from "react";
-import { gsap, SplitText, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import arrowRight from "@/assets/icons/svg/right-arrow-rust.svg";
 import DishModal from "@/components/common/DishModal";
 
@@ -37,9 +37,9 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add(NO_PREFERENCE, () => {
+      mm.add(NO_PREFERENCE, () => afterFonts(el, () => {
         const heading = SplitText.create(headingRef.current, {
-          type: "lines", mask: "lines", autoSplit: true,
+          type: "lines", mask: "lines",
         });
 
         const tl = gsap.timeline({
@@ -59,7 +59,7 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
         });
 
         return () => heading.revert();
-      });
+      }));
 
       mm.add(REDUCED_MOTION, () => {
         gsap.set([headingRef.current, headerRef.current.children, trackRef.current.children], {

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger, SplitText, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, ScrollTrigger, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import MagneticButton from "@/components/common/MagneticButton";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 
@@ -33,18 +33,18 @@ export default function HeroSection() {
       const mm = gsap.matchMedia();
 
       // ── Full motion ────────────────────────────────────────────────────────
-      mm.add(NO_PREFERENCE, () => {
+      mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
         // Split the three text blocks. `mask: "lines"` clips each line so the
-        // reveal slides up from behind an invisible mask. `autoSplit` re-splits
-        // when the web font finishes loading or on resize so lines never break.
+        // reveal slides up from behind an invisible mask. Split runs after
+        // afterFonts() so line breaks are measured against the loaded font.
         const eyebrow = SplitText.create(headingRef.current, {
-          type: "lines", mask: "lines", autoSplit: true,
+          type: "lines", mask: "lines",
         });
         const heading = SplitText.create(mainHeadingRef.current, {
-          type: "lines,chars", mask: "lines", autoSplit: true,
+          type: "lines,chars", mask: "lines",
         });
         const quote = SplitText.create(quoteRef.current, {
-          type: "lines,words", mask: "lines", autoSplit: true,
+          type: "lines,words", mask: "lines",
         });
 
         // Intro Ken-Burns on the background video.
@@ -62,10 +62,12 @@ export default function HeroSection() {
           }, 0.5)
           .from(quote.words, {
             yPercent: 110, opacity: 0, duration: 0.7, stagger: 0.02,
-          }, 0.9)
-          .from(ctaRef.current, {
+          }, 0.9);
+        if (ctaRef.current) {
+          tl.from(ctaRef.current, {
             autoAlpha: 0, scale: 0.8, y: 20, duration: 0.7, ease: "back.out(1.6)",
           }, 1.1);
+        }
 
         // Background parallax — video drifts slower than the page on scroll.
         gsap.fromTo(mediaRef.current,
@@ -80,7 +82,7 @@ export default function HeroSection() {
         );
 
         // Content lifts and fades as the hero scrolls out of view.
-        gsap.to([headingRef.current, quoteRef.current, ctaRef.current], {
+        gsap.to([headingRef.current, quoteRef.current, ctaRef.current].filter(Boolean), {
           yPercent: -18, autoAlpha: 0, ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -93,12 +95,12 @@ export default function HeroSection() {
           heading.revert();
           quote.revert();
         };
-      });
+      }));
 
       // ── Reduced motion — show everything, no transforms ──────────────────────
       mm.add(REDUCED_MOTION, () => {
         gsap.set(
-          [headingRef.current, mainHeadingRef.current, quoteRef.current, ctaRef.current, mediaRef.current],
+          [headingRef.current, mainHeadingRef.current, quoteRef.current, ctaRef.current, mediaRef.current].filter(Boolean),
           { autoAlpha: 1, clearProps: "transform" }
         );
       });
