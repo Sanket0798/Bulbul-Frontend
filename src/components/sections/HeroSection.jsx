@@ -66,7 +66,7 @@ export default function HeroSection() {
 
           {/* Left column — heading */}
           <div className="max-w-[630px]">
-            <span ref={headingRef} className="font-freight text-h1 text-cream font-black text-[36px] sm:text-[48px] lg:text-[58px]">
+            <span ref={headingRef} className="font-freight text-h1 text-cream font-black text-[36px] sm:text-[48px] lg:text-[35px]">
               Food that feels a little familiar, a little <span className="italic font-medium text-accent-gold">new</span>
             </span>
 

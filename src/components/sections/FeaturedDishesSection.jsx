@@ -88,7 +88,7 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
 
       {/* Header — contained */}
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-10 lg:mb-[66px]">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-10 lg:mb-[45px]">
           <div className="flex flex-col gap-2" data-animate>
             <h2 className="font-freight text-[36px] sm:text-[48px] lg:text-[62px] leading-[44px] sm:leading-[58px] lg:leading-[73px]">
               <span className="text-rust-dark font-semibold">Beneath Tudor Street, a place to</span>
@@ -96,11 +96,11 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
             </h2>
           </div>
           <div className="flex flex-col gap-3 max-w-[590px]" data-animate>
-            <p className="font-freight font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-olive">
+            <p className="font-freight font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-rust">
               For a working lunch, a celebratory dinner or a drink at the bar - with glowing flower lights and a cave-inspired bar that feels a world away from London.
             </p>
             {/* Category filter tab */}
-            <div className="flex flex-wrap gap-3">
+            {/* <div className="flex flex-wrap gap-3">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
@@ -113,7 +113,7 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
                   {cat}
                 </button>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

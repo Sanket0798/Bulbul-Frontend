@@ -29,11 +29,10 @@ const SOCIAL_LINKS = [
 ];
 
 const FOOTER_LINKS = [
-  { label: "Explore", to: "/" },
-  { label: "About", to: "/about" },
-  { label: "Menu", to: "/rooms" },
-  { label: "Contact", to: "/contact" },
-  { label: "Pricing", to: "/pricing" },
+  { label: "Home", to: "/" },
+  { label: "Reservation", to: "https://www.sevenrooms.com/explore/bulbul/reservations/create/search/", external: true },
+  { label: "Menu", to: "/menu" },
+  { label: "Directions", to: "https://maps.google.com/?q=Bulbul+Tudor+Street+London", external: true },
 ];
 
 export default function Footer() {
@@ -68,13 +67,21 @@ export default function Footer() {
 
         {/* Footer nav */}
         <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-          {FOOTER_LINKS.map(({ label, to }, i) => (
+          {FOOTER_LINKS.map(({ label, to, external }, i) => (
             <span key={label} className="flex items-center gap-4">
-              <Link to={to}
-                className="font-freight text-caption tracking-widest no-underline
-                  text-white font-medium text-lg hover:text-accent-gold transition-colors duration-300">
-                {label}
-              </Link>
+              {external ? (
+                <a href={to} target="_blank" rel="noopener noreferrer"
+                  className="font-freight text-caption tracking-widest no-underline
+                    text-white font-medium text-lg hover:text-accent-gold transition-colors duration-300">
+                  {label}
+                </a>
+              ) : (
+                <Link to={to}
+                  className="font-freight text-caption tracking-widest no-underline
+                    text-white font-medium text-lg hover:text-accent-gold transition-colors duration-300">
+                  {label}
+                </Link>
+              )}
               {i < FOOTER_LINKS.length - 1 && (
                 <span className="text-white font-medium text-base">|</span>
               )}

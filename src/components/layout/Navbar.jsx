@@ -8,8 +8,7 @@ const NAV_LINKS = [
   { label: "Menu", to: "/menu" },
   { label: "Reservations", to: "https://www.sevenrooms.com/explore/bulbul/reservations/create/search/", external: true },
   { label: "Group Bookings", to: "/group-bookings" },
-  { label: "Talent Pool", to: "/talent-pool" },
-  { label: "Careers", to: "/careers" },
+  { label: "Talent Pool", to: "/careers" },
   { label: "Contact", to: "/contact" },
 ];
 

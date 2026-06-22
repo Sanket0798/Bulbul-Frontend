@@ -5,19 +5,19 @@ import arrowRust from "@/assets/icons/svg/right-arrow-rust.svg";
 
 const SLIDES = [
   {
-    bg: "/images/shared/interior/restaurant-dark-chandeliers.png",
+    bg: "/images/bg/Last Screen Banner 1-Group Bookings.png",
     heading: "More the merrier.",
     widget: "Group bookings",
     to: "/group-bookings",
   },
   {
-    bg: "/images/shared/interior/busy-restaurant-aerial-wide.png",
+    bg: "/images/bg/Last Screen Banner 2-Talent Pool.png",
     heading: "It'll be fun they said",
     widget: "Join our team",
     to: "/careers",
   },
   {
-    bg: "/images/shared/interior/restaurant-wooden-lanterns.png",
+    bg: "/images/bg/Last Screen Banner 3-Coverage.png",
     heading: "Mom look!",
     widget: "Press releases",
     to: "/blogs",

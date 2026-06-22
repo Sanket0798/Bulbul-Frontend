@@ -9,10 +9,10 @@ export default function Careers() {
   return (
     <div className="bg-bg-inner">
       <CareersHero />
-      <CareersIntro />
-      <CareersWhyWork />
-      <CareersPositions />
-      <CareersGallery />
+      {/* <CareersIntro /> */}
+      {/* <CareersWhyWork /> */}
+      {/* <CareersPositions /> */}
+      {/* <CareersGallery /> */}
       <CareersApplicationForm />
     </div>
   );

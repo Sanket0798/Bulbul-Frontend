@@ -71,7 +71,7 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
             </Link> */}
             <Link to="/contact#contact-staff"
               className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-lg transition-all duration-100 hover:bg-rust-dark rounded mt-6">
-              Read More <img src={arrowRight} alt="" />
+              Meet the Team <img src={arrowRight} alt="" />
             </Link>
           </div>
         </div>
