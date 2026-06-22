@@ -8,7 +8,7 @@ export default function Contact() {
     <div className="bg-bg-inner">
       <ContactMap />
       <ContactInfo />
-      <ContactStaff />
+      {/* <ContactStaff /> */}
       <ContactCTA />
     </div>
   );

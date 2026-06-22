@@ -9,11 +9,11 @@ export default function GroupBookings() {
   return (
     <>
       <GroupHero />
-      <GroupFeastMenus />
-      <GroupPartySection />
-      <GroupReservations />
-      <GroupFAQ />
+      {/* <GroupFeastMenus /> */}
+      {/* <GroupPartySection /> */}
+      {/* <GroupReservations /> */}
       <GroupEnquiryForm />
+      <GroupFAQ />
     </>
   );
 }
