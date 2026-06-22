@@ -33,12 +33,17 @@ export default function PromotionSection() {
 
   const animateSlide = useCallback(() => {
     const tl = gsap.timeline();
-    tl.fromTo(bgRef.current, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power2.inOut" });
+    // Background — scale reveal
+    tl.fromTo(bgRef.current,
+      { opacity: 0, scale: 1.1 },
+      { opacity: 1, scale: 1, duration: 1.2, ease: "power3.inOut" }
+    );
+    // Content — staggered clip-path + blur
     tl.fromTo(
       contentRef.current.children,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, stagger: 0.15, duration: 0.7, ease: "power3.out" },
-      "-=0.4"
+      { opacity: 0, y: 40, filter: "blur(6px)", clipPath: "inset(0 0 100% 0)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", clipPath: "inset(0 0 0% 0)", stagger: 0.15, duration: 0.9, ease: "power4.out" },
+      "-=0.6"
     );
   }, []);
 

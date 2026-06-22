@@ -20,24 +20,24 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header left — slide in from left
+      // Header left — rotate in from depth
       gsap.fromTo(headerLeftRef.current,
-        { autoAlpha: 0, x: -60 },
-        { autoAlpha: 1, x: 0, duration: 0.9, ease: "power3.out",
+        { autoAlpha: 0, x: -80, rotateY: 8, filter: "blur(4px)" },
+        { autoAlpha: 1, x: 0, rotateY: 0, filter: "blur(0px)", duration: 1.2, ease: "power4.out",
           scrollTrigger: { trigger: headerLeftRef.current, start: "top 85%" } }
       );
 
-      // Header right — slide in from right
+      // Header right — blur-in with slide
       gsap.fromTo(headerRightRef.current,
-        { autoAlpha: 0, x: 60 },
-        { autoAlpha: 1, x: 0, duration: 0.9, ease: "power3.out",
+        { autoAlpha: 0, x: 80, filter: "blur(6px)" },
+        { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: 1.2, ease: "power4.out",
           scrollTrigger: { trigger: headerRightRef.current, start: "top 85%" } }
       );
 
-      // Service cards — stagger up
+      // Service cards — clip-path wipe from bottom + stagger
       gsap.fromTo(cardsRef.current.children,
-        { autoAlpha: 0, y: 60, scale: 0.95 },
-        { autoAlpha: 1, y: 0, scale: 1, stagger: 0.15, duration: 0.8, ease: "power3.out",
+        { clipPath: "inset(100% 0 0 0)", autoAlpha: 0 },
+        { clipPath: "inset(0% 0 0 0)", autoAlpha: 1, stagger: 0.2, duration: 1.1, ease: "power4.out",
           scrollTrigger: { trigger: cardsRef.current, start: "top 80%" } }
       );
     }, ref);

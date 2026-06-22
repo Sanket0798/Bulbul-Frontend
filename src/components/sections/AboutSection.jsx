@@ -13,20 +13,39 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Image collage animation
-      gsap.fromTo(imageColRef.current.children,
-        { autoAlpha: 0, scale: 0.9, y: 30 },
+      // Image collage — clip-path reveal + parallax depth
+      const images = imageColRef.current.children;
+      gsap.fromTo(images[0],
+        { clipPath: "inset(0 100% 0 0)", autoAlpha: 0 },
         {
-          autoAlpha: 1, scale: 1, y: 0, stagger: 0.2, duration: 0.9, ease: "power3.out",
+          clipPath: "inset(0 0% 0 0)", autoAlpha: 1, duration: 1.2, ease: "power4.inOut",
+          scrollTrigger: { trigger: imageColRef.current, start: "top 80%" }
+        }
+      );
+      gsap.fromTo(images[1],
+        { clipPath: "inset(100% 0 0 0)", autoAlpha: 0, scale: 0.9 },
+        {
+          clipPath: "inset(0% 0 0 0)", autoAlpha: 1, scale: 1, duration: 1.2, delay: 0.3, ease: "power4.inOut",
           scrollTrigger: { trigger: imageColRef.current, start: "top 80%" }
         }
       );
 
-      // Text column animation
+      // Parallax float on images
+      gsap.to(images[0], {
+        yPercent: -8, ease: "none",
+        scrollTrigger: { trigger: imageColRef.current, start: "top bottom", end: "bottom top", scrub: true }
+      });
+      gsap.to(images[1], {
+        yPercent: 6, ease: "none",
+        scrollTrigger: { trigger: imageColRef.current, start: "top bottom", end: "bottom top", scrub: true }
+      });
+
+      // Text column — staggered blur-in with rotation
       gsap.fromTo(textColRef.current.children,
-        { autoAlpha: 0, x: 50 },
+        { autoAlpha: 0, y: 40, filter: "blur(4px)", rotateY: -5 },
         {
-          autoAlpha: 1, x: 0, stagger: 0.15, duration: 0.8, ease: "power3.out",
+          autoAlpha: 1, y: 0, filter: "blur(0px)", rotateY: 0,
+          stagger: 0.12, duration: 1, ease: "power3.out",
           scrollTrigger: { trigger: textColRef.current, start: "top 80%" }
         }
       );

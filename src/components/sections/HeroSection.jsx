@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection() {
   const sectionRef = useRef(null);
@@ -28,11 +31,29 @@ export default function HeroSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-      tl.fromTo(headingRef.current, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 1, delay: 0.3 })
-        .fromTo(quoteRef.current, { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, duration: 0.8 }, "-=0.5")
-        .fromTo(ctaRef.current, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.6 }, "-=0.3");
+      // Heading — clip-path wipe + blur
+      tl.fromTo(headingRef.current,
+        { clipPath: "inset(0 0 100% 0)", autoAlpha: 0, filter: "blur(8px)" },
+        { clipPath: "inset(0 0 0% 0)", autoAlpha: 1, filter: "blur(0px)", duration: 1.4, delay: 0.4 }
+      )
+      // Quote — slide from right with blur
+      .fromTo(quoteRef.current,
+        { autoAlpha: 0, x: 60, filter: "blur(6px)" },
+        { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: 1 }, "-=0.7"
+      )
+      // CTA — scale up from small
+      .fromTo(ctaRef.current,
+        { autoAlpha: 0, scale: 0.8, y: 20 },
+        { autoAlpha: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.5)" }, "-=0.4"
+      );
+
+      // Continuous subtle parallax on scroll
+      gsap.to(headingRef.current, {
+        yPercent: -15, ease: "none",
+        scrollTrigger: { trigger: sectionRef.current, start: "top top", end: "bottom top", scrub: true }
+      });
     }, sectionRef);
 
     return () => ctx.revert();
