@@ -137,7 +137,7 @@ export default function PromotionSection() {
           )}
 
           {/* Widget button */}
-          <Link ref={ctaRef} to={slide.to}
+          <Link to={slide.to}
             className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-lg transition-all duration-300 hover:bg-rust-dark rounded uppercase tracking-wider">
             {slide.widget}
           </Link>
