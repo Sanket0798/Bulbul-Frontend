@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { gsap, SplitText, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, REDUCED_MOTION } from "@/utils/animations";
 import arrowRust from "@/assets/icons/svg/right-arrow-rust.svg";
 
 const SLIDES = [
@@ -28,71 +28,34 @@ const SLIDES = [
 export default function PromotionSection() {
   const [current, setCurrent] = useState(0);
   const contentRef = useRef(null);
-  const headingRef = useRef(null);
-  const ctaRef = useRef(null);
   const bgRef = useRef(null);
   const autoPlayRef = useRef(null);
-  const splitRef = useRef(null);
 
   const animateSlide = useCallback(() => {
     const reduce = window.matchMedia(REDUCED_MOTION).matches;
-    // SplitText must measure against loaded fonts; on a cold load the first
-    // slide falls back to a plain fade until fonts are ready.
-    const fontsReady = !document.fonts || document.fonts.status === "loaded";
-
-    // Clean up the previous slide's word split before re-splitting.
-    splitRef.current?.revert();
-    splitRef.current = null;
 
     const tl = gsap.timeline();
 
-    // Background — scale reveal (plain cross-fade when reduced motion)
+    // Background — scale reveal
     tl.fromTo(bgRef.current,
-      { opacity: 0, scale: reduce ? 1 : 1.1 },
+      { opacity: 0, scale: reduce ? 1 : 1.08 },
       { opacity: 1, scale: 1, duration: 1.2, ease: "power3.inOut" }
     );
 
-    if (reduce || !fontsReady) {
-      tl.fromTo(contentRef.current.children,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5, stagger: 0.1 },
+    // Content — staggered fade + slide up with blur
+    const children = contentRef.current?.children;
+    if (children) {
+      tl.fromTo(children,
+        { opacity: 0, y: reduce ? 0 : 30, filter: reduce ? "none" : "blur(4px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", stagger: 0.12, duration: 0.8, ease: "power3.out" },
         "-=0.6"
       );
-      return;
     }
-
-    // Heading — word-by-word reveal from behind a line mask.
-    const split = SplitText.create(headingRef.current, { type: "lines,words", mask: "lines" });
-    splitRef.current = split;
-
-    // Apply strikethrough to specific words after SplitText processes them
-    if (SLIDES[current].strikeWords) {
-      const strikeText = SLIDES[current].strikeWords;
-      split.words.forEach((wordEl) => {
-        if (strikeText.includes(wordEl.textContent.trim())) {
-          wordEl.style.textDecoration = "line-through";
-        }
-      });
-    }
-
-    tl.from(split.words,
-      { yPercent: 110, opacity: 0, stagger: 0.04, duration: 0.8, ease: "power4.out" },
-      "-=0.6"
-    );
-    if (ctaRef.current) {
-      tl.from(ctaRef.current,
-        { autoAlpha: 0, y: 24, duration: 0.6, ease: "back.out(1.5)" },
-        "-=0.4"
-      );
-    }
-  }, [current]);
+  }, []);
 
   useEffect(() => {
     animateSlide();
   }, [current, animateSlide]);
-
-  // Revert any lingering split on unmount.
-  useEffect(() => () => splitRef.current?.revert(), []);
 
   // Auto-play every 5 seconds
   useEffect(() => {
@@ -103,7 +66,6 @@ export default function PromotionSection() {
   }, []);
 
   const goTo = (direction) => {
-    // Reset autoplay timer on manual navigation
     clearInterval(autoPlayRef.current);
     autoPlayRef.current = setInterval(() => {
       setCurrent((c) => (c === SLIDES.length - 1 ? 0 : c + 1));
@@ -134,16 +96,13 @@ export default function PromotionSection() {
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col justify-center max-w-full mx-5 sm:mx-8 lg:mx-[60px] px-0">
-        <div ref={contentRef} className="max-w-[671px]">
-          {/* Logo */}
-          {/* <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
-            className="w-[200px] sm:w-[280px] lg:w-[380px] object-contain mb-[15px]" /> */}
+        <div ref={contentRef} className="max-w-[671px]" key={current}>
 
           {/* Heading */}
-          <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6">
+          <h2 className="font-freight text-[36px] sm:text-[52px] lg:text-[73px] leading-[44px] sm:leading-[62px] lg:leading-[85px] font-semibold text-cream mb-4 sm:mb-6">
             {slide.strikeWords
               ? <>
-                  {slide.heading.replace(slide.strikeWords, '')}<s className="decoration-cream/60">{slide.strikeWords}</s>
+                  {slide.heading.replace(slide.strikeWords, '')}<s>{slide.strikeWords}</s>
                 </>
               : slide.heading
             }

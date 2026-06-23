@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { gsap, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import ArrowIcon from "@/components/common/ArrowIcon";
 
 export default function CareersHero() {
@@ -14,22 +14,20 @@ export default function CareersHero() {
       const mm = gsap.matchMedia();
 
       mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
-        // The headline is a quote — reveal it word by word for a spoken cadence.
-        const heading = SplitText.create(headingRef.current, {
-          type: "lines,words", mask: "lines",
-        });
-        const desc = SplitText.create(descRef.current, {
-          type: "lines", mask: "lines",
-        });
-
         gsap.from(mediaRef.current, { scale: 1.2, duration: 2.6, ease: "power2.out" });
 
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-        tl.from(heading.words, {
-            yPercent: 110, opacity: 0, duration: 0.8, stagger: 0.04,
+        tl.fromTo(headingRef.current, {
+            clipPath: "inset(0 0 100% 0)", opacity: 0, filter: "blur(6px)",
+          }, {
+            clipPath: "inset(0 0 0% 0)", opacity: 1, filter: "blur(0px)",
+            duration: 1.2, ease: "power4.out",
           }, 0.4)
-          .from(desc.lines, {
-            yPercent: 110, opacity: 0, duration: 0.7, stagger: 0.1,
+          .fromTo(descRef.current, {
+            opacity: 0, y: 30, filter: "blur(4px)",
+          }, {
+            opacity: 1, y: 0, filter: "blur(0px)",
+            duration: 1, ease: "power3.out",
           }, 0.9)
           .from(ctaRef.current, {
             autoAlpha: 0, scale: 0.8, y: 20, duration: 0.7, ease: "back.out(1.6)",
@@ -42,8 +40,6 @@ export default function CareersHero() {
             scrollTrigger: { trigger: sectionRef.current, start: "top top", end: "bottom top", scrub: true },
           }
         );
-
-        return () => { heading.revert(); desc.revert(); };
       }));
 
       mm.add(REDUCED_MOTION, () => {

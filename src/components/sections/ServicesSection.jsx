@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 import aboutVector from "@/assets/icons/svg/About-vector.svg";
 
@@ -21,14 +21,15 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
       const mm = gsap.matchMedia();
 
       mm.add(NO_PREFERENCE, () => afterFonts(ref, () => {
-        // Heading — line-masked reveal
-        const heading = SplitText.create(headingRef.current, {
-          type: "lines", mask: "lines",
-        });
-        gsap.from(heading.lines, {
-          yPercent: 120, duration: 1, stagger: 0.1, ease: "power4.out",
-          scrollTrigger: { trigger: headerLeftRef.current, start: "top 85%" },
-        });
+        // Heading — clip-path reveal
+        gsap.fromTo(headingRef.current,
+          { clipPath: "inset(0 0 100% 0)", opacity: 0, filter: "blur(6px)" },
+          {
+            clipPath: "inset(0 0 0% 0)", opacity: 1, filter: "blur(0px)",
+            duration: 1.2, ease: "power4.out",
+            scrollTrigger: { trigger: headerLeftRef.current, start: "top 85%" },
+          }
+        );
 
         // Header left CTA — fade up after the heading
         gsap.from(headerLeftRef.current.querySelector("a"), {
@@ -49,8 +50,6 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
           { clipPath: "inset(0% 0 0 0)", autoAlpha: 1, stagger: 0.2, duration: 1.1, ease: "power4.out",
             scrollTrigger: { trigger: cardsRef.current, start: "top 80%" } }
         );
-
-        return () => heading.revert();
       }));
 
       mm.add(REDUCED_MOTION, () => {
@@ -84,14 +83,6 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
             <p className="font-freight font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-cream/80 mb-8">
               The menu moves across regions, bringing together dishes, references, and recipes drawn from homes, street-side cooking, and everyday meals. It is presented in a way that feels lighter and more suited to how people like to eat today. It is built around small plates, so you can try more, share across the table, and come back to the things you like.
             </p>
-            {/* <div className="flex flex-wrap gap-4 sm:gap-6 lg:flex-row lg:gap-11">
-              {["Culinary Excellence", "Rich Cultural Flavors", "Inspired Global Cuisine"].map((tag) => (
-                <div key={tag} className="flex items-center gap-2">
-                  <img src={aboutVector} alt="" />
-                  <span className="font-freight text-base leading-[25px] font-semibold text-gold">{tag}</span>
-                </div>
-              ))}
-            </div> */}
           </div>
         </div>
 

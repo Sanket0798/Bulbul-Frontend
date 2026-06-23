@@ -1,5 +1,5 @@
 import { forwardRef, useRef, useEffect } from "react";
-import { gsap, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 
 const FEATURED_DISHES = [
   { img: "/images/rooms/1.svg", name: "The Main Room", desc: "Warm lighting and an open layout built for long tables and easy conversation." },
@@ -21,7 +21,7 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
   // Duplicate dishes so a -50% shift of the track lands seamlessly back at the start.
   const loopDishes = [...filteredDishes, ...filteredDishes];
 
-  // ── Header reveal (SplitText) + card scroll-in ─────────────────────────────
+  // ── Header reveal + card scroll-in ─────────────────────────────
   useEffect(() => {
     const el = ref?.current;
     if (!el) return;
@@ -29,29 +29,35 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add(NO_PREFERENCE, () => afterFonts(el, () => {
-        const heading = SplitText.create(headingRef.current, {
-          type: "lines", mask: "lines",
-        });
-
+      mm.add(NO_PREFERENCE, () => {
         const tl = gsap.timeline({
           defaults: { ease: "power4.out" },
           scrollTrigger: { trigger: headerRef.current, start: "top 82%" },
         });
-        tl.from(heading.lines, { yPercent: 120, duration: 1, stagger: 0.12 })
-          .from(headerRef.current.querySelector("[data-animate-copy]"), {
-            autoAlpha: 0, y: 30, filter: "blur(6px)", duration: 0.9,
-          }, "-=0.7");
+        tl.fromTo(headingRef.current,
+          { clipPath: "inset(0 0 100% 0)", opacity: 0, filter: "blur(6px)" },
+          { clipPath: "inset(0 0 0% 0)", opacity: 1, filter: "blur(0px)", duration: 1.2 }
+        );
+        
+        const copyEl = headerRef.current.querySelector("[data-animate-copy]");
+        if (copyEl) {
+          tl.fromTo(copyEl,
+            { autoAlpha: 0, y: 30, filter: "blur(6px)" },
+            { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.9 },
+            "-=0.7"
+          );
+        }
 
         // Cards rise + fade as the strip scrolls into view.
-        gsap.from(trackRef.current.children, {
-          autoAlpha: 0, yPercent: 18, scale: 0.94,
-          duration: 1, stagger: 0.06, ease: "power3.out",
-          scrollTrigger: { trigger: trackRef.current, start: "top 90%" },
-        });
-
-        return () => heading.revert();
-      }));
+        gsap.fromTo(trackRef.current.children,
+          { autoAlpha: 0, yPercent: 18, scale: 0.94 },
+          {
+            autoAlpha: 1, yPercent: 0, scale: 1,
+            duration: 1, stagger: 0.06, ease: "power3.out",
+            scrollTrigger: { trigger: trackRef.current, start: "top 90%" },
+          }
+        );
+      });
 
       mm.add(REDUCED_MOTION, () => {
         gsap.set([headingRef.current, headerRef.current.children, trackRef.current.children], {
@@ -106,21 +112,6 @@ const FeaturedDishesSection = forwardRef(function FeaturedDishesSection(_, ref) 
             <p className="font-freight font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-rust">
               For a working lunch, a celebratory dinner or a drink at the bar - with glowing flower lights and a cave-inspired bar that feels a world away from London.
             </p>
-            {/* Category filter tab */}
-            {/* <div className="flex flex-wrap gap-3">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`font-playfair text-[14px] font-medium tracking-normal uppercase px-6 py-2 rounded-full cursor-pointer transition-all duration-300
-                    ${activeCategory === cat
-                      ? "bg-rust text-cream border border-rust"
-                      : "bg-transparent text-rust border border-rust/40 hover:border-rust"
-                    }`}>
-                  {cat}
-                </button>
-              ))}
-            </div> */}
           </div>
         </div>
       </div>

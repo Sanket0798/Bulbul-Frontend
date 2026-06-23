@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import ArrowIcon from "@/components/common/ArrowIcon";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 
@@ -44,14 +44,15 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
           scrollTrigger: { trigger: imageColRef.current, start: "top bottom", end: "bottom top", scrub: true }
         });
 
-        // Heading — line-masked reveal
-        const heading = SplitText.create(headingRef.current, {
-          type: "lines", mask: "lines",
-        });
-        gsap.from(heading.lines, {
-          yPercent: 120, duration: 1, stagger: 0.12, ease: "power4.out",
-          scrollTrigger: { trigger: textColRef.current, start: "top 80%" },
-        });
+        // Heading — clip-path reveal
+        gsap.fromTo(headingRef.current,
+          { clipPath: "inset(0 0 100% 0)", opacity: 0, filter: "blur(6px)" },
+          {
+            clipPath: "inset(0 0 0% 0)", opacity: 1, filter: "blur(0px)",
+            duration: 1.2, ease: "power4.out",
+            scrollTrigger: { trigger: textColRef.current, start: "top 80%" },
+          }
+        );
 
         // Copy — staggered blur-in with rotation
         gsap.fromTo(copy,
@@ -62,8 +63,6 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
             scrollTrigger: { trigger: textColRef.current, start: "top 80%" }
           }
         );
-
-        return () => heading.revert();
       }));
 
       mm.add(REDUCED_MOTION, () => {

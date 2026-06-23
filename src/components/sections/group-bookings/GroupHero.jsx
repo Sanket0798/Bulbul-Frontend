@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { gsap, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 
 export default function GroupHero() {
   const sectionRef = useRef(null);
@@ -12,22 +12,20 @@ export default function GroupHero() {
       const mm = gsap.matchMedia();
 
       mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
-        const heading = SplitText.create(headingRef.current, {
-          type: "lines,chars", mask: "lines",
-        });
-        const desc = SplitText.create(descRef.current, {
-          type: "lines,words", mask: "lines",
-        });
-
         gsap.from(mediaRef.current, { scale: 1.2, duration: 2.4, ease: "power2.out" });
 
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-        tl.from(heading.chars, {
-            yPercent: 120, rotateX: -90, opacity: 0,
-            duration: 0.9, stagger: 0.015, ease: "back.out(1.4)",
+        tl.fromTo(headingRef.current, {
+            clipPath: "inset(0 0 100% 0)", opacity: 0, filter: "blur(6px)",
+          }, {
+            clipPath: "inset(0 0 0% 0)", opacity: 1, filter: "blur(0px)",
+            duration: 1.2, ease: "power4.out",
           }, 0.4)
-          .from(desc.words, {
-            yPercent: 110, opacity: 0, duration: 0.6, stagger: 0.015,
+          .fromTo(descRef.current, {
+            opacity: 0, y: 30, filter: "blur(4px)",
+          }, {
+            opacity: 1, y: 0, filter: "blur(0px)",
+            duration: 1, ease: "power3.out",
           }, 0.9);
 
         gsap.fromTo(mediaRef.current,
@@ -37,8 +35,6 @@ export default function GroupHero() {
             scrollTrigger: { trigger: sectionRef.current, start: "top top", end: "bottom top", scrub: true },
           }
         );
-
-        return () => { heading.revert(); desc.revert(); };
       }));
 
       mm.add(REDUCED_MOTION, () => {

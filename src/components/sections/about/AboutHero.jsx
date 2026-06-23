@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 
 export default function AboutHero() {
@@ -16,24 +16,22 @@ export default function AboutHero() {
       const mm = gsap.matchMedia();
 
       mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
-        const heading = SplitText.create(headingRef.current, {
-          type: "lines,chars", mask: "lines",
-        });
-        const desc = SplitText.create(descRef.current, {
-          type: "lines,words", mask: "lines",
-        });
-
         // Ken-Burns push-in on the background.
         gsap.from(mediaRef.current, { scale: 1.2, duration: 2.4, ease: "power2.out" });
 
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
         tl.from(tagRef.current, { autoAlpha: 0, y: 24, duration: 0.7 }, 0.3)
-          .from(heading.chars, {
-            yPercent: 120, rotateX: -90, opacity: 0,
-            duration: 0.9, stagger: 0.015, ease: "back.out(1.4)",
+          .fromTo(headingRef.current, {
+            clipPath: "inset(0 0 100% 0)", opacity: 0, filter: "blur(6px)",
+          }, {
+            clipPath: "inset(0 0 0% 0)", opacity: 1, filter: "blur(0px)",
+            duration: 1.2, ease: "power4.out",
           }, 0.5)
-          .from(desc.words, {
-            yPercent: 110, opacity: 0, duration: 0.6, stagger: 0.015,
+          .fromTo(descRef.current, {
+            opacity: 0, y: 30, filter: "blur(4px)",
+          }, {
+            opacity: 1, y: 0, filter: "blur(0px)",
+            duration: 1, ease: "power3.out",
           }, 0.9)
           .from(ctaRef.current, {
             autoAlpha: 0, scale: 0.8, y: 20, duration: 0.7, ease: "back.out(1.6)",
@@ -49,8 +47,6 @@ export default function AboutHero() {
             },
           }
         );
-
-        return () => { heading.revert(); desc.revert(); };
       }));
 
       mm.add(REDUCED_MOTION, () => {

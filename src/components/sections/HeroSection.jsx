@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger, SplitText, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import { gsap, ScrollTrigger, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
 import MagneticButton from "@/components/common/MagneticButton";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 
@@ -32,44 +32,43 @@ export default function HeroSection() {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // ── Full motion ────────────────────────────────────────────────────────
       mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
-        // Split the three text blocks. `mask: "lines"` clips each line so the
-        // reveal slides up from behind an invisible mask. Split runs after
-        // afterFonts() so line breaks are measured against the loaded font.
-        const eyebrow = SplitText.create(headingRef.current, {
-          type: "lines", mask: "lines",
-        });
-        const heading = SplitText.create(mainHeadingRef.current, {
-          type: "lines,chars", mask: "lines",
-        });
-        const quote = SplitText.create(quoteRef.current, {
-          type: "lines,words", mask: "lines",
-        });
-
-        // Intro Ken-Burns on the background video.
+        // Intro Ken-Burns on the background video
         gsap.from(mediaRef.current, {
           scale: 1.18, autoAlpha: 0, duration: 2.2, ease: "power2.out",
         });
 
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-        tl.from(eyebrow.lines, {
-            yPercent: 120, duration: 1, stagger: 0.12,
-          }, 0.3)
-          .from(heading.chars, {
-            yPercent: 120, rotateX: -90, opacity: 0,
-            duration: 0.9, stagger: 0.018, ease: "back.out(1.4)",
-          }, 0.5)
-          .from(quote.words, {
-            yPercent: 110, opacity: 0, duration: 0.7, stagger: 0.02,
-          }, 0.9);
+
+        // Eyebrow — clip-path wipe + blur
+        tl.fromTo(headingRef.current,
+          { clipPath: "inset(0 0 100% 0)", opacity: 1, filter: "blur(6px)" },
+          { clipPath: "inset(0 0 0% 0)", opacity: 1, filter: "blur(0px)", duration: 1.2 },
+          0.3
+        )
+        // Main heading — slide up with blur
+        .fromTo(mainHeadingRef.current,
+          { y: 50, opacity: 1, filter: "blur(8px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.2 },
+          0.6
+        )
+        // Quote — slide from right
+        .fromTo(quoteRef.current,
+          { x: 60, opacity: 1, filter: "blur(4px)" },
+          { x: 0, opacity: 1, filter: "blur(0px)", duration: 1 },
+          0.9
+        );
+
+        // CTA — bounce in
         if (ctaRef.current) {
-          tl.from(ctaRef.current, {
-            autoAlpha: 0, scale: 0.8, y: 20, duration: 0.7, ease: "back.out(1.6)",
-          }, 1.1);
+          tl.fromTo(ctaRef.current,
+            { autoAlpha: 0, scale: 0.8, y: 20 },
+            { autoAlpha: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.6)" },
+            1.1
+          );
         }
 
-        // Background parallax — video drifts slower than the page on scroll.
+        // Background parallax — video drifts slower than the page on scroll
         gsap.fromTo(mediaRef.current,
           { yPercent: -6 },
           {
@@ -81,27 +80,21 @@ export default function HeroSection() {
           }
         );
 
-        // Content lifts and fades as the hero scrolls out of view.
-        gsap.to([headingRef.current, quoteRef.current, ctaRef.current].filter(Boolean), {
+        // Content lifts and fades as the hero scrolls out of view
+        gsap.to([headingRef.current, mainHeadingRef.current, quoteRef.current, ctaRef.current].filter(Boolean), {
           yPercent: -18, autoAlpha: 0, ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top", end: "bottom top", scrub: true,
           },
         });
-
-        return () => {
-          eyebrow.revert();
-          heading.revert();
-          quote.revert();
-        };
       }));
 
-      // ── Reduced motion — show everything, no transforms ──────────────────────
+      // Reduced motion — show everything, no transforms
       mm.add(REDUCED_MOTION, () => {
         gsap.set(
           [headingRef.current, mainHeadingRef.current, quoteRef.current, ctaRef.current, mediaRef.current].filter(Boolean),
-          { autoAlpha: 1, clearProps: "transform" }
+          { autoAlpha: 1, clearProps: "transform,filter" }
         );
       });
     }, sectionRef);
@@ -127,7 +120,7 @@ export default function HeroSection() {
         </video>
       </div>
 
-      {/* Gradient overlay for mobile text readability */}
+      {/* Gradient overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent lg:from-black/50 lg:via-transparent" />
 
       {/* Content */}
@@ -151,8 +144,8 @@ export default function HeroSection() {
             <p ref={quoteRef} className="font-freight font-semibold text-sm sm:text-base leading-[22px] sm:leading-[25px] text-cream tracking-[0.5px] sm:tracking-[1.42px]">
               "We've grown up with a version of Indian food shaped by homes and everyday cooking, the kind that rarely makes it onto restaurant menus. At Bulbul, that is what comes to the table, gathered along the way and shared with you."
             </p>
-           <MagneticButton>
-              <a href="https://www.sevenrooms.com/explore/bulbul/reservations/create/search/" target="_blank" rel="noopener noreferrer"
+            <MagneticButton>
+              <a ref={ctaRef} href="https://www.sevenrooms.com/explore/bulbul/reservations/create/search/" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-[16px] sm:text-[18px] transition-all duration-300 hover:bg-rust-dark rounded">
                 Book a table <img src={arrowRight} alt="" />
               </a>
