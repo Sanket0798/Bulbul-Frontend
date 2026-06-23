@@ -71,7 +71,7 @@ export default function AboutHero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/100 via-black/70 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 w-full px-5 sm:px-8 lg:px-[60px] pb-20 lg:pb-[200px]">
+      <div className="relative z-10 w-full px-5 sm:px-8 lg:px-[60px] pt-[100px] sm:pt-[80px] lg:pt-0 pb-12 sm:pb-16 lg:pb-[200px]">
         <div className="max-w-[620px]">
 
           <span ref={tagRef} className="block font-freight text-base leading-[22px] uppercase font-black tracking-widest text-accent-gold">
@@ -87,7 +87,7 @@ export default function AboutHero() {
             Bulbul is founded by Chef Rohan D'Souza and restaurateur Twinkle Keswani. Between them, they have spent years opening and running restaurants across India, picking up ideas, habits, and a fairly strong point of view on how people like to eat. This is where it all comes together.
           </p>
 
-          <Link ref={ctaRef} to="/contact"
+          <Link to="/contact"
             className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-[18px] transition-all duration-300 hover:bg-rust-dark rounded mt-6">
             Know More <img src={arrowRight} alt="" />
           </Link>

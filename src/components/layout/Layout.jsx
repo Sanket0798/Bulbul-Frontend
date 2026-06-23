@@ -28,7 +28,7 @@ export default function Layout() {
 
   return (
     <SmoothScroll>
-      <div className="min-h-screen">
+      <div className="min-h-screen overflow-x-hidden">
         <Navbar transparent />
         <Outlet />
         <Footer />

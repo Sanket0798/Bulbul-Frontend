@@ -177,7 +177,7 @@ export default function AboutTeam() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full py-[80px] lg:py-[80px] bg-bg-inner">
+    <section ref={sectionRef} className="w-full py-[40px] lg:py-[80px] bg-bg-inner">
       <div className="w-full max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-[60px]">
 
         {/* Section heading */}
