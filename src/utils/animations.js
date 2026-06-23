@@ -26,27 +26,17 @@ export const NO_PREFERENCE = "(prefers-reduced-motion: no-preference)";
 export const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 
 /**
- * Run GSAP setup only after the web fonts have finished loading.
- * The `build` callback runs inside a nested gsap.context scoped to `scope`,
- * so any tweens/ScrollTriggers it creates are cleaned up when the outer
- * context reverts.
+ * Runs animation setup immediately. Previously waited for web fonts to load
+ * (needed by SplitText), but now just executes the build callback directly
+ * inside a gsap.context scoped to `scope`.
  *
  * @param {HTMLElement|React.RefObject} scope  context scope for the animations
  * @param {() => (void | (() => void))} build  creates the animations
- * @returns {() => void} cleanup to return from the matchMedia/effect callback
+ * @returns {() => void} cleanup function
  */
 export function afterFonts(scope, build) {
-  let cancelled = false;
-  let inner;
-  const run = () => { if (!cancelled) inner = gsap.context(build, scope); };
-
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(run);
-  } else {
-    run();
-  }
-
-  return () => { cancelled = true; if (inner) inner.revert(); };
+  const inner = gsap.context(build, scope);
+  return () => { if (inner) inner.revert(); };
 }
 
 /**
