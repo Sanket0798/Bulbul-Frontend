@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
-import MagneticButton from "@/components/common/MagneticButton";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 
 export default function HeroSection() {
@@ -144,12 +143,20 @@ export default function HeroSection() {
             <p ref={quoteRef} className="font-freight font-semibold text-sm sm:text-base leading-[22px] sm:leading-[25px] text-cream tracking-[0.5px] sm:tracking-[1.42px]">
               "We've grown up with a version of Indian food shaped by homes and everyday cooking, the kind that rarely makes it onto restaurant menus. At Bulbul, that is what comes to the table, gathered along the way and shared with you."
             </p>
-            <MagneticButton>
+            {/* CTA with hover pulse animation */}
               <a ref={ctaRef} href="https://www.sevenrooms.com/explore/bulbul/reservations/create/search/" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-[16px] sm:text-[18px] transition-all duration-300 hover:bg-rust-dark rounded">
+                className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-[16px] sm:text-[18px] transition-all duration-300 hover:bg-rust-dark rounded"
+                onMouseEnter={(e) => {
+                  gsap.to(e.currentTarget, { scale: 1.05, boxShadow: "0 8px 25px rgba(124,45,38,0.4)", duration: 0.3, ease: "power2.out" });
+                  gsap.to(e.currentTarget.querySelector("img"), { x: 5, duration: 0.3, ease: "power2.out" });
+                }}
+                onMouseLeave={(e) => {
+                  gsap.to(e.currentTarget, { scale: 1, boxShadow: "0 0px 0px rgba(124,45,38,0)", duration: 0.4, ease: "elastic.out(1, 0.5)" });
+                  gsap.to(e.currentTarget.querySelector("img"), { x: 0, duration: 0.4, ease: "elastic.out(1, 0.5)" });
+                }}
+              >
                 Book a table <img src={arrowRight} alt="" />
               </a>
-            </MagneticButton>
           </div>
         </div>
       </div>
