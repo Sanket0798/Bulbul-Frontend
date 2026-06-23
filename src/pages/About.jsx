@@ -9,7 +9,7 @@ export default function About() {
     <>
       <AboutHero />
       <AboutTeam />
-      <AboutStory />
+      {/* <AboutStory /> */}
       <AboutExperience />
       <AboutReserve />
     </>

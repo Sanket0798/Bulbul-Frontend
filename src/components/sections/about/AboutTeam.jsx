@@ -93,7 +93,7 @@ function MugshotCard({ member, index }) {
         <h4 className="font-freight text-[20px] sm:text-[22px] font-semibold text-rust-dark leading-tight">
           {member.name}
         </h4>
-        <span className="font-freight text-[13px] sm:text-[14px] text-terracotta/70 tracking-wide">
+        <span className="font-freight text-[13px] sm:text-[20px] text-terracotta/70 font-medium tracking-wide">
           {member.role}
         </span>
       </div>
@@ -177,14 +177,17 @@ export default function AboutTeam() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full py-[80px] lg:py-[140px] bg-bg-inner">
+    <section ref={sectionRef} className="w-full py-[80px] lg:py-[80px] bg-bg-inner">
       <div className="w-full max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-[60px]">
 
         {/* Section heading */}
-        <div className="mb-10 lg:mb-14 overflow-hidden">
+        <div className="mb-4 lg:mb-6 overflow-hidden">
+          <span className="block font-freight text-[14px] sm:text-[20px] uppercase font-black tracking-widest text-rust mb-2 md:mb-0">
+            The A team!
+          </span>
           <h2
             ref={headingRef}
-            className="font-freight text-[36px] sm:text-[48px] lg:text-[62px] leading-[1.1] mb-4"
+            className="font-freight text-[36px] sm:text-[48px] lg:text-[62px] leading-[1.1]"
           >
             <span className="text-rust font-black">Passion Behind Every </span>
             <span className="italic font-normal text-gold">Plate</span>
@@ -193,14 +196,14 @@ export default function AboutTeam() {
 
         <p
           ref={introRef}
-          className="font-freight font-semibold text-[16px] sm:text-[18px] leading-[1.6] text-terracotta max-w-[720px] mb-12 lg:mb-16"
+          className="font-freight font-semibold text-[16px] sm:text-[20px] leading-[1.6] text-terracotta max-w-[720px] mb-10 lg:mb-12"
         >
-          Bulbul is founded by Chef Rohan D'Souza and restaurateur Twinkle Keswani. Between them, they have spent years opening and running restaurants across India, picking up ideas, habits, and a fairly strong point of view on how people like to eat. This is where it all comes together.
+          Our culinary and service teams combine good food with great service and hospitality that make for an unforgettable dining experience.
         </p>
 
         {/* Team groups */}
         <div className="flex flex-col gap-14 lg:gap-20">
-          <TeamGroup title="Founders" members={FOUNDERS} startIndex={0} />
+          {/* <TeamGroup title="Founders" members={FOUNDERS} startIndex={0} /> */}
           <TeamGroup title="Front of the House" members={FRONT_OF_HOUSE} startIndex={2} />
           <TeamGroup title="Back of the House" members={BACK_OF_HOUSE} startIndex={3} />
         </div>

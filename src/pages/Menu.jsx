@@ -86,7 +86,7 @@ export default function Menu() {
       <div className="relative z-10 w-full max-w-[1320px] mx-auto px-5 sm:px-8 lg:px-[60px] pt-[140px] sm:pt-[160px] pb-16 sm:pb-24">
 
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+        <div className="text-left mb-12 sm:mb-16 lg:mb-20">
           <h1
             ref={headingRef}
             className="font-freight text-cream font-black text-[40px] sm:text-[56px] lg:text-[72px] leading-[1.1] mb-4"
@@ -95,7 +95,7 @@ export default function Menu() {
           </h1>
           <p
             ref={descRef}
-            className="font-freight font-medium text-[16px] sm:text-[18px] leading-[1.6] text-cream/80 max-w-[560px] mx-auto"
+            className="font-freight font-medium text-[16px] sm:text-[18px] leading-[1.6] text-cream/80 max-w-[560px]"
           >
             Micro regional Indian cuisine and Indian ingredient forward cocktails — built around small plates so you can try more, share across the table, and come back to the things you like.
           </p>

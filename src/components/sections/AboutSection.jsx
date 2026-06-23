@@ -83,14 +83,14 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
           {/* Image collage — hidden on mobile to avoid overlap with parallax map */}
           <div ref={imageColRef} className="relative shrink-0 hidden sm:block sm:w-[400px] lg:w-[480px] h-[350px] sm:h-[420px] lg:h-[462px]">
             {/* <div className="absolute top-0 left-[60px] sm:left-[87px] w-[180px] sm:w-[240px] h-[280px] sm:h-[380px] border-2 border-rust-dark" /> */}
-            <div className="absolute top-[24px] left-0 w-[175px] sm:w-[234px] h-[250px] sm:h-[334px] overflow-hidden rounded-sm">
-              <img src="/images/shared/food/steak-herbs-plated.png" alt="Bulbul restaurant interior"
-                className="w-full h-full object-cover" />
-            </div>
-            <div className="absolute top-[150px] sm:top-[206px] left-[120px] sm:left-[170px] w-[220px] sm:w-[310px] h-[190px] sm:h-[257px] overflow-hidden rounded-sm shadow-xl">
-              <img src="/images/shared/food/lamb-kadai.png" alt="Bulbul dining experience"
-                className="w-full h-full object-cover" />
-            </div>
+            <a href="https://www.instagram.com/reel/DYPgpIjIVTZ/?igsh=bTg1NWR2ZjJxNjdh" target="_blank" rel="noopener noreferrer" className="absolute top-[24px] left-0 w-[175px] sm:w-[234px] h-[250px] sm:h-[334px] overflow-hidden rounded-sm group/img">
+              <img src="/images/thumbnail/Thumbnail-1.jpg" alt="Watch on Instagram"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-105" />
+            </a>
+            <a href="https://www.instagram.com/reel/DY4QyWLg77N/?igsh=MWtlbWhkMmRpd20xNw==" target="_blank" rel="noopener noreferrer" className="absolute top-[150px] sm:top-[206px] left-[120px] sm:left-[170px] w-[220px] sm:w-[310px] h-[190px] sm:h-[257px] overflow-hidden rounded-sm shadow-xl group/img">
+              <img src="/images/thumbnail/Thumbnail-2.jpg" alt="Watch on Instagram"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-105" />
+            </a>
           </div>
 
           {/* Text */}

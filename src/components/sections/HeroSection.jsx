@@ -133,7 +133,7 @@ export default function HeroSection() {
             </span>
 
             <h1 ref={mainHeadingRef} className="font-freight text-cream font-black text-[32px] sm:text-[44px] lg:text-[58px] leading-[1.1] mt-2 sm:mt-3 lg:mt-4">
-              Flavors That Stay with You{" "}
+              Flavours That Stay with You{" "}
               <span className="italic font-medium text-accent-gold">Forever</span>
             </h1>
           </div>

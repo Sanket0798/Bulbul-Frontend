@@ -77,62 +77,70 @@ export default function AboutExperience() {
           {/* Left — tag + heading */}
           <div className="max-w-[500px]">
             <span className="font-freight uppercase font-black text-lg leading-[18px] text-terracotta mb-4">
-              Signature Experience
+              Founders
             </span>
             <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[48px] lg:text-[63px] leading-[1.1] font-black text-rust">
-              More Than Just{" "}
-              <span className="italic font-normal text-gold block sm:inline">Dining</span>
+              The People Behind{" "}
+              <span className="italic font-normal text-gold block sm:inline">Bulbul</span>
             </h2>
           </div>
 
           {/* Right — description */}
           <p className="font-freight font-semibold text-[16px] sm:text-[17px] lg:text-[19px] leading-[22px] sm:leading-[24px] lg:leading-[25px] text-terracotta max-w-[689px]">
-            The menu moves across regions, bringing together dishes, references, and recipes drawn from homes, street-side cooking, and everyday meals. It is presented in a way that feels lighter and more suited to how people like to eat today. It is built around small plates, so you can try more, share across the table, and come back to the things you like.
+            Bulbul is founded by Chef Rohan D'Souza and restaurateur Twinkle Keswani. Between them, they have spent years opening and running restaurants across India, picking up ideas, habits, and a fairly strong point of view on how people like to eat. This is where it all comes together.
           </p>
         </div>
 
-        {/* Two-column image + text layout */}
+        {/* Two-column image layout — founders */}
         <div className="flex flex-col lg:flex-row gap-5 lg:gap-[19px]">
 
-          {/* Left column — image + quote + avatars */}
-          <div ref={leftColRef} className="flex flex-col flex-1">
-            <div className="w-full h-[250px] sm:h-[340px] lg:h-[428px] overflow-hidden rounded-sm">
+          {/* Left column — founder 1 */}
+          <div ref={leftColRef} className="flex flex-col flex-1 group">
+            <div className="relative w-full h-[350px] sm:h-[500px] lg:h-[744px] overflow-hidden rounded-sm">
               <img
-                src="/images/shared/food/smoky-grilled-meat.png"
-                alt="Signature appetizers"
-                className="w-full h-full object-cover"
+                src="/images/shared/people/founder-1.avif"
+                alt="Rohan D'Souza — Head Chef"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-            </div>
-
-            {/* Quote text */}
-            <p className="font-freight font-bold italic text-2xl sm:text-3xl lg:text-4xl leading-[34px] sm:leading-[40px] lg:leading-[48px] text-olive mt-5 lg:mt-[25px]">
-              The bar takes a similar route, with cocktails that pick up on familiar flavours, pantry staples, and techniques you would recognise, reworked to sit easily alongside the food.
-            </p>
-
-            {/* Team avatars */}
-            <div className="flex items-center mt-6">
-              {TEAM_AVATARS.map((src, i) => (
-                <div
-                  key={i}
-                  className={`w-[44px] h-[44px] sm:w-[50px] sm:h-[50px] rounded-full overflow-hidden border-2 border-bg ${i > 0 ? "-ml-3" : ""}`}
-                >
-                  <img src={src} alt="Team member" className="w-full h-full object-cover" />
-                </div>
-              ))}
-              <div className="-ml-3 w-[44px] h-[44px] sm:w-[50px] sm:h-[50px] rounded-full flex items-center justify-center border-2 border-accent-gold bg-accent-gold/15">
-                <span className="font-freight text-[16px] font-semibold text-accent-gold">+</span>
+              {/* Hover overlay with quote */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-5 sm:p-8">
+                <p className="font-freight text-[15px] sm:text-[17px] leading-[1.5] text-cream/90 italic">
+                  "Every dish we serve carries a memory — of a kitchen, a street corner, or a family table. We're here to bring those stories to life."
+                </p>
               </div>
+            </div>
+            <div className="pt-4">
+              <h4 className="font-freight text-[20px] sm:text-[30px] font-semibold text-rust-dark leading-tight">
+                Rohan D'Souza
+              </h4>
+              <span className="font-freight text-[14px] sm:text-[20px] text-terracotta/70 font-medium tracking-wide">
+                Head Chef
+              </span>
             </div>
           </div>
 
-          {/* Right column — larger image */}
-          <div ref={rightColRef} className="flex-1">
-            <div className="w-full h-[350px] sm:h-[500px] lg:h-[744px] overflow-hidden rounded-sm">
+          {/* Right column — founder 2 */}
+          <div ref={rightColRef} className="flex flex-col flex-1 group">
+            <div className="relative w-full h-[350px] sm:h-[500px] lg:h-[744px] overflow-hidden rounded-sm">
               <img
-                src="/images/shared/food/sesame-ribs-potatoes.png"
-                alt="Guests enjoying cocktails"
-                className="w-full h-full object-cover"
+                src="/images/shared/people/founder-2.avif"
+                alt="Twinkle Keswani — Restaurateur"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
+              {/* Hover overlay with quote */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-5 sm:p-8">
+                <p className="font-freight text-[15px] sm:text-[17px] leading-[1.5] text-cream/90 italic">
+                  "Great food and genuine warmth can turn a meal into something you carry with you long after."
+                </p>
+              </div>
+            </div>
+            <div className="pt-4">
+              <h4 className="font-freight text-[20px] sm:text-[30px] font-semibold text-rust-dark leading-tight">
+                Twinkle Keswani
+              </h4>
+              <span className="font-freight text-[14px] sm:text-[20px] text-terracotta/70 font-medium tracking-wide">
+                Restaurateur
+              </span>
             </div>
           </div>
         </div>
