@@ -109,10 +109,9 @@ export default function GroupFAQ() {
                   {question}
                 </span>
                 <span
-                  className={`shrink-0 ml-4 text-rust-dark text-[24px] transition-transform duration-300 ${openIndex === index ? "rotate-180" : ""
-                    }`}
+                  className={`shrink-0 ml-4 text-rust-dark text-[30px] sm:text-[40px] font-bold transition-transform duration-300 ${openIndex === index ? "rotate-180" : ""}`}
                 >
-                  <img src="/src/assets/icons/svg/down-arrow.svg" alt="" className={`transition-transform duration-300 ${openIndex === index ? "rotate-270" : ""}`} />
+                  {openIndex === index ? "−" : "+"}
                 </span>
               </button>
 

@@ -92,8 +92,8 @@ export default function Navbar({ transparent = false }) {
           {/* Menu header with logo and close */}
           <div className="px-5 sm:px-8 py-4 flex items-center justify-between">
             <Link to="/" className="shrink-0" onClick={() => setMenuOpen(false)}>
-              <img src="/images/brand/logo/bulbul-text-white.png" alt="Bulbul Restaurant"
-                className="w-36 object-contain" />
+              <img src="/images/brand/logo/Bulbul.png" alt="Bulbul Restaurant"
+                className="w-32 object-contain" />
             </Link>
             <button
               className="p-2"
