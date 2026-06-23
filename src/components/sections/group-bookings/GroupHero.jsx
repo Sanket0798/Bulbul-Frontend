@@ -64,10 +64,10 @@ export default function GroupHero() {
       <div className="relative z-10 w-full pb-20 sm:pb-28 lg:pb-[160px] px-5 sm:px-8 lg:px-[59px]">
         <div className="max-w-[640px]">
 
-          <h1 ref={headingRef} className="font-freight text-[#FEFBF8] font-black text-[32px] sm:text-[42px] lg:text-[54px] leading-[1]">
+          <h1 ref={headingRef} className="font-freight text-[#FEFBF8] font-black text-[32px] sm:text-[42px] lg:text-[54px]">
             For when the table{" "}
             <span className="block">
-              gets a <span className="italic font-medium text-gold">little bigger</span>
+              gets a <span className="italic font-medium text-gold leading-[70px]">little bigger</span>
             </span>
           </h1>
 
