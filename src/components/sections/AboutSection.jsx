@@ -80,8 +80,8 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
       <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0">
         <div className="flex flex-col lg:flex-row items-end justify-between gap-10 lg:gap-24">
 
-          {/* Image collage */}
-          <div ref={imageColRef} className="relative shrink-0 w-full sm:w-[400px] lg:w-[480px] h-[350px] sm:h-[420px] lg:h-[462px]">
+          {/* Image collage — hidden on mobile to avoid overlap with parallax map */}
+          <div ref={imageColRef} className="relative shrink-0 hidden sm:block sm:w-[400px] lg:w-[480px] h-[350px] sm:h-[420px] lg:h-[462px]">
             {/* <div className="absolute top-0 left-[60px] sm:left-[87px] w-[180px] sm:w-[240px] h-[280px] sm:h-[380px] border-2 border-rust-dark" /> */}
             <div className="absolute top-[24px] left-0 w-[175px] sm:w-[234px] h-[250px] sm:h-[334px] overflow-hidden rounded-sm">
               <img src="/images/shared/food/steak-herbs-plated.png" alt="Bulbul restaurant interior"
