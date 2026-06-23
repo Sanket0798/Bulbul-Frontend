@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import GroupBookings from './pages/GroupBookings'
 import Careers from './pages/Careers'
+import Menu from './pages/Menu'
 import Rooms from './pages/Rooms'
 import RoomDetail from './pages/RoomDetail'
 import Gallery from './pages/Gallery'
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="/about" element={<About />} />
+          <Route path="/menu" element={<Menu />} />
           <Route path="/group-bookings" element={<GroupBookings />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/rooms" element={<Rooms />} />
