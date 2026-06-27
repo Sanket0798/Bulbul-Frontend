@@ -85,11 +85,11 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
             {/* <div className="absolute top-0 left-[60px] sm:left-[87px] w-[180px] sm:w-[240px] h-[280px] sm:h-[380px] border-2 border-rust-dark" /> */}
             <a href="https://www.instagram.com/reel/DYPgpIjIVTZ/?igsh=bTg1NWR2ZjJxNjdh" target="_blank" rel="noopener noreferrer" className="absolute top-[24px] left-0 w-[175px] sm:w-[234px] h-[250px] sm:h-[334px] overflow-hidden rounded-sm group/img">
               <img src="/images/thumbnail/Thumbnail-1.jpg" alt="Watch on Instagram"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-105" />
+                className="w-full h-full object-fit transition-transform duration-500 group-hover/img:scale-105" />
             </a>
-            <a href="https://www.instagram.com/reel/DY4QyWLg77N/?igsh=MWtlbWhkMmRpd20xNw==" target="_blank" rel="noopener noreferrer" className="absolute top-[150px] sm:top-[206px] left-[120px] sm:left-[170px] w-[220px] sm:w-[310px] h-[190px] sm:h-[257px] overflow-hidden rounded-sm shadow-xl group/img">
-              <img src="/images/thumbnail/Thumbnail-2.jpg" alt="Watch on Instagram"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-105" />
+            <a href="https://www.instagram.com/reel/DZ4-5_BIxt4/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" className="absolute top-[150px] sm:top-[206px] left-[120px] sm:left-[170px] w-[220px] sm:w-[310px] h-[190px] sm:h-[257px] overflow-hidden rounded-sm shadow-xl group/img">
+              <img src="/images/thumbnail/Thumbnail-3.PNG" alt="Watch on Instagram"
+                className=" transition-transform duration-500 group-hover/img:scale-105" />
             </a>
           </div>
 
@@ -109,7 +109,7 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
             {/* <Link to="/about" className="btn-outline-primary-home inline-flex items-center gap-3 self-start mt-6">
               Read More <ArrowIcon className="stroke-rust" />
             </Link> */}
-            <Link to="/contact#contact-staff"
+            <Link to="/about#front-of-house"
               className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-lg transition-all duration-100 hover:bg-rust-dark rounded mt-6">
               Meet the Team <img src={arrowRight} alt="" />
             </Link>

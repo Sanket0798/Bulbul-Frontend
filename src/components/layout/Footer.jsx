@@ -6,21 +6,21 @@ import facebookSvg from "@/assets/icons/svg/facebook.svg";
 import twitterPng from "@/assets/icons/svg/twitter.svg";
 
 const SOCIAL_LINKS = [
-  {
-    label: "YouTube",
-    href: import.meta.env.VITE_SOCIAL_YOUTUBE || "https://youtube.com/@bulbulrestaurant",
-    icon: youtubeSvg,
-  },
+  // {
+  //   label: "YouTube",
+  //   href: import.meta.env.VITE_SOCIAL_YOUTUBE || "https://youtube.com/@bulbulrestaurant",
+  //   icon: youtubeSvg,
+  // },
   {
     label: "Instagram",
     href: import.meta.env.VITE_SOCIAL_INSTAGRAM || "https://instagram.com/bulbulrestaurant",
     icon: instagramSvg,
   },
-  {
-    label: "Facebook",
-    href: import.meta.env.VITE_SOCIAL_FACEBOOK || "https://facebook.com/bulbulrestaurant",
-    icon: facebookSvg,
-  },
+  // {
+  //   label: "Facebook",
+  //   href: import.meta.env.VITE_SOCIAL_FACEBOOK || "https://facebook.com/bulbulrestaurant",
+  //   icon: facebookSvg,
+  // },
   {
     label: "Twitter",
     href: import.meta.env.VITE_SOCIAL_TWITTER || "https://twitter.com/bulbulrestaurant",
@@ -32,7 +32,7 @@ const FOOTER_LINKS = [
   { label: "Home", to: "/" },
   { label: "Reservation", to: "https://www.sevenrooms.com/explore/bulbul/reservations/create/search/", external: true },
   { label: "Menu", to: "/menu" },
-  { label: "Directions", to: "https://maps.google.com/?q=Bulbul+Tudor+Street+London", external: true },
+  { label: "Find Us", to: "https://maps.google.com/?q=Bulbul+Tudor+Street+London", external: true },
 ];
 
 export default function Footer() {
@@ -87,6 +87,11 @@ export default function Footer() {
               )}
             </span>
           ))}
+          <span className="text-white font-medium text-base">|</span>
+          <Link to="/privacy-policy"
+            className="font-freight text-caption tracking-widest no-underline text-white font-medium text-lg hover:text-accent-gold transition-colors duration-300">
+            Privacy Policy
+          </Link>
         </nav>
       </div>
     </footer>

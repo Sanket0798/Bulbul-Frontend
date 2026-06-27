@@ -8,13 +8,13 @@ import facebookSvg from "@/assets/icons/svg/facebook.svg";
 import twitterPng from "@/assets/icons/svg/twitter.svg";
 
 const SOCIAL_LINKS = [
-  {
-    label: "YouTube",
-    href:
-      import.meta.env.VITE_SOCIAL_YOUTUBE ||
-      "https://youtube.com/@bulbulrestaurant",
-    icon: youtubeSvg,
-  },
+  // {
+  //   label: "YouTube",
+  //   href:
+  //     import.meta.env.VITE_SOCIAL_YOUTUBE ||
+  //     "https://youtube.com/@bulbulrestaurant",
+  //   icon: youtubeSvg,
+  // },
   {
     label: "Instagram",
     href:
@@ -22,13 +22,13 @@ const SOCIAL_LINKS = [
       "https://instagram.com/bulbulrestaurant",
     icon: instagramSvg,
   },
-  {
-    label: "Facebook",
-    href:
-      import.meta.env.VITE_SOCIAL_FACEBOOK ||
-      "https://facebook.com/bulbulrestaurant",
-    icon: facebookSvg,
-  },
+  // {
+  //   label: "Facebook",
+  //   href:
+  //     import.meta.env.VITE_SOCIAL_FACEBOOK ||
+  //     "https://facebook.com/bulbulrestaurant",
+  //   icon: facebookSvg,
+  // },
   {
     label: "Twitter",
     href:

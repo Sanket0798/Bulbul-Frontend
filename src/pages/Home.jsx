@@ -16,7 +16,7 @@ export default function Home() {
       <HeroSection />
 
       {/* About section with 2nd banner as parallax background */}
-      <ParallaxBanner src="/images/bg/2nd banner image.svg" overlay overlayClass="bg-white/60 lg:bg-white/40">
+      <ParallaxBanner src="/images/bg/2nd banner image map.svg" overlay overlayClass="bg-white/60 lg:bg-white/40">
         <AboutSection ref={aboutRef} />
       </ParallaxBanner>
 

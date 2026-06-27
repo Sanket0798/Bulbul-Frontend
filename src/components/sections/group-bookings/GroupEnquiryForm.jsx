@@ -45,10 +45,13 @@ export default function GroupEnquiryForm() {
         });
 
         // Eyebrow + each form field staggers up
-        gsap.from([formRef.current.querySelector("span"), ...formRef.current.querySelectorAll("form > *")], {
-          autoAlpha: 0, y: 28, duration: 0.7, stagger: 0.08, ease: "power3.out", delay: 0.2,
-          scrollTrigger: { trigger: formRef.current, start: "top 85%" },
-        });
+        gsap.fromTo([formRef.current.querySelector("span"), ...formRef.current.querySelectorAll("form > *")],
+          { autoAlpha: 0, y: 28 },
+          {
+            autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08, ease: "power3.out", delay: 0.2,
+            scrollTrigger: { trigger: formRef.current, start: "top 85%" },
+          }
+        );
 
         return () => heading.revert();
       }));
@@ -68,8 +71,15 @@ export default function GroupEnquiryForm() {
     }));
   };
 
+  const [consentError, setConsentError] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.consent) {
+      setConsentError("Please tick the consent box before submitting.");
+      return;
+    }
+    setConsentError("");
     // Handle form submission
     console.log("Enquiry submitted:", formData);
   };
@@ -190,25 +200,36 @@ export default function GroupEnquiryForm() {
               </div>
 
               {/* Consent checkbox */}
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  name="consent"
-                  checked={formData.consent}
-                  onChange={handleChange}
-                  className="mt-1 w-5 h-5 rounded-none bg-transparent shrink-0 accent-rust"
-                />
-                <span className="font-freight font-semibold text-base sm:text-lg leading-6 text-terracotta">
-                  I consent to receive occasional emails from Bulbul, including updates, events, and news, in line with our Privacy Policy.
-                </span>
-              </label>
+              <div className="flex flex-col gap-1">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    checked={formData.consent}
+                    onChange={(e) => { handleChange(e); setConsentError(""); }}
+                    className="mt-1 w-5 h-5 rounded-none bg-transparent shrink-0 accent-rust"
+                  />
+                  <span className="font-freight font-semibold text-base sm:text-lg leading-6 text-terracotta">
+                    I consent to receive occasional emails from Bulbul, including updates, events, and news, in line with our Privacy Policy.
+                  </span>
+                </label>
+                {consentError && (
+                  <span className="font-freight text-[13px] text-red-500 pl-8">{consentError}</span>
+                )}
+              </div>
 
               {/* Submit */}
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-1 font-semibold leading-[25px] self-start px-6 sm:px-8 py-[10px] bg-primary text-cream font-freight text-[16px] sm:text-[17px] transition-all duration-300 hover:bg-rust-dark rounded cursor-pointer"
+                disabled={!formData.consent}
+                className={`inline-flex items-center justify-center gap-1 font-semibold leading-[25px] self-start px-6 sm:px-8 py-[10px] font-freight text-[16px] sm:text-[17px] rounded cursor-pointer transition-all duration-300
+                  ${formData.consent
+                    ? "bg-primary text-cream hover:bg-rust-dark"
+                    : "bg-primary/50 text-cream/70 cursor-not-allowed"
+                  }`}
+                style={{ visibility: "visible", opacity: formData.consent ? 1 : 0.6 }}
               >
-                Subscribe <img src={arrowRight} alt="" />
+                Send Enquiry <img src={arrowRight} alt="" className={!formData.consent ? "opacity-50" : ""} />
               </button>
             </form>
           </div>

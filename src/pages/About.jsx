@@ -11,7 +11,7 @@ export default function About() {
       <AboutTeam />
       {/* <AboutStory /> */}
       <AboutExperience />
-      <AboutReserve />
+      {/* <AboutReserve /> */}
     </>
   );
 }

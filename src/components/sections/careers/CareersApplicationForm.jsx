@@ -95,16 +95,16 @@ export default function CareersApplicationForm() {
           {/* Left — Form */}
           <div ref={formRef} className="flex-1 lg:max-w-[480px]">
             <span className="font-freight uppercase font-black text-[13px] sm:text-[14px] leading-[18px] tracking-widest text-terracotta block mb-2">
-              Application Form
+              Join our team
             </span>
 
             <h2 ref={headingRef} className="font-freight text-[36px] sm:text-[44px] lg:text-[50px] leading-[42px] sm:leading-[50px] lg:leading-[56px] font-black text-rust-dark mb-3">
               Make an Application
             </h2>
 
-            <p className="font-freight font-semibold text-[15px] sm:text-[16px] leading-[22px] text-terracotta mb-8">
+            {/* <p className="font-freight font-semibold text-[15px] sm:text-[16px] leading-[22px] text-terracotta mb-8">
               If you'd like to be part of the team, we'd love to hear from you.
-            </p>
+            </p> */}
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               {/* Name */}

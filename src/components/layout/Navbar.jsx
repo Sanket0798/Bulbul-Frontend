@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { label: "Reservations", to: "https://www.sevenrooms.com/explore/bulbul/reservations/create/search/", external: true },
   { label: "Group Bookings", to: "/group-bookings" },
   { label: "Talent Pool", to: "/careers" },
-  { label: "Directions", to: "/contact" },
+  { label: "Find Us", to: "/contact" },
 ];
 
 export default function Navbar({ transparent = false }) {
@@ -42,7 +42,7 @@ export default function Navbar({ transparent = false }) {
           ? "bg-transparent border-b-0"
           : "bg-rust backdrop-blur-md shadow-md"}`}>
 
-        <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-15 py-4 flex items-center justify-between">
+        <div className="max-w-container mx-auto px-5 sm:px-8 lg:px-0 py-4 flex items-center justify-between">
 
           {/* Logo */}
           <Link to="/" className="shrink-0">
