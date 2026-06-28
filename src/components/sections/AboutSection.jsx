@@ -87,7 +87,7 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
               <img src="/images/thumbnail/Thumbnail-1.jpg" alt="Watch on Instagram"
                 className="w-full h-full object-fit transition-transform duration-500 group-hover/img:scale-105" />
             </a>
-            <a href="https://www.instagram.com/reel/DZ4-5_BIxt4/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" className="absolute top-[150px] sm:top-[206px] left-[120px] sm:left-[170px] w-[270px] sm:w-[310px] h-[195px] sm:h-[257px] overflow-hidden rounded-sm shadow-xl group/img">
+            <a href="https://www.instagram.com/reel/DZ4-5_BIxt4/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" className="absolute top-[150px] sm:top-[206px] left-[120px] sm:left-[170px] w-auto h-[195px] sm:h-[257px] overflow-hidden rounded-sm shadow-xl group/img">
               <img src="/images/thumbnail/Thumbnail-3.PNG" alt="Watch on Instagram"
                 className=" transition-transform duration-500 group-hover/img:scale-105" />
             </a>
