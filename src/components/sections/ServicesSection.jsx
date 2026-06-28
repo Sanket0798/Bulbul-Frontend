@@ -81,7 +81,7 @@ const ServicesSection = forwardRef(function ServicesSection(_, ref) {
 
           <div ref={headerRightRef} className="flex flex-col max-w-[587px]">
             <p className="font-freight font-medium text-[16px] sm:text-[19px] leading-[22px] sm:leading-[25px] text-cream/80 mb-8">
-              The menu moves across regions, bringing together dishes, references, and recipes drawn from homes, street-side cooking, and everyday meals. It is presented in a way that feels lighter and more suited to how people like to eat today. It is built around small plates, so you can try more, share across the table, and come back to the things you like.
+              The menu moves across regions, bringing together dishes, references, and recipes drawn from homes, street-side cooking, and everyday meals. It is presented in a way that feels lighter and more suited to how people like to eat today.
             </p>
           </div>
         </div>
