@@ -89,8 +89,10 @@ export default function ContactCTA() {
           and family, we have the perfect setting for your next meal.
         </p>
 
-        <Link
-          to="/group-bookings"
+       <Link
+          to="https://www.sevenrooms.com/explore/bulbul/reservations/create/search/"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 font-semibold leading-[25px] px-8 py-[10px] bg-primary text-cream font-freight text-[16px] sm:text-[17px] transition-all duration-300 hover:bg-rust-dark rounded cursor-pointer mt-8"
         >
           Make a Reservation <img src={arrowRight} alt="" />

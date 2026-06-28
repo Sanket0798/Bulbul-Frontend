@@ -1,9 +1,18 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, createContext, useContext } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const LenisContext = createContext(null);
+
+/**
+ * Hook to access the Lenis instance for programmatic scrolling.
+ */
+export function useLenis() {
+  return useContext(LenisContext);
+}
 
 /**
  * Global smooth scroll provider using Lenis.
@@ -39,5 +48,9 @@ export default function SmoothScroll({ children }) {
     };
   }, []);
 
-  return <>{children}</>;
+  return (
+    <LenisContext.Provider value={lenisRef}>
+      {children}
+    </LenisContext.Provider>
+  );
 }
