@@ -109,7 +109,7 @@ export default function Menu() {
           {MENU_CARDS.map(({ title, image, pdf }) => (
             <div
               key={title}
-              className="group relative overflow-hidden rounded-lg h-[380px] sm:h-[440px] lg:h-[500px] cursor-pointer"
+              className="group relative overflow-hidden h-[380px] sm:h-[440px] lg:h-[500px] cursor-pointer"
             >
               {/* Card background image */}
               <img

@@ -51,7 +51,7 @@ export default function GroupHero() {
       {/* Background image — oversized for parallax */}
       <div ref={mediaRef} className="absolute inset-[-8%] will-change-transform">
         <img
-          src="/images/shared/interior/busy-restaurant-aerial-wide.png"
+          src="/images/bg/Last Screen Banner 1-Group Bookings.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />

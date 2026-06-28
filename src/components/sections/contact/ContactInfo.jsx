@@ -1,5 +1,11 @@
 import { useEffect, useRef } from "react";
-import { gsap, splitLines, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import {
+  gsap,
+  splitLines,
+  afterFonts,
+  NO_PREFERENCE,
+  REDUCED_MOTION,
+} from "@/utils/animations";
 import SectionTag from "@/components/common/SectionTag";
 
 import youtubeSvg from "@/assets/icons/svg/youtube.svg";
@@ -39,9 +45,11 @@ const SOCIAL_LINKS = [
 ];
 
 const CONTACT_DETAILS = [
-  { text: "Victoria House, Part Ground & Lower Ground Floor, 25 Tudor St, London EC4Y 0DD, United Kingdom" },
-  { text: "T: (+91) 22 1234 5678" },
-  { text: "M: hello@bulbulrestaurant.com" },
+  {
+    text: "Victoria House, Part Ground & Lower Ground Floor, 25 Tudor St, London EC4Y 0DD, United Kingdom",
+  },
+  { text: "T: +44 7555 796075" },
+  { text: "M: hello@bulbullondon.com" },
 ];
 
 export default function ContactInfo() {
@@ -54,43 +62,72 @@ export default function ContactInfo() {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
-        // Heading — line-masked reveal
-        const heading = splitLines(headingRef.current);
-        gsap.from(heading.lines, {
-          yPercent: 120, duration: 1, stagger: 0.1, ease: "power4.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-        });
-
-        // Remaining text blocks slide in (heading excluded)
-        const rest = gsap.utils.toArray(textRef.current.children).filter((c) => c !== headingRef.current);
-        gsap.fromTo(rest,
-          { autoAlpha: 0, x: -40 },
-          {
-            autoAlpha: 1, x: 0, stagger: 0.12, duration: 0.8, ease: "power3.out", delay: 0.15,
+      mm.add(NO_PREFERENCE, () =>
+        afterFonts(sectionRef, () => {
+          // Heading — line-masked reveal
+          const heading = splitLines(headingRef.current);
+          gsap.from(heading.lines, {
+            yPercent: 120,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power4.out",
             scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-          }
-        );
+          });
 
-        // Image — clip reveal + parallax scale
-        gsap.fromTo(imageRef.current,
-          { clipPath: "inset(0 0 0 100%)", autoAlpha: 0 },
-          {
-            clipPath: "inset(0 0 0 0%)", autoAlpha: 1, duration: 1.2, ease: "power4.inOut",
-            scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
-          }
-        );
-        gsap.fromTo(imageRef.current.querySelector("img"),
-          { scale: 1.2 },
-          { scale: 1, ease: "none",
-            scrollTrigger: { trigger: sectionRef.current, start: "top bottom", end: "bottom top", scrub: true } }
-        );
+          // Remaining text blocks slide in (heading excluded)
+          const rest = gsap.utils
+            .toArray(textRef.current.children)
+            .filter((c) => c !== headingRef.current);
+          gsap.fromTo(
+            rest,
+            { autoAlpha: 0, x: -40 },
+            {
+              autoAlpha: 1,
+              x: 0,
+              stagger: 0.12,
+              duration: 0.8,
+              ease: "power3.out",
+              delay: 0.15,
+              scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+            },
+          );
 
-        return () => heading.revert();
-      }));
+          // Image — clip reveal + parallax scale
+          gsap.fromTo(
+            imageRef.current,
+            { clipPath: "inset(0 0 0 100%)", autoAlpha: 0 },
+            {
+              clipPath: "inset(0 0 0 0%)",
+              autoAlpha: 1,
+              duration: 1.2,
+              ease: "power4.inOut",
+              scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+            },
+          );
+          gsap.fromTo(
+            imageRef.current.querySelector("img"),
+            { scale: 1.2 },
+            {
+              scale: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+              },
+            },
+          );
+
+          return () => heading.revert();
+        }),
+      );
 
       mm.add(REDUCED_MOTION, () => {
-        gsap.set([textRef.current.children, imageRef.current], { autoAlpha: 1, clearProps: "transform,clipPath" });
+        gsap.set([textRef.current.children, imageRef.current], {
+          autoAlpha: 1,
+          clearProps: "transform,clipPath",
+        });
       });
     }, sectionRef);
     return () => ctx.revert();
@@ -102,13 +139,16 @@ export default function ContactInfo() {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           {/* Left — Contact info */}
           <div ref={textRef} className="flex flex-col gap-5 lg:w-1/2">
-            <h2 ref={headingRef} className="font-freight text-h2 text-rust font-black">
-              How To Find Us
+            <h2
+              ref={headingRef}
+              className="font-freight text-h2 text-rust font-black"
+            >
+              Find The door.
             </h2>
             {/* <SectionTag label="Contact" /> */}
             <p className="font-freight text-[22px] leading-[30px] text-terracotta font-semibold max-w-[500px]">
-              Whether you're planning a dinner, a celebration, or simply craving
-              something exceptional — we'd love to hear from you.
+              Tucked beneath Tudor Street, in the heart of the City. Come
+              hungry. Leave happy.
             </p>
 
             {/* Contact details */}
@@ -136,7 +176,7 @@ export default function ContactInfo() {
                   aria-label={label}
                   className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-rust/10 transition-all duration-300"
                 >
-                  <img src={icon} alt={label}  />
+                  <img src={icon} alt={label} />
                 </a>
               ))}
             </div>

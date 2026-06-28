@@ -1,6 +1,11 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { gsap, afterFonts, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
+import {
+  gsap,
+  afterFonts,
+  NO_PREFERENCE,
+  REDUCED_MOTION,
+} from "@/utils/animations";
 import arrowRight from "@/assets/icons/svg/right-arrow.svg";
 
 export default function AboutHero() {
@@ -15,43 +20,90 @@ export default function AboutHero() {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add(NO_PREFERENCE, () => afterFonts(sectionRef, () => {
-        // Ken-Burns push-in on the background.
-        gsap.from(mediaRef.current, { scale: 1.2, duration: 2.4, ease: "power2.out" });
+      mm.add(NO_PREFERENCE, () =>
+        afterFonts(sectionRef, () => {
+          // Ken-Burns push-in on the background.
+          gsap.from(mediaRef.current, {
+            scale: 1.2,
+            duration: 2.4,
+            ease: "power2.out",
+          });
 
-        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-        tl.from(tagRef.current, { autoAlpha: 0, y: 24, duration: 0.7 }, 0.3)
-          .fromTo(headingRef.current, {
-            clipPath: "inset(0 0 100% 0)", opacity: 0, filter: "blur(6px)",
-          }, {
-            clipPath: "inset(0 0 0% 0)", opacity: 1, filter: "blur(0px)",
-            duration: 1.2, ease: "power4.out",
-          }, 0.5)
-          .fromTo(descRef.current, {
-            opacity: 0, y: 30, filter: "blur(4px)",
-          }, {
-            opacity: 1, y: 0, filter: "blur(0px)",
-            duration: 1, ease: "power3.out",
-          }, 0.9)
-          .from(ctaRef.current, {
-            autoAlpha: 0, scale: 0.8, y: 20, duration: 0.7, ease: "back.out(1.6)",
-          }, 1.1);
+          const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+          tl.from(tagRef.current, { autoAlpha: 0, y: 24, duration: 0.7 }, 0.3)
+            .fromTo(
+              headingRef.current,
+              {
+                clipPath: "inset(0 0 100% 0)",
+                opacity: 0,
+                filter: "blur(6px)",
+              },
+              {
+                clipPath: "inset(0 0 0% 0)",
+                opacity: 1,
+                filter: "blur(0px)",
+                duration: 1.2,
+                ease: "power4.out",
+              },
+              0.5,
+            )
+            .fromTo(
+              descRef.current,
+              {
+                opacity: 0,
+                y: 30,
+                filter: "blur(4px)",
+              },
+              {
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+                duration: 1,
+                ease: "power3.out",
+              },
+              0.9,
+            )
+            .from(
+              ctaRef.current,
+              {
+                autoAlpha: 0,
+                scale: 0.8,
+                y: 20,
+                duration: 0.7,
+                ease: "back.out(1.6)",
+              },
+              1.1,
+            );
 
-        // Parallax drift on scroll.
-        gsap.fromTo(mediaRef.current,
-          { yPercent: -6 },
-          {
-            yPercent: 8, ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current, start: "top top", end: "bottom top", scrub: true,
+          // Parallax drift on scroll.
+          gsap.fromTo(
+            mediaRef.current,
+            { yPercent: -6 },
+            {
+              yPercent: 8,
+              ease: "none",
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+              },
             },
-          }
-        );
-      }));
+          );
+        }),
+      );
 
       mm.add(REDUCED_MOTION, () => {
-        gsap.set([tagRef.current, headingRef.current, descRef.current, ctaRef.current, mediaRef.current],
-          { autoAlpha: 1, clearProps: "transform" });
+        gsap.set(
+          [
+            tagRef.current,
+            headingRef.current,
+            descRef.current,
+            ctaRef.current,
+            mediaRef.current,
+          ],
+          { autoAlpha: 1, clearProps: "transform" },
+        );
       });
     }, sectionRef);
 
@@ -59,32 +111,63 @@ export default function AboutHero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full overflow-hidden flex items-end min-h-[500px] sm:min-h-[600px] lg:min-h-[782px]">
-
+    <section
+      ref={sectionRef}
+      className="relative w-full overflow-hidden flex items-end min-h-[500px] sm:min-h-[600px] lg:min-h-[782px]"
+    >
       {/* Background image — oversized wrapper so parallax never reveals edges */}
-      <div ref={mediaRef} className="absolute inset-[-8%] will-change-transform">
-        <img src="/images/pages/home/about-section.png" alt=""
-          className="absolute inset-0 w-full h-full object-cover object-right" />
+      <div
+        ref={mediaRef}
+        className="absolute inset-[-8%] will-change-transform"
+      >
+        <img
+          src="/images/pages/home/about-section.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-right"
+        />
       </div>
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/100 via-black/70 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 w-full px-5 sm:px-8 lg:px-[60px] pt-[100px] sm:pt-[80px] lg:pt-0 pb-12 sm:pb-16 lg:pb-[200px]">
+      <div className="relative z-10 w-full px-5 sm:px-8 lg:px-[60px] pt-[100px] sm:pt-[80px] lg:pt-0 pb-12 sm:pb-16 lg:pb-[150px]">
         <div className="max-w-[620px]">
-
-          <span ref={tagRef} className="block font-freight text-base leading-[22px] uppercase font-black tracking-widest text-accent-gold">
+          {/* <span
+            ref={tagRef}
+            className="block font-freight text-base leading-[22px] uppercase font-black tracking-widest text-accent-gold"
+          >
             About Our Restaurant
-          </span>
+          </span> */}
 
-          <h1 ref={headingRef} className="font-freight text-cream font-black text-[36px] sm:text-[48px] lg:text-[63px] leading-[1.1] mt-4">
+          {/* <h1 ref={headingRef} className="font-freight text-cream font-black text-[36px] sm:text-[48px] lg:text-[63px] leading-[1.1] mt-4">
             Where Flavour Meets Our{" "}
             <span className="italic font-medium text-cream">Emotions</span>
+          </h1> */}
+
+          <h1
+            ref={headingRef}
+            className="font-freight text-cream font-black text-[36px] sm:text-[48px] lg:text-[63px] leading-[1.1] mt-4"
+          >
+            It takes a{" "}
+            <span className="italic font-medium text-cream">flock</span>
           </h1>
 
-          <p ref={descRef} className="font-freight font-semibold text-base leading-[25px] text-cream tracking-[1.42px] mt-5 max-w-[580px]">
-            Bulbul is founded by Chef Rohan D'Souza and restaurateur Twinkle Keswani. Between them, they have spent years opening and running restaurants across India, picking up ideas, habits, and a fairly strong point of view on how people like to eat. This is where it all comes together.
+          <p
+            ref={descRef}
+            className="font-freight font-semibold text-base leading-[25px] text-cream tracking-[1.42px] mt-5 max-w-[580px]"
+          >
+            Bulbul has travelled a long way to get here. But as you can imagine,
+            the journey wasn't made alone, and it certainly wasn't an easy one.
+            <br />
+            <br />
+            From the team who travelled across India learning recipes, to the
+            people who welcome you through our door each day, every one of us
+            has gone above and beyond to bring Bulbul to life.
+            <br />
+            <br />
+            We hope that comes through in everything we do and, more than
+            anything, that you have a really good time.
           </p>
 
           {/* <Link to="/contact"
