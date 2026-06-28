@@ -32,7 +32,7 @@ const FOOTER_LINKS = [
   { label: "Home", to: "/" },
   { label: "Reservation", to: "https://www.sevenrooms.com/explore/bulbul/reservations/create/search/", external: true },
   { label: "Menu", to: "/menu" },
-  { label: "Find Us", to: "https://maps.google.com/?q=Bulbul+Tudor+Street+London", external: true },
+  { label: "Contact Us", to: "https://maps.google.com/?q=Bulbul+Tudor+Street+London", external: true },
 ];
 
 export default function Footer() {
