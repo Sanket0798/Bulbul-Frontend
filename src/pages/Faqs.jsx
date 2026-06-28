@@ -295,11 +295,11 @@ export default function Faqs() {
       {/* Hero banner */}
       <div className="relative w-full h-[280px] sm:h-[340px] lg:h-[400px] overflow-hidden">
         <img
-          src="/images/bg/aboutbg.webp"
+          src="/images/pages/group-dining/GB2.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-black/20" />
         <div className="relative z-10 h-full flex items-end w-full max-w-[900px] mx-auto px-5 sm:px-8 lg:px-0 pb-10 sm:pb-14 lg:pb-16 pt-[100px]">
           <div ref={heroRef}>
             <span className="block font-freight text-[13px] sm:text-[14px] uppercase font-black tracking-widest text-accent-gold mb-2">
