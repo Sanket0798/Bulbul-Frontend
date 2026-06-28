@@ -92,6 +92,11 @@ export default function Footer() {
             className="font-freight text-caption tracking-widest no-underline text-white font-medium text-lg hover:text-accent-gold transition-colors duration-300">
             Privacy Policy
           </Link>
+          <span className="text-white font-medium text-base">|</span>
+          <Link to="/faqs"
+            className="font-freight text-caption tracking-widest no-underline text-white font-medium text-lg hover:text-accent-gold transition-colors duration-300">
+            FAQs
+          </Link>
         </nav>
       </div>
     </footer>

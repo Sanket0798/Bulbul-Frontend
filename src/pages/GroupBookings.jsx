@@ -13,7 +13,7 @@ export default function GroupBookings() {
       {/* <GroupPartySection /> */}
       {/* <GroupReservations /> */}
       <GroupEnquiryForm />
-      <GroupFAQ />
+      {/* <GroupFAQ /> */}
     </>
   );
 }

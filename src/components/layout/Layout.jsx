@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import SmoothScroll, { useLenis } from "@/components/common/SmoothScroll";
+import CookieConsent from "@/components/common/CookieConsent";
 
 function LayoutContent() {
   const { pathname, hash } = useLocation();
@@ -34,6 +35,7 @@ function LayoutContent() {
       <Navbar transparent />
       <Outlet />
       <Footer />
+      <CookieConsent />
     </div>
   );
 }
