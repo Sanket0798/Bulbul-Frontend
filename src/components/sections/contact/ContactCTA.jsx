@@ -90,14 +90,14 @@ export default function ContactCTA() {
         className="absolute inset-[-8%] will-change-transform"
       >
         <img
-          src="/images/shared/interior/busy-restaurant-aerial.png"
+          src="/images/rooms/1.svg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
       </div>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-charcoal/70" />
+      <div className="absolute inset-0 bg-charcoal/75" />
 
       {/* Content */}
       <div

@@ -81,13 +81,13 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
         <div className="flex flex-col lg:flex-row items-end justify-between gap-10 lg:gap-24">
 
           {/* Image collage — hidden on mobile to avoid overlap with parallax map */}
-          <div ref={imageColRef} className="relative shrink-0 hidden sm:block sm:w-[400px] lg:w-[480px] h-[350px] sm:h-[420px] lg:h-[462px]">
+          <div ref={imageColRef} className="relative shrink-0 mx-auto md:mx-0 w-full sm:block sm:w-[400px] lg:w-[480px] h-[350px] sm:h-[420px] lg:h-[462px]">
             {/* <div className="absolute top-0 left-[60px] sm:left-[87px] w-[180px] sm:w-[240px] h-[280px] sm:h-[380px] border-2 border-rust-dark" /> */}
-            <a href="https://www.instagram.com/reel/DYPgpIjIVTZ/?igsh=bTg1NWR2ZjJxNjdh" target="_blank" rel="noopener noreferrer" className="absolute top-[24px] left-0 w-[175px] sm:w-[234px] h-[250px] sm:h-[334px] overflow-hidden rounded-sm group/img">
+            <a href="https://www.instagram.com/reel/DYPgpIjIVTZ/?igsh=bTg1NWR2ZjJxNjdh" target="_blank" rel="noopener noreferrer" className="absolute top-[24px] left-0 w-[200px] sm:w-[234px] h-[280px] sm:h-[334px] overflow-hidden rounded-sm group/img">
               <img src="/images/thumbnail/Thumbnail-1.jpg" alt="Watch on Instagram"
                 className="w-full h-full object-fit transition-transform duration-500 group-hover/img:scale-105" />
             </a>
-            <a href="https://www.instagram.com/reel/DZ4-5_BIxt4/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" className="absolute top-[150px] sm:top-[206px] left-[120px] sm:left-[170px] w-[220px] sm:w-[310px] h-[190px] sm:h-[257px] overflow-hidden rounded-sm shadow-xl group/img">
+            <a href="https://www.instagram.com/reel/DZ4-5_BIxt4/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" className="absolute top-[150px] sm:top-[206px] left-[120px] sm:left-[170px] w-[270px] sm:w-[310px] h-[195px] sm:h-[257px] overflow-hidden rounded-sm shadow-xl group/img">
               <img src="/images/thumbnail/Thumbnail-3.PNG" alt="Watch on Instagram"
                 className=" transition-transform duration-500 group-hover/img:scale-105" />
             </a>
