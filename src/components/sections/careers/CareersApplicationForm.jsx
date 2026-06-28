@@ -38,11 +38,11 @@ export default function CareersApplicationForm() {
           scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
         });
 
-        // Eyebrow + intro + each field stagger up
+        // Eyebrow + intro + each field stagger up (excluding the submit button)
+        const formChildren = formRef.current.querySelectorAll("form > *:not(button):not(.success-msg)");
         gsap.from([
           formRef.current.querySelector("span"),
-          formRef.current.querySelector("p"),
-          ...formRef.current.querySelectorAll("form > *"),
+          ...formChildren,
         ], {
           autoAlpha: 0, y: 26, duration: 0.7, stagger: 0.07, ease: "power3.out", delay: 0.2,
           scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
@@ -82,9 +82,44 @@ export default function CareersApplicationForm() {
     setFormData((prev) => ({ ...prev, [name]: files[0] || null }));
   };
 
-  const handleSubmit = (e) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Application submitted:", formData);
+    setSubmitting(true);
+
+    try {
+      // Web3Forms supports file uploads via FormData
+      const data = new FormData();
+      data.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
+      data.append("subject", "New Job Application — Bulbul Restaurant");
+      data.append("from_name", formData.name);
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("phone", formData.phone);
+      data.append("position", formData.position);
+      if (formData.resume) data.append("resume", formData.resume);
+      if (formData.coverLetter) data.append("cover_letter", formData.coverLetter);
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data,
+      });
+
+      if (res.ok) {
+        setSubmitSuccess(true);
+        setFormData({ name: "", email: "", phone: "", position: "", resume: null, coverLetter: null });
+        // Reset file inputs
+        const fileInputs = e.target.querySelectorAll('input[type="file"]');
+        fileInputs.forEach(input => { input.value = ""; });
+        setTimeout(() => setSubmitSuccess(false), 4000);
+      }
+    } catch (err) {
+      console.error("Application submission error:", err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -206,10 +241,19 @@ export default function CareersApplicationForm() {
               {/* Submit */}
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-1 font-semibold leading-[25px] self-start px-8 py-[10px] bg-primary text-cream font-freight text-[16px] sm:text-[17px] transition-all duration-300 hover:bg-rust-dark rounded cursor-pointer mt-2"
+                disabled={submitting}
+                className={`inline-flex items-center justify-center gap-1 font-semibold leading-[25px] self-start px-8 py-[10px] font-freight text-[16px] sm:text-[17px] transition-all duration-300 rounded cursor-pointer mt-2
+                  ${submitting ? "bg-primary/50 text-cream/70 cursor-not-allowed" : "bg-primary text-cream hover:bg-rust-dark"}`}
               >
-                Submit Application <img src={arrowRight} alt="" />
+                {submitting ? "Submitting..." : "Submit Application"} <img src={arrowRight} alt="" />
               </button>
+
+              {/* Success message */}
+              {submitSuccess && (
+                <p className="font-freight text-[15px] font-semibold text-green-700 mt-2">
+                  ✓ Your application has been submitted successfully. We'll review it and get back to you!
+                </p>
+              )}
             </form>
           </div>
 
@@ -217,7 +261,7 @@ export default function CareersApplicationForm() {
           <div ref={imageRef} className="flex-1 hidden lg:block">
             <div className="w-full h-full min-h-[500px] overflow-hidden rounded-sm">
               <img
-                src="/images/shared/team/business-people-three.png"
+                src="/images/pages/careers/TP2.png"
                 alt="Handshake — join our team"
                 className="w-full h-full object-cover"
               />

@@ -55,8 +55,8 @@ export default function CareersHero() {
   return (
     <section ref={sectionRef} className="relative w-full overflow-hidden flex items-end min-h-screen bg-charcoal">
       <div ref={mediaRef} className="absolute inset-[-8%] will-change-transform">
-        <img src="/images/shared/people/friends-pizza-bright.png" alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-45" />
+        <img src="/images/pages/careers/TP1.png" alt=""
+          className="absolute inset-0 w-full h-full object-cover" />
       </div>
       <div className="absolute inset-0 overlay-hero-left" />
       <div className="absolute inset-0 overlay-hero-bottom" />

@@ -46,7 +46,7 @@ export default function Navbar({ transparent = false }) {
 
           {/* Logo */}
           <Link to="/" className="shrink-0">
-            <img src="/images/brand/logo/Bulbul.png" alt="Bulbul Restaurant"
+            <img src="/images/brand/logo/Bird-svg.svg" alt="Bulbul Restaurant"
               className="w-32 object-contain" />
           </Link>
 

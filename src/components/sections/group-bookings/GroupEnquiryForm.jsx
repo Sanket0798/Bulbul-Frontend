@@ -72,16 +72,45 @@ export default function GroupEnquiryForm() {
   };
 
   const [consentError, setConsentError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.consent) {
       setConsentError("Please tick the consent box before submitting.");
       return;
     }
     setConsentError("");
-    // Handle form submission
-    console.log("Enquiry submitted:", formData);
+    setSubmitting(true);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+          subject: "New Group Booking Enquiry — Bulbul Restaurant",
+          from_name: formData.name,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          date: formData.date,
+          guests: formData.guests,
+          notes: formData.notes,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitSuccess(true);
+        setFormData({ name: "", email: "", phone: "", date: "", guests: "", notes: "", consent: false });
+        setTimeout(() => setSubmitSuccess(false), 4000);
+      }
+    } catch (err) {
+      console.error("Form submission error:", err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -92,7 +121,7 @@ export default function GroupEnquiryForm() {
           {/* Left — Image */}
           <div ref={imageRef} className="w-full lg:w-[717px] overflow-hidden rounded-sm shrink-0">
             <img
-              src="/images/shared/team/chef-making-pizza.png"
+              src="/images/pages/group-dining/GB2.png"
               alt="Friends enjoying a meal"
               className="w-full h-full object-cover"
             />
@@ -221,16 +250,22 @@ export default function GroupEnquiryForm() {
               {/* Submit */}
               <button
                 type="submit"
-                disabled={!formData.consent}
-                className={`inline-flex items-center justify-center gap-1 font-semibold leading-[25px] self-start px-6 sm:px-8 py-[10px] font-freight text-[16px] sm:text-[17px] rounded cursor-pointer transition-all duration-300
-                  ${formData.consent
-                    ? "bg-primary text-cream hover:bg-rust-dark"
+                disabled={!formData.consent || submitting}
+                className={`inline-flex items-center justify-center gap-1 font-semibold leading-[25px] self-start px-6 sm:px-8 py-[10px] font-freight text-[16px] sm:text-[17px] rounded transition-all duration-300
+                  ${formData.consent && !submitting
+                    ? "bg-primary text-cream hover:bg-rust-dark cursor-pointer"
                     : "bg-primary/50 text-cream/70 cursor-not-allowed"
                   }`}
-                style={{ visibility: "visible", opacity: formData.consent ? 1 : 0.6 }}
               >
-                Send Enquiry <img src={arrowRight} alt="" className={!formData.consent ? "opacity-50" : ""} />
+                {submitting ? "Sending..." : "Send Enquiry"} <img src={arrowRight} alt="" className={!formData.consent ? "opacity-50" : ""} />
               </button>
+
+              {/* Success message */}
+              {submitSuccess && (
+                <p className="font-freight text-[15px] font-semibold text-green-700">
+                  ✓ Your enquiry has been sent successfully. We'll be in touch soon!
+                </p>
+              )}
             </form>
           </div>
 
