@@ -423,3 +423,11 @@ html.lenis body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+
+/* Custom styling to match your dark brand aesthetic */
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  border: 1px solid #852C28; /* Matches your marker pin color */
+}

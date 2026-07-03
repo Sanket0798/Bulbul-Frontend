@@ -1,5 +1,11 @@
 import { useEffect, useRef } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  ZoomControl,
+} from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { gsap, NO_PREFERENCE, REDUCED_MOTION } from "@/utils/animations";
@@ -31,10 +37,12 @@ export default function ContactMap() {
         gsap.fromTo(
           sectionRef.current,
           { autoAlpha: 0, scale: 1.04 },
-          { autoAlpha: 1, scale: 1, duration: 1.2, ease: "power3.out" }
+          { autoAlpha: 1, scale: 1, duration: 1.2, ease: "power3.out" },
         );
       });
-      mm.add(REDUCED_MOTION, () => gsap.set(sectionRef.current, { autoAlpha: 1, clearProps: "transform" }));
+      mm.add(REDUCED_MOTION, () =>
+        gsap.set(sectionRef.current, { autoAlpha: 1, clearProps: "transform" }),
+      );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -47,17 +55,20 @@ export default function ContactMap() {
         scrollWheelZoom={false}
         className="w-full h-[400px] md:h-[500px] lg:h-[750px] z-0"
         attributionControl={false}
+        zoomControl={false}
       >
         {/* Dark/grayscale tiles matching brand aesthetic */}
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        />
+        <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+        <ZoomControl position="bottomright" />
         <Marker position={POSITION} icon={customMarker}>
           <Popup>
             <div className="text-center">
               <strong className="text-base">Bulbul Restaurant</strong>
               <br />
-              <span className="text-sm">25 Tudor St, London EC4Y 0DD</span>
+              <span className="text-sm">
+                Victoria House, Part Ground & Lower Ground Floor, 25 Tudor St,
+                London EC4Y 0DD, United Kingdom
+              </span>
             </div>
           </Popup>
         </Marker>
