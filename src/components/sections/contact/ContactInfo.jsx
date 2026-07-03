@@ -185,7 +185,7 @@ export default function ContactInfo() {
           {/* Right — Image */}
           <div ref={imageRef} className="lg:w-1/2">
             <img
-              src="/images/shared/interior/restaurant-wooden-lanterns.png"
+              src="/images/pages/contact/Contact.png"
               alt="Bulbul Restaurant Interior"
               className="w-full object-cover"
             />
