@@ -109,10 +109,10 @@ const AboutSection = forwardRef(function AboutSection(_, ref) {
             {/* <Link to="/about" className="btn-outline-primary-home inline-flex items-center gap-3 self-start mt-6">
               Read More <ArrowIcon className="stroke-rust" />
             </Link> */}
-            <Link to="/about#front-of-house"
+            {/* <Link to="/about#front-of-house"
               className="inline-flex items-center gap-1 font-semibold leading-[25px] self-start px-8 py-[9px] bg-primary text-cream font-freight text-lg transition-all duration-100 hover:bg-rust-dark rounded mt-6">
               Meet the Team <img src={arrowRight} alt="" />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

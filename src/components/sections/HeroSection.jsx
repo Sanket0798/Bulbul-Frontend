@@ -128,13 +128,13 @@ export default function HeroSection() {
 
           {/* Left column — heading */}
           <div className="max-w-[630px]">
-            <span ref={headingRef} className="block font-freight text-cream font-black text-[18px] sm:text-[24px] lg:text-[35px] leading-[1.3]">
+            {/* <span ref={headingRef} className="block font-freight text-cream font-black text-[18px] sm:text-[24px] lg:text-[35px] leading-[1.3]">
               Food that feels a little familiar, a little <span className="italic font-medium text-accent-gold">new</span>
-            </span>
+            </span> */}
 
             <h1 ref={mainHeadingRef} className="font-freight text-cream font-black text-[32px] sm:text-[44px] lg:text-[58px] leading-[1.1] mt-2 sm:mt-3 lg:mt-4">
-              Flavours That Stay with You{" "}
-              <span className="italic font-medium text-accent-gold">Forever</span>
+              Food that feels a little familiar, a little{" "}
+              <span className="italic font-medium text-accent-gold">New</span>
             </h1>
           </div>
 

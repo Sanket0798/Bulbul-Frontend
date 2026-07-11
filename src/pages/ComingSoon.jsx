@@ -223,7 +223,7 @@ export default function ComingSoon() {
               "Something new is coming to the City of London — Indian small plates and cocktails.",
               "We've grown up with a version of Indian food shaped by homes and everyday cooking, the kind that rarely makes it onto restaurant menus.",
               "At Bulbul, that is what comes to the table, gathered along the way and shared with you.",
-              "Opening this June. We'd love to have you in early.",
+              "Opening this July. We'd love to have you in early.",
             ].map((line, pi) => (
               <p key={pi}
                 className={`font-playfair story-line${pi === 3 ? ' font-semibold' : ''}`}
