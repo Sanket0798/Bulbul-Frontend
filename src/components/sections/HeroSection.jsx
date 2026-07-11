@@ -134,7 +134,7 @@ export default function HeroSection() {
 
             <h1 ref={mainHeadingRef} className="font-freight text-cream font-black text-[32px] sm:text-[44px] lg:text-[58px] leading-[1.1] mt-2 sm:mt-3 lg:mt-4">
               Food that feels a little familiar, a little{" "}
-              <span className="italic font-medium text-accent-gold">New</span>
+              <span className="italic font-medium text-accent-gold">new</span>
             </h1>
           </div>
 
