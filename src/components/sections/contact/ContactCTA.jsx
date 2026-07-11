@@ -111,18 +111,6 @@ export default function ContactCTA() {
           Reserve Your Table Today
         </h2>
 
-        <div className="flex items-center gap-3 my-4">
-          <hr className="w-12 border-accent-gold opacity-100" />
-          <span className="font-josefin text-caption uppercase tracking-[0.18em] text-accent-gold">
-            Experience Indian cuisine differently
-          </span>
-          <hr className="w-12 border-accent-gold opacity-100" />
-        </div>
-
-        <p className="font-freight text-lg text-cream/80 max-w-[600px] mt-2">
-          Some tables are booked months in advance. Others are decided over a text. We're happy to host both.
-        </p>
-
         <Link
           to="https://www.sevenrooms.com/explore/bulbul/reservations/create/search/"
           target="_blank"
