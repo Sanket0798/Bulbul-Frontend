@@ -5,7 +5,7 @@ const MENU_CARDS = [
   {
     title: "Food",
     image: "/images/cuisines/food.svg",
-    pdf: "/pdf/Food menu.pdf",
+    pdf: "/pdf/Food menu-1-8.pdf",
   },
   {
     title: "Drinks",
