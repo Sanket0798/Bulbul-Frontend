@@ -5,17 +5,17 @@ const MENU_CARDS = [
   {
     title: "Food",
     image: "/images/cuisines/food.svg",
-    pdf: "/pdf/Menu.pdf",
+    pdf: "/pdf/Food menu.pdf",
   },
   {
     title: "Drinks",
     image: "/images/cuisines/drinks.svg",
-    pdf: "/pdf/Menu.pdf",
+    pdf: "/pdf/Drinks menu.pdf",
   },
   {
     title: "Wine",
     image: "/images/cuisines/wine.svg",
-    pdf: "/pdf/Menu.pdf",
+    pdf: "/pdf/Wine menu.pdf",
   },
 ];
 
